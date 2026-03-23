@@ -261,4 +261,77 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 | `kubectl describe secret имя` | Детали |
 | `kubectl delete secret имя` | Удалить |
 
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Flask API с нуля
+```bash
+mkdir flask-api && cd flask-api
+python3 -m venv venv && source venv/bin/activate
+pip install flask
+
+cat > app.py << 'EOF'
+from flask import Flask, jsonify, request
+app = Flask(__name__)
+
+items = []
+
+@app.route('/items', methods=['GET'])
+def get_items():
+    return jsonify(items)
+
+@app.route('/items', methods=['POST'])
+def add_item():
+    data = request.get_json()
+    items.append(data)
+    return jsonify(data), 201
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
+EOF
+
+python app.py
+```
+```bash
+# В другом терминале — тестируем API:
+curl http://localhost:5000/items
+curl -X POST http://localhost:5000/items \
+     -H "Content-Type: application/json" \
+     -d '{"name": "учебник", "topic": "DevOps"}'
+curl http://localhost:5000/items
+```
+> ✅ Видишь JSON с твоим объектом? REST API работает!
+
+### Задание 2 — .env файл
+```bash
+cat > .env << 'EOF'
+SECRET_KEY=mysuperpassword123
+APP_PORT=5001
+EOF
+
+pip install python-dotenv
+
+# Добавь в app.py:
+# from dotenv import load_dotenv; import os
+# load_dotenv()
+# secret = os.environ.get("SECRET_KEY")
+# print(f"Секрет загружен: {secret[:4]}****")
+```
+> ✅ Никогда не добавляй .env в git!
+
+### Задание 3 — Kubernetes Secret
+```bash
+# Создай секрет
+kubectl create secret generic my-secret \
+  --from-literal=db-password=supersecret123
+
+# Проверь (значение закодировано в base64)
+kubectl get secret my-secret -o yaml
+
+# Декодируй:
+kubectl get secret my-secret -o jsonpath='{.data.db-password}' | base64 -d
+```
+
 ➡️ [Итоговый проект →](../../projects/final-project/)
