@@ -48,6 +48,11 @@ nothing to commit, working tree clean
 
 ## Урок 10 — Ветки и GitHub
 
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png" alt="Git ветки" width="90%"/>
+<br/><em>Main всегда работает. Эксперименты — в отдельных ветках!</em>
+</div>
 ### 🧠 Теория: зачем нужны ветки?
 
 Представь: ты работаешь над сайтом и хочешь добавить форму входа. Но сайт уже работает у пользователей — нельзя сломать. Решение: создать **ветку** (branch) — параллельную копию кода. Добавляешь там форму, тестируешь. Когда готово — сливаешь (merge) в основную ветку.
@@ -79,6 +84,11 @@ git pull                        # Получить чужие изменения
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.png" alt="SSH ключи" width="90%"/>
+<br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
+</div>
 ### 🧠 Теория: что такое SSH и зачем он нужен?
 
 SSH (Secure Shell) — протокол безопасного подключения к удалённым серверам. Вместо пароля используется пара ключей: **публичный** (можно раздавать всем) и **приватный** (только у тебя, никому не показывать).
@@ -102,6 +112,11 @@ ssh -T git@github.com
 # Должно ответить: Hi username! You've successfully authenticated
 ```
 
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.png" alt="SSH troubleshooting" width="90%"/>
+<br/><em>Следуй блок-схеме — шаг за шагом найдёшь проблему</em>
+</div>
 ### ⚠️ Что делать если SSH не пускает?
 
 SSH-проблемы — одни из самых частых. Вот все типичные случаи:
