@@ -273,6 +273,44 @@ docker volume rm mydata              # Удалить
 
 ---
 
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Первый контейнер
+```bash
+docker run -d -p 8080:80 --name moy-nginx nginx
+# Открой http://localhost:8080 — приветственная страница nginx
+docker logs moy-nginx
+docker stop moy-nginx && docker rm moy-nginx
+```
+> ✅ Видишь страницу nginx? Контейнер работает!
+
+### Задание 2 — Свой Dockerfile
+```bash
+mkdir moy-sayt && cd moy-sayt
+echo "<h1>Привет из Docker!</h1>" > index.html
+
+cat > Dockerfile << 'EOF'
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/
+EOF
+
+docker build -t moy-sayt:1.0 .
+docker run -d -p 8080:80 moy-sayt:1.0
+# Открой http://localhost:8080
+```
+> ✅ Видишь «Привет из Docker!»? Ты запустил свой сайт! 🚀
+
+### Задание 3 — Зайди внутрь контейнера
+```bash
+docker exec -it moy-sayt /bin/sh
+ls /usr/share/nginx/html/
+cat /usr/share/nginx/html/index.html
+exit
+```
+
 ## Урок 18 — Шпаргалка Docker
 
 | Команда | Что делает |
