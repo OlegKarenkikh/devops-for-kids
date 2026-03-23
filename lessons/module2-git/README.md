@@ -211,6 +211,42 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ---
 
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Первый репозиторий
+```bash
+mkdir moy-proekt && cd moy-proekt
+git init
+echo "# Мой первый проект" > README.md
+git add README.md
+git commit -m "Первый коммит"
+git log --oneline
+```
+> ✅ Видишь строку с хешем и «Первый коммит»? Отлично!
+
+### Задание 2 — Ветки
+```bash
+git checkout -b feature/hello
+echo "print('Привет, Git!')" > hello.py
+git add hello.py && git commit -m "Добавил hello.py"
+git checkout main
+git merge feature/hello
+git log --oneline --graph
+```
+> ✅ В логе видна развилка и слияние? Задание выполнено!
+
+### Задание 3 — Публикация на GitHub
+```bash
+# 1. Создай репозиторий на github.com (кнопка «New»)
+# 2. Привяжи локальный проект:
+git remote add origin git@github.com:ТВО_ИМЯ/moy-proekt.git
+git push -u origin main
+# 3. Зайди на github.com — файлы там! ✅
+```
+
 ## Шпаргалка Git + SSH
 
 | Команда | Действие |
