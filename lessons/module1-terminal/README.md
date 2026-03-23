@@ -216,6 +216,46 @@ chmod +x hello.sh
 
 ---
 
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Навигация и файлы
+```bash
+# Выполни все команды по порядку
+pwd                          # где ты?
+ls -la ~                     # что в домашней папке?
+mkdir ~/my-course && cd ~/my-course
+echo "Привет, Linux!" > hello.txt
+cat hello.txt
+cp hello.txt hello-copy.txt
+ls -la
+```
+> ✅ Видишь два файла? Отлично!
+
+### Задание 2 — Права доступа
+```bash
+touch secret.txt
+chmod 600 secret.txt          # только владелец читает/пишет
+ls -la secret.txt             # -rw------- ?
+
+touch script.sh
+echo '#!/bin/bash
+echo "Скрипт работает!"' > script.sh
+chmod +x script.sh
+./script.sh
+```
+> ✅ Скрипт выполнился? Права работают!
+
+### Задание 3 — SSH ключ
+```bash
+ssh-keygen -t ed25519 -C "moy-kurs" -f ~/.ssh/id_kurs
+ls -la ~/.ssh/
+cat ~/.ssh/id_kurs.pub        # это твой публичный ключ
+```
+> ✅ Два файла в ~/.ssh/: id_kurs и id_kurs.pub — готово!
+
 ## Урок 8 — Шпаргалка
 
 <div align="center">
