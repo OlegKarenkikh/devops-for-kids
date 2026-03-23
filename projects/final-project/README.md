@@ -169,6 +169,77 @@ minikube service collection-service --url
 
 ---
 
+
+---
+
+## 🎯 Пошаговые задания
+
+Выполняй по порядку — каждый шаг проверяет предыдущий.
+
+### Шаг 1 — Запусти локально
+```bash
+git clone https://github.com/OlegKarenkikh/devops-for-kids.git
+cd devops-for-kids/projects/final-project
+
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env          # скопируй настройки
+
+python app.py
+# Открой http://localhost:5000
+```
+> ✅ Страница открылась? Переходи к Шагу 2!
+
+### Шаг 2 — Упакуй в Docker
+```bash
+docker build -t my-collection:1.0 .
+docker run -d -p 5000:5000 --name collection my-collection:1.0
+
+# Проверь
+docker ps
+curl http://localhost:5000/api/items
+```
+> ✅ API отвечает из контейнера? Переходи к Шагу 3!
+
+### Шаг 3 — Запусти через Compose
+```bash
+docker compose up -d
+docker compose ps           # все сервисы Running?
+docker compose logs -f      # логи в реальном времени
+```
+> ✅ Все сервисы зелёные? Переходи к Шагу 4!
+
+### Шаг 4 — Деплой в Kubernetes
+```bash
+minikube start
+kubectl apply -f k8s/
+kubectl get pods -w          # ждём Running
+kubectl get svc
+
+minikube service collection-service --url   # получи URL
+curl <URL>/api/items
+```
+> ✅ Приложение работает в Kubernetes? Ты Junior DevOps! 🏆
+
+### Шаг 5 — Проверь самовосстановление
+```bash
+# Удали под вручную
+kubectl get pods
+kubectl delete pod <имя-пода>
+
+# Kubernetes сразу создаст новый!
+kubectl get pods -w
+```
+> ✅ Новый под появился автоматически? Kubernetes работает!
+
+### Шаг 6 — Опубликуй на GitHub
+```bash
+git add .
+git commit -m "feat: my first DevOps project 🚀"
+git push origin main
+```
+> ✅ Проект на GitHub? Поздравляем — это твоё портфолио!
+
 ## ✅ Чеклист
 
 - [ ] `python app.py` — работает локально
