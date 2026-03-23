@@ -782,3 +782,94 @@ class SimpleAgent:
 *Ты освоил полный современный стек — от терминала до AI агентов. Дальше — только практика!*
 
 ➡️ [← Вернуться к модулям](../../README.md)
+
+
+---
+
+## 🎯 Практические задания бонусного модуля
+
+### Задание 1 — HTTPS с Nginx + Certbot (локальная симуляция)
+```bash
+# Запусти Nginx и получи самоподписанный сертификат
+docker run -d -p 443:443 -p 80:80 --name nginx-ssl nginx:alpine
+
+# Подключись внутрь и сгенерируй SSL
+docker exec -it nginx-ssl sh
+apk add openssl
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/nginx/ssl.key -out /etc/nginx/ssl.crt \
+  -subj "/CN=localhost"
+exit
+```
+> ✅ Понял разницу между HTTP и HTTPS? Ключ + сертификат = замок!
+
+### Задание 2 — Telegram-бот за 10 минут
+```bash
+pip install python-telegram-bot
+
+cat > bot.py << 'EOF'
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+import os
+
+async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Привет! Я бот-DevOps 🤖")
+
+async def hello(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    name = update.effective_user.first_name
+    await update.message.reply_text(f"Привет, {name}! Ты изучаешь DevOps — это круто! 🚀")
+
+app = ApplicationBuilder().token(os.environ["BOT_TOKEN"]).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("hello", hello))
+app.run_polling()
+EOF
+
+# Получи токен у @BotFather в Telegram и запусти:
+export BOT_TOKEN="твой_токен"
+python bot.py
+```
+> ✅ Бот отвечает на /start? Ты написал рабочего Telegram-бота!
+
+### Задание 3 — Ollama: локальная AI-модель
+```bash
+# Установи Ollama (Linux/Mac)
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Скачай маленькую модель и поговори с ней
+ollama pull phi3:mini          # ~2GB, быстрая модель от Microsoft
+ollama run phi3:mini
+# Напиши: "Объясни Docker простыми словами"
+# Выйди: /bye
+```
+> ✅ AI ответила прямо на твоём компьютере, без облака!
+
+### Задание 4 — FastAPI
+```bash
+pip install fastapi uvicorn
+
+cat > main.py << 'EOF'
+from fastapi import FastAPI
+app = FastAPI()
+
+skills = ["Linux", "Git", "Docker", "Kubernetes"]
+
+@app.get("/")
+def root():
+    return {"message": "DevOps Academy API 🚀"}
+
+@app.get("/skills")
+def get_skills():
+    return {"skills": skills, "count": len(skills)}
+
+@app.post("/skills/{skill}")
+def add_skill(skill: str):
+    skills.append(skill)
+    return {"added": skill, "total": len(skills)}
+EOF
+
+uvicorn main:app --reload
+# Открой http://localhost:8000/docs — автодокументация!
+```
+> ✅ Видишь Swagger UI с твоим API? FastAPI сгенерировал документацию сам!
+
