@@ -7,6 +7,12 @@
 ## Урок 9 — Что такое Git?
 
 <div align="center">
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="900"/>
+  <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
+</div>
+
+
+<div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.jpg" alt="Git — система сохранений как в игре" width="85%"/>
 <br/><em>Git — как точки сохранения в игре. Каждый commit = сохранение. Можно вернуться в любой момент!</em>
 </div>
@@ -83,6 +89,12 @@ git pull                        # Получить чужие изменения
 ---
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="900"/>
+  <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
+</div>
+
 
 
 <div align="center">
