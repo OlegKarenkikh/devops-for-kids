@@ -1,111 +1,77 @@
-# 🌿 Модуль 2 — Git и GitHub (Уроки 6–8)
+# 🌿 Модуль 2 — Git и GitHub (Уроки 9–11)
 
-> **Цель:** сохранять историю изменений, работать с ветками и делиться кодом на GitHub.
+> **Цель:** научиться сохранять историю изменений и делиться кодом через GitHub.
 
 ---
 
-## 📖 Урок 6 — Git: сохраняем работу
-
-### 🧠 Объяснение
+## Урок 9 — Что такое Git?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.png" alt="Git как сохранение в игре" width="80%"/>
-<br/><em>Git — как «сохранить игру»: каждый коммит = точка возврата</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.jpg" alt="Git — система сохранений как в игре" width="85%"/>
+<br/><em>Git — как точки сохранения в игре. Каждый commit = сохранение. Можно вернуться в любой момент!</em>
 </div>
 
-Помнишь сохранения в видеоиграх? **Git** — это точно такая же система для кода. Каждое сохранение называется **коммит** (commit).
+### 🧠 Зачем Git?
 
-### 💻 Установка и настройка
+> Представь, что ты пишешь сочинение и хочешь сохранять черновики: «черновик 1», «черновик 2», «финальная версия». Git делает это автоматически для кода.
 
 ```bash
-sudo apt install git
-git config --global user.name "Твоё Имя"
+# Настройка (один раз)
+git config --global user.name  "Твоё Имя"
 git config --global user.email "твой@email.com"
-```
 
-### 💻 Основные команды
+# Создать репозиторий
+mkdir мой-проект && cd мой-проект
+git init                     # Создать .git папку
+git status                   # Что изменилось?
 
-```bash
-git init                  # Начать Git-проект
-git status                # Что изменилось?
-git add .                 # Добавить всё к сохранению
-git commit -m "Текст"    # Сохранить
-git log --oneline         # История сохранений
-git diff                  # Что изменилось?
-```
-
-### 📊 Схема работы
-
-```
-Рабочая папка  →  git add  →  Staging  →  git commit  →  История
-(изменяешь)                  (готово)                   (сохранено!)
-```
-
-### 🧪 Задание 6
-
-```bash
-mkdir мой-сайт && cd мой-сайт
-git init
-echo "# Мой первый сайт" > README.md
-git add .
-git commit -m "🎉 Первый коммит"
-git log --oneline
+# Три шага сохранения
+echo "print('Привет!')" > app.py
+git add app.py               # 1. Выбрать файлы
+git commit -m "Первый коммит — hello world"  # 2. Сохранить
+git log --oneline            # Посмотреть историю
 ```
 
 ---
 
-## 📖 Урок 7 — Ветки
+## Урок 10 — Ветки и GitHub
 
 ```bash
-git branch                 # Список веток
-git checkout -b моя-идея   # Создать и переключиться
-git merge моя-идея         # Слить ветку в текущую
-git branch -d моя-идея     # Удалить ветку
-```
+# Ветки = параллельные версии
+git branch                   # Список веток
+git branch feature/кнопка    # Создать ветку
+git checkout feature/кнопка  # Переключиться
+# или сразу:
+git checkout -b feature/форма
 
-### 🧪 Задание 7
+# Изменяем код в ветке
+echo "# Форма" >> app.py
+git add . && git commit -m "Добавил форму"
 
-```bash
-git checkout -b добавляю-контент
-echo "- пункт 1" >> README.md
-git add . && git commit -m "Добавил контент"
+# Сливаем в main
 git checkout main
-git merge добавляю-контент
-git log --oneline
+git merge feature/кнопка     # Объединить изменения
+git branch -d feature/кнопка # Удалить ветку
+
+# GitHub
+git remote add origin https://github.com/ТЫ/проект.git
+git push -u origin main      # Первый раз
+git push                     # Последующие разы
+git pull                     # Получить чужие изменения
 ```
 
 ---
 
-## 📖 Урок 8 — GitHub
+## Урок 11 — Шпаргалка Git
 
-```bash
-git remote add origin https://github.com/ИМЯ/РЕПО.git
-git branch -M main
-git push -u origin main   # Отправить первый раз
-git push                  # Следующие разы
-git pull                  # Получить изменения
-git clone URL             # Скачать проект
-```
-
-### 🧪 Задание 8
-
-1. Зарегистрируйся на [github.com](https://github.com)
-2. Создай новый репозиторий
-3. Выполни команды выше
-
----
-
-## 📋 Шпаргалка Модуля 2
-
-| Команда | Что делает |
-|---------|-----------|
-| `git init` | Начать репозиторий |
-| `git add .` | Добавить всё |
-| `git commit -m "текст"` | Сохранить |
-| `git log --oneline` | История |
-| `git checkout -b имя` | Новая ветка |
-| `git merge имя` | Слить |
-| `git push / pull` | Облако |
-| `git clone URL` | Скачать |
+| Команда | Действие |
+|---------|---------|
+| `git init` | Создать репозиторий |
+| `git add .` | Добавить все файлы |
+| `git commit -m "..."` | Сохранить с сообщением |
+| `git push` | Отправить на GitHub |
+| `git pull` | Получить изменения |
+| `git log --oneline` | История коммитов |
+| `git checkout -b ветка` | Создать и перейти в ветку |
 
 ➡️ [Следующий модуль: Docker →](../module3-docker/)
