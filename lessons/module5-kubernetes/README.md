@@ -1,81 +1,83 @@
-# ⚙️ Модуль 5 — Kubernetes (Уроки 14–20)
+# ⚙️ Модуль 5 — Kubernetes (Уроки 24–28)
 
-> **Цель:** управлять множеством контейнеров в production — масштабирование, самовосстановление, обновления без простоя.
+> **Цель:** научиться управлять множеством контейнеров в кластере.
 
 ---
 
-## 📖 Урок 14 — Что такое Kubernetes?
+## Урок 24 — Зачем Kubernetes?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-docker-vs-k8s.png" alt="Docker vs Kubernetes" width="85%"/>
-<br/><em>Docker — один корабль с контейнерами. Kubernetes — капитан, управляющий целым флотом</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-docker-vs-k8s.jpg" alt="Docker vs Kubernetes" width="85%"/>
+<br/><em>Docker — один корабль. Kubernetes — флот с капитаном, который управляет тысячами кораблей.</em>
 </div>
 
-### 🧠 Объяснение
+### 🧠 Простое объяснение
 
-Docker отлично справляется с одним сервером. Но что если серверов **сотни**, а контейнеров **тысячи**? Нужен **капитан флота** — это **Kubernetes (k8s)**.
+> Docker управляет одним контейнером. Kubernetes управляет **тысячами** контейнеров на **многих серверах**. Он как дирижёр оркестра.
 
-### 🆚 Docker vs Kubernetes
+| Docker | Kubernetes |
+|--------|-----------|
+| Один контейнер | Тысячи контейнеров |
+| Один сервер | Много серверов (кластер) |
+| Ручное управление | Автоматическое |
+| Нет самовосстановления | Автоматически восстанавливает |
+| Нет автомасштабирования | Масштабирует сам |
 
-| | Docker | Kubernetes |
-|--|--|--|
-| Масштаб | 1 сервер | 1–10 000 серверов |
-| Управление | Вручную | Автоматически |
-| Самовосстановление | Нет | ✅ Да |
-| Балансировка трафика | Нет | ✅ Встроена |
-| Rolling updates | Нет | ✅ Да |
-| Сложность | Просто | Сложнее |
+---
 
-### 💻 Установка minikube
+## Урок 25 — Архитектура кластера
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.jpg" alt="Кластер Kubernetes" width="85%"/>
+<br/><em>Кластер = Control Plane (капитан) + Worker Nodes (рабочие корабли) + Pod'ы (контейнеры)</em>
+</div>
+
+### 🧠 Основные понятия
+
+| Объект | Что это |
+|--------|---------|
+| **Кластер** | Группа серверов под управлением K8s |
+| **Control Plane** | Мозг кластера (управляет всем) |
+| **Node** | Сервер-рабочий (там запускаются Pod'ы) |
+| **Pod** | Наименьшая единица (1+ контейнеров) |
+| **Deployment** | Правило: сколько Pod'ов и каких |
+| **Service** | Постоянный адрес для Pod'ов |
 
 ```bash
-# kubectl — командная строка k8s
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install kubectl /usr/local/bin/
-
-# minikube — локальный кластер
+# Установить minikube (локальный K8s)
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
+# Запустить кластер
 minikube start
-kubectl get nodes
+
+# Проверить
+kubectl get nodes               # Список нод
+kubectl get pods -A             # Все Pod'ы
+kubectl cluster-info            # Информация о кластере
 ```
 
 ---
 
-## 📖 Урок 15 — Архитектура кластера
+## Урок 26 — Самовосстановление
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png" alt="Архитектура кластера Kubernetes" width="85%"/>
-<br/><em>Control Plane = мозг кластера, Nodes = рабочие лошадки, Pods = контейнеры на нодах</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg" alt="Самовосстановление Kubernetes" width="85%"/>
+<br/><em>Pod упал → Kubernetes мгновенно запускает новый. Сайт не останавливается!</em>
 </div>
 
-### 📦 Главные объекты Kubernetes
+### 🧠 Простое объяснение
 
-**Pod** — минимальная единица, один или несколько контейнеров:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: мой-pod
-  labels:
-    app: мой-сайт
-spec:
-  containers:
-  - name: веб
-    image: nginx:alpine
-    ports:
-    - containerPort: 80
-```
+> Kubernetes никогда не спит. Если Pod упал — он сразу создаёт новый. Это называется **самовосстановление**.
 
-**Deployment** — управляет репликами Pod'ов:
 ```yaml
+# deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: мой-сайт
 spec:
-  replicas: 3
+  replicas: 3          # Всегда держать 3 копии
   selector:
     matchLabels:
       app: мой-сайт
@@ -85,133 +87,70 @@ spec:
         app: мой-сайт
     spec:
       containers:
-      - name: веб
-        image: nginx:alpine
+      - name: web
+        image: nginx:latest
         ports:
         - containerPort: 80
 ```
 
-**Service** — находит Pod'ы и балансирует трафик:
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: мой-сайт-svc
-spec:
-  selector:
-    app: мой-сайт
-  ports:
-  - port: 80
-    targetPort: 80
-  type: NodePort
-```
-
 ```bash
 kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
-kubectl get all
-minikube service мой-сайт-svc
+kubectl get pods                    # 3 Pod'а запущены
+kubectl get pods -w                 # Следить в реальном времени
+
+# Удаляем Pod — K8s сразу создаст новый!
+kubectl delete pod $(kubectl get pods -o name | head -1 | cut -d/ -f2)
+kubectl get pods                    # Уже создаётся новый
 ```
 
 ---
 
-## 📖 Урок 16 — Самовосстановление
+## Урок 27 — Автомасштабирование HPA
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.png" alt="Kubernetes самовосстановление" width="80%"/>
-<br/><em>Упал Pod → Kubernetes заметил → создал новый. Всегда работает нужное число реплик!</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg" alt="Автомасштабирование HPA" width="85%"/>
+<br/><em>Утром — 2 Pod'а, днём нагрузка выросла — K8s добавил Pod'ы, вечером нагрузка спала — убрал</em>
 </div>
 
-```bash
-kubectl get pods -w    # Следим в реальном времени
-# В другом терминале:
-kubectl delete pod ИМЯ-ПОДА
-# Смотри: Kubernetes немедленно создаёт новый!
-```
+### 🧠 Простое объяснение
 
----
-
-## 📖 Урок 17 — Масштабирование
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png" alt="Автомасштабирование Kubernetes" width="80%"/>
-<br/><em>Растёт трафик → HPA добавляет Pod'ы. Падает → убирает лишние. Автоматически!</em>
-</div>
+> HPA (Horizontal Pod Autoscaler) — автомасштабирование. Нагрузка выросла → K8s добавляет Pod'ы. Нагрузка упала → убирает лишние.
 
 ```bash
-# Ручное масштабирование:
-kubectl scale deployment мой-сайт --replicas=5
-kubectl get pods
-
-# Автомасштабирование (HPA):
+# Создать HPA
 kubectl autoscale deployment мой-сайт --min=2 --max=10 --cpu-percent=70
+
+# Посмотреть статус
 kubectl get hpa
+kubectl describe hpa мой-сайт
 ```
 
 ---
 
-## 📖 Урок 18 — Объекты: Service, Ingress, ConfigMap, Secret
+## Урок 28 — Rolling Update: обновление без остановки
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png" alt="Объекты Kubernetes: Deployment, Service, Ingress" width="85%"/>
-<br/><em>Deployment = кухня, Service = официант, Ingress = входная дверь для внешнего трафика</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.jpg" alt="Rolling update без простоя" width="85%"/>
+<br/><em>Обновление поочерёдно: старые Pod'ы заменяются новыми по одному. Сайт работает всё время!</em>
 </div>
 
-```bash
-# ConfigMap — конфигурация
-kubectl create configmap app-config --from-literal=APP_MODE=production
+### 🧠 Простое объяснение
 
-# Secret — пароли и ключи
-kubectl create secret generic app-secret --from-literal=DB_PASSWORD=СуперСекрет
-
-# Ingress — внешний доступ через домен
-# Требует ingress controller (nginx-ingress)
-```
-
----
-
-## 📖 Урок 19 — Rolling Update и откат
+> Rolling Update заменяет Pod'ы по одному, не останавливая сайт. Пользователи не замечают обновления.
 
 ```bash
-# Обновить версию образа:
-kubectl set image deployment/мой-сайт веб=nginx:1.25
+# Обновить образ (деплой новой версии)
+kubectl set image deployment/мой-сайт web=nginx:1.25
 
-# Следить за обновлением:
+# Следить за обновлением
 kubectl rollout status deployment/мой-сайт
 
-# История обновлений:
+# История обновлений
 kubectl rollout history deployment/мой-сайт
 
-# Откат (что-то пошло не так):
+# Откат если что-то пошло не так
 kubectl rollout undo deployment/мой-сайт
-```
-
----
-
-## 📖 Урок 20 — Итоговый проект
-
-```bash
-mkdir k8s-проект && cd k8s-проект
-
-# Создаём все манифесты:
-kubectl apply -f configmap.yaml
-kubectl apply -f secret.yaml
-kubectl apply -f deployment-db.yaml
-kubectl apply -f deployment-web.yaml
-
-# Проверяем:
-kubectl get all
-kubectl get events
-
-# Открываем в браузере:
-minikube service webapp-svc
-
-# Масштабируем:
-kubectl scale deployment webapp --replicas=5
-
-# Обновляем:
-kubectl set image deployment/webapp веб=nginx:1.25
-kubectl rollout status deployment/webapp
+kubectl rollout undo deployment/мой-сайт --to-revision=1
 ```
 
 ---
@@ -219,25 +158,28 @@ kubectl rollout status deployment/webapp
 ## 📋 Шпаргалка Модуля 5
 
 | Команда | Что делает |
-|---------|-----------|
-| `kubectl get all` | Всё в namespace |
-| `kubectl apply -f файл.yaml` | Создать/обновить |
-| `kubectl delete -f файл.yaml` | Удалить |
-| `kubectl describe pod имя` | Подробности |
-| `kubectl logs имя` | Логи Pod |
-| `kubectl exec -it имя -- sh` | Войти в Pod |
-| `kubectl scale deployment имя --replicas=5` | Масштаб |
-| `kubectl rollout undo deployment имя` | Откат |
-| `kubectl get events` | События |
-| `minikube dashboard` | Веб-интерфейс |
+|---------|------------|
+| `kubectl get nodes` | Ноды кластера |
+| `kubectl get pods` | Pod'ы в namespace |
+| `kubectl apply -f файл.yaml` | Применить конфигурацию |
+| `kubectl delete -f файл.yaml` | Удалить ресурсы |
+| `kubectl logs имя-пода` | Логи Pod'а |
+| `kubectl exec -it имя-пода -- bash` | Войти в Pod |
+| `kubectl describe pod имя` | Подробности о Pod |
+| `kubectl rollout status deployment/имя` | Статус обновления |
+| `kubectl rollout undo deployment/имя` | Откат обновления |
+| `kubectl autoscale deployment имя --min=2 --max=10` | Автомасштабирование |
 
 ---
 
-## 🏆 Поздравляем! Ты прошёл весь курс
+## 🎓 Итоговый проект курса
 
-```
-🐧 Терминал  →  🌿 Git  →  🐳 Docker  →  🎼 Compose  →  ⚙️ Kubernetes
-     ✅              ✅          ✅              ✅              ✅
+```bash
+# Финальный стек: Python + PostgreSQL + Redis + Prometheus + Grafana + K8s HPA
+# Полные файлы в папке projects/
+
+cd projects/
+cat README.md    # Инструкции по запуску
 ```
 
-➡️ [Итоговые проекты](../../projects/)
+🎉 **Поздравляем!** Ты прошёл путь от терминала до Kubernetes!
