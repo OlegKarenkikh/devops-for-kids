@@ -1,96 +1,106 @@
-# 🐳 Модуль 3 — Docker (Уроки 9–15)
+# 🐳 Модуль 3 — Docker (Уроки 12–18)
 
-> **Цель:** написать код → упаковать в контейнер → запустить → отлаживать → подключить к другим сервисам.
+> **Цель:** научиться создавать контейнеры, собирать образы и управлять ими.
 
 ---
 
-## Урок 9 — Зачем Docker?
+## Урок 12 — Зачем нужен Docker?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.jpg" alt="Зачем Docker" width="85%"/>
-<br/><em>«У меня работает, у тебя нет!» — Docker решает эту проблему навсегда</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.jpg" alt="Зачем нужен Docker" width="85%"/>
+<br/><em>Без Docker: «У меня работает!» — «У меня нет!». С Docker — работает везде одинаково.</em>
 </div>
 
+### 🧠 Простое объяснение
+
+> Docker решает вечную проблему разработчиков: код работает на одном компьютере и ломается на другом. Docker упаковывает программу **вместе со всем нужным** в коробку-контейнер.
+
 ```bash
-sudo apt update && sudo apt install docker.io
+# Установить Docker (Ubuntu)
+curl -fsSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
-# Перезайди, затем:
+newgrp docker
+
+# Проверить установку
 docker --version
 docker run hello-world
 ```
 
 ---
 
-## Урок 10 — Образы и контейнеры
+## Урок 13 — Образ и контейнер
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg" alt="Образ vs Контейнер" width="80%"/>
-<br/><em>Образ = замороженный рецепт. Контейнер = живое работающее блюдо</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg" alt="Образ и контейнер" width="85%"/>
+<br/><em>Образ = рецепт пирога (шаблон). Контейнер = готовый пирог (запущенная программа).</em>
 </div>
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.jpg" alt="Архитектура Docker" width="80%"/>
-<br/><em>Docker Engine изолирует каждый контейнер, но все используют одно ядро Linux</em>
-</div>
+### 🧠 Простое объяснение
+
+> **Образ** (Image) — это рецепт. Нельзя изменить.  
+> **Контейнер** (Container) — это пирог, испечённый по рецепту. Из одного рецепта — много пирогов.
 
 ```bash
-docker images              # Список образов
-docker pull nginx          # Скачать образ
-docker run -d -p 8080:80 --name веб nginx
-docker ps                  # Запущенные
-docker ps -a               # Все
-docker stop веб && docker rm веб
-docker rmi nginx           # Удалить образ
+docker pull nginx               # Скачать образ
+docker images                   # Список образов
+docker run -p 8080:80 nginx     # Запустить контейнер
+docker ps                       # Запущенные контейнеры
+docker ps -a                    # Все контейнеры
+docker stop nginx               # Остановить
+docker start nginx              # Запустить снова
+docker rm nginx                 # Удалить контейнер
+docker rmi nginx                # Удалить образ
+```
+
+### 🧪 Задание 13
+```bash
+# Запускаем реальный веб-сервер!
+docker run -d --name мой-nginx -p 8080:80 nginx
+docker ps
+
+# Открываем в браузере: http://localhost:8080
+curl http://localhost:8080
+
+# Смотрим что внутри
+docker exec -it мой-nginx bash
+ls /usr/share/nginx/html/
+exit
+
+docker stop мой-nginx
+docker rm мой-nginx
 ```
 
 ---
 
-## Урок 11 — Пишем первый Dockerfile
+## Урок 14 — Dockerfile: рецепт образа
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.jpg" alt="Dockerfile — рецепт" width="80%"/>
-<br/><em>FROM = основа, RUN = готовим, COPY = кладём, CMD = запускаем</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.jpg" alt="Dockerfile — пошаговый рецепт" width="70%"/>
+<br/><em>Dockerfile — пошаговый рецепт: берёшь основу, добавляешь ингредиенты, готово!</em>
 </div>
 
-```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-# Сначала зависимости — кешируются
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-# Потом код
-COPY . .
-EXPOSE 8080
-CMD ["python3", "app.py"]
+### 🧠 Простое объяснение
+
+> Dockerfile — это текстовый файл с инструкциями: «возьми такую-то основу, скопируй мой код, установи библиотеки, запусти».
+
+### Создаём первый Dockerfile
+
+```bash
+mkdir ~/мой-сайт && cd ~/мой-сайт
 ```
 
----
-
-## Урок 12 — Пишем код и запускаем в контейнере
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose.jpg" alt="От кода до Compose" width="85%"/>
-<br/><em>5 шагов: написал → Dockerfile → build → run → compose up</em>
-</div>
-
-### Шаг 1: Код приложения
-
+**app.py** — наш сайт:
 ```python
-# app.py
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json, datetime, os
 
-VISITS = 0
-
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        global VISITS
-        VISITS += 1
-        name = os.environ.get("APP_NAME", "Мой сайт")
         data = {
-            "сайт": name,
-            "визиты": VISITS,
-            "время": datetime.datetime.now().isoformat()
+            "сообщение": "Привет из контейнера! 🐳",
+            "время": datetime.datetime.now().isoformat(),
+            "хост": os.environ.get("HOSTNAME", "неизвестно"),
+            "версия": "1.0"
         }
         body = json.dumps(data, ensure_ascii=False).encode()
         self.send_response(200)
@@ -100,134 +110,226 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def log_message(self, fmt, *args):
-        ts = datetime.datetime.now().strftime("%H:%M:%S")
-        print(f"[{ts}] {fmt % args}")
+        print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {fmt % args}")
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    print(f"Сервер запущен на порту {port}")
-    HTTPServer(("0.0.0.0", port), Handler).serve_forever()
+print("Сервер запущен на порту 8080...")
+HTTPServer(("0.0.0.0", 8080), Handler).serve_forever()
 ```
 
-### Шаг 2: Dockerfile
-
+**Dockerfile**:
 ```dockerfile
+# Шаг 1: Берём основу (Alpine = лёгкий Linux)
 FROM python:3.11-slim
+
+# Шаг 2: Переходим в рабочую папку
 WORKDIR /app
+
+# Шаг 3: Копируем наш код
 COPY app.py .
+
+# Шаг 4: Открываем порт
 EXPOSE 8080
-ENV APP_NAME="Мой первый Docker-сайт"
-CMD ["python3", "app.py"]
+
+# Шаг 5: Команда запуска
+CMD ["python", "app.py"]
 ```
 
-### Шаг 3: Собрать и запустить
-
 ```bash
-docker build -t мой-сайт:v1 .
-docker run -d -p 8080:8080 --name сайт мой-сайт:v1
+# Собираем образ
+docker build -t мой-сайт:v1.0 .
+
+# Проверяем
+docker images | grep мой-сайт
+
+# Запускаем!
+docker run -d --name мой-сайт -p 8080:8080 мой-сайт:v1.0
 curl http://localhost:8080
-# {"сайт": "Мой первый Docker-сайт", "визиты": 1}
+```
+
+**Ожидаемый результат:**
+```json
+{
+  "сообщение": "Привет из контейнера! 🐳",
+  "время": "2026-03-23T12:00:00",
+  "хост": "a1b2c3d4e5f6",
+  "версия": "1.0"
+}
 ```
 
 ---
 
-## Урок 13 — docker exec: работаем внутри контейнера
+## Урок 15 — docker exec: войти внутрь
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.jpg" alt="docker exec — войти в контейнер" width="80%"/>
-<br/><em>Контейнер — подводная лодка. docker exec — воздушный шлюз: входишь не останавливая</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.jpg" alt="docker exec -it" width="85%"/>
+<br/><em>docker exec -it — как шлюз подводной лодки: входишь внутрь работающего контейнера</em>
 </div>
 
+### 🧠 Простое объяснение
+
+> Контейнер — как подводная лодка. Снаружи не видно что внутри. `docker exec -it` — это шлюз: входишь внутрь и смотришь.
+
 ```bash
-# Открыть терминал внутри контейнера
-docker exec -it сайт bash       # bash (Ubuntu/Debian)
-docker exec -it сайт sh         # sh (Alpine)
+# Войти в контейнер (интерактивный bash)
+docker exec -it мой-сайт bash
 
-# Выполнить команду без входа
-docker exec сайт ls /app
-docker exec сайт env            # Переменные окружения
-docker exec сайт ps aux         # Процессы
+# Внутри контейнера (командная строка изменится):
+root@a1b2c3:/app# ls -la
+root@a1b2c3:/app# cat app.py
+root@a1b2c3:/app# ps aux
+root@a1b2c3:/app# env
+root@a1b2c3:/app# exit
 
-# Войти в базу данных
-docker exec -it postgres-db psql -U postgres
-docker exec -it redis-cache redis-cli
+# Выполнить команду не заходя внутрь
+docker exec мой-сайт ls /app
+docker exec мой-сайт cat /etc/os-release
+docker exec мой-сайт ps aux
 
-# Диагностика
-docker exec сайт df -h          # Диск
-docker exec сайт free -h        # Память
+# Войти через sh (если bash нет)
+docker exec -it мой-сайт sh
 ```
 
-| Флаг | Смысл | Когда |
-|------|-------|-------|
-| `-i` | Интерактивный ввод | Когда надо вводить текст |
-| `-t` | Эмуляция терминала | Для красивого вывода |
-| `-it` | Оба | Интерактивная работа |
-| _(без флагов)_ | Одна команда | Скрипты, проверки |
+### 🧪 Задание 15
+```bash
+# Изучаем контейнер изнутри
+docker exec -it мой-сайт bash
+
+# Внутри выполнить:
+pwd                    # Где мы?
+ls -la                 # Что здесь?
+cat app.py             # Наш код
+python --version       # Версия Python
+env | grep -i path     # Переменные окружения
+exit                   # Выходим
+```
 
 ---
 
-## Урок 14 — Логи контейнера
+## Урок 16 — docker logs: журнал событий
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.jpg" alt="docker logs — дневник контейнера" width="80%"/>
-<br/><em>Логи — корабельный журнал: каждое событие записывается с меткой времени</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.jpg" alt="docker logs — журнал событий" width="85%"/>
+<br/><em>Логи — это бортовой журнал контейнера: записывает всё что происходит внутри</em>
 </div>
 
-```bash
-# Читать логи
-docker logs сайт                  # Все логи
-docker logs -f сайт               # Следить в реальном времени
-docker logs --tail 50 сайт        # Последние 50 строк
-docker logs --since 1h сайт       # За последний час
+### 🧠 Простое объяснение
 
-# Docker Compose — все сервисы сразу
-docker compose logs -f            # Следить за всеми
-docker compose logs -f web        # Только один сервис
-docker compose logs --tail 100    # Последние 100 строк
+> Логи — это история всего, что произошло в контейнере. Как бортовой журнал корабля. Когда что-то сломалось — ты смотришь логи и понимаешь почему.
+
+```bash
+# Основные команды
+docker logs мой-сайт            # Все логи
+docker logs -f мой-сайт         # Следить в реальном времени (Ctrl+C — выход)
+docker logs --tail 50 мой-сайт  # Последние 50 строк
+docker logs --since 5m мой-сайт # Логи за последние 5 минут
+docker logs -t мой-сайт         # С временными метками
+
+# Для docker compose
+docker compose logs              # Логи всех сервисов
+docker compose logs -f           # Следить за всеми
+docker compose logs -f web       # Следить за конкретным сервисом
+docker compose logs --tail 100   # Последние 100 строк
 ```
 
-> 📌 **Зачем?** Логи — главный инструмент диагностики. Когда что-то сломалось — смотри логи!
+### 🧪 Задание 16
+```bash
+# Создаём трафик и смотрим логи
+for i in 1 2 3 4 5; do curl -s http://localhost:8080 > /dev/null; done
+
+docker logs мой-сайт
+docker logs --tail 3 мой-сайт
+docker logs -t мой-сайт
+```
+
+**Ожидаемый результат логов:**
+```
+[12:00:01] "GET / HTTP/1.1" 200 -
+[12:00:02] "GET / HTTP/1.1" 200 -
+[12:00:03] "GET / HTTP/1.1" 200 -
+```
 
 ---
 
-## Урок 15 — Уборка: docker system prune
+## Урок 17 — docker system prune: уборка
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.jpg" alt="docker system prune — уборка" width="80%"/>
-<br/><em>Старые контейнеры и образы занимают гигабайты. Prune — генеральная уборка</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.jpg" alt="docker system prune — уборка" width="85%"/>
+<br/><em>prune — как уборка гаража: выбрасываем всё ненужное. Важно знать что именно удаляется!</em>
 </div>
 
+### 🧠 Простое объяснение
+
+> Со временем Docker накапливает мусор: старые образы, остановленные контейнеры, неиспользуемые сети. `docker system prune` — это уборка.
+
 ```bash
-docker system df               # Сколько места занято
+# Смотрим сколько занимает Docker
+docker system df
 
-docker container prune         # Удалить остановленные контейнеры
-docker image prune -a          # Удалить неиспользуемые образы
-docker volume prune            # Удалить пустые тома
-docker builder prune           # Очистить кеш сборки
+# Удалить всё неиспользуемое
+docker system prune          # Контейнеры, сети, висячие образы
+docker system prune -a       # + все неиспользуемые образы
+docker system prune -f       # Без вопроса "Вы уверены?"
 
-docker system prune            # Всё сразу (безопасно)
-docker system prune -a         # Агрессивно (все неиспользуемые образы)
-docker system prune -af        # Без вопросов
+# Точечная очистка
+docker container prune       # Только остановленные контейнеры
+docker image prune           # Только висячие образы
+docker image prune -a        # Все неиспользуемые образы
+docker volume prune          # Тома (⚠️ УДАЛЯЕТ ДАННЫЕ!)
+docker network prune         # Неиспользуемые сети
 ```
 
-| Команда | Что удаляет | Влияние |
-|---------|------------|---------|
-| `prune` | Остановленные контейнеры | Освобождает место |
-| `prune -a` | + все неиспользуемые образы | Намного больше места |
-| `prune -af --volumes` | + тома с данными | ⚠️ Удаляет данные! |
+> ⚠️ **Важно:** `docker volume prune` удаляет тома с данными (базы данных и т.д.)! Будь осторожен.
+
+### 🧪 Задание 17
+```bash
+# Проверяем объём
+docker system df
+
+# Создаём мусор для теста
+docker pull alpine
+docker run alpine echo "тест"    # Контейнер остановится
+docker ps -a                     # Видим остановленный контейнер
+
+# Убираем
+docker system prune -f
+
+# Проверяем результат
+docker system df
+```
+
+---
+
+## Урок 18 — Публикация образа на Docker Hub
+
+```bash
+# Логин в Docker Hub
+docker login
+
+# Тегируем образ (ваш-логин/имя-образа:версия)
+docker tag мой-сайт:v1.0 ваш-логин/мой-сайт:v1.0
+
+# Публикуем
+docker push ваш-логин/мой-сайт:v1.0
+
+# Теперь кто угодно может запустить:
+docker run -p 8080:8080 ваш-логин/мой-сайт:v1.0
+```
 
 ---
 
 ## 📋 Шпаргалка Модуля 3
 
 | Команда | Что делает |
-|---------|-----------|
-| `docker build -t имя:тег .` | Собрать образ |
-| `docker run -d -p 8080:80 имя` | Запустить в фоне |
-| `docker exec -it имя bash` | Войти внутрь |
-| `docker logs -f имя` | Следить за логами |
-| `docker system df` | Место на диске |
-| `docker system prune` | Очистить неиспользуемое |
-| `docker stats` | Нагрузка в реальном времени |
+|---------|------------|
+| `docker build -t имя .` | Собрать образ из Dockerfile |
+| `docker run -d -p 8080:80 образ` | Запустить контейнер |
+| `docker ps` | Запущенные контейнеры |
+| `docker ps -a` | Все контейнеры |
+| `docker logs -f имя` | Логи в реальном времени |
+| `docker exec -it имя bash` | Войти в контейнер |
+| `docker stop имя` | Остановить |
+| `docker rm имя` | Удалить контейнер |
+| `docker system prune -f` | Уборка без вопросов |
+| `docker system df` | Сколько занимает Docker |
 
-➡️ [Следующий модуль: Docker Compose →](../module4-compose/)
+➡️ [Следующий модуль: Compose + Мониторинг →](../module4-compose/)
