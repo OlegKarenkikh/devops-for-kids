@@ -1,31 +1,28 @@
 # 🎼 Модуль 4 — Docker Compose + Мониторинг (Уроки 19–23)
 
-> **Цель:** связать контейнеры вместе, собрать полный стек, наблюдать через Prometheus + Grafana.
+> **Цель:** запускать несколько сервисов одной командой и наблюдать за ними через Prometheus + Grafana.
 
 ---
 
-## Урок 19 — Docker Compose: один файл — всё приложение
+## Урок 19 — Docker Compose: город сервисов
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-network.jpg" alt="Docker Compose сеть сервисов" width="85%"/>
-<br/><em>Compose — как многоквартирный дом: каждый сервис живёт отдельно, но соединён общей сетью</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-network.jpg" alt="Docker Compose — город сервисов" width="85%"/>
+<br/><em>Compose = целый город из сервисов. Один файл — один запуск. Все сервисы видят друг друга по имени</em>
 </div>
 
-### 🧠 Простое объяснение
+### 🧠 Зачем Compose?
 
-> Настоящее приложение = несколько частей. Вместо трёх команд `docker run` — одна: `docker compose up`.
+> Настоящее приложение — несколько частей: сайт, база данных, кэш. Compose запускает их все вместе одной командой.
 
 ```yaml
 # docker-compose.yml
 version: "3.9"
-
 services:
   web:
-    build: .            # Собрать из Dockerfile
+    build: .
     ports:
       - "8080:8080"
-    environment:
-      APP_NAME: "Мой составной сайт"
     depends_on:
       db:
         condition: service_healthy
@@ -35,7 +32,6 @@ services:
     image: postgres:15-alpine
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: mydb
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -45,68 +41,72 @@ services:
 
   cache:
     image: redis:7-alpine
-    restart: unless-stopped
 
 volumes:
   pgdata:
 ```
 
 ```bash
-echo "DB_PASSWORD=МойСекрет123" > .env
-echo ".env" >> .gitignore
-
+echo "DB_PASSWORD=Секрет123" > .env
 docker compose up -d        # Запустить всё
 docker compose ps           # Статус
-docker compose logs -f      # Логи всех сервисов
-docker compose exec web bash # Войти в сервис
+docker compose logs -f      # Логи всех
 docker compose down         # Остановить
 docker compose down -v      # + удалить тома
 ```
 
 ---
 
-## Урок 20 — Полный проект: код → контейнер → Compose
+## Урок 20–21 — Полный проект: код → контейнер → Compose
 
-### Структура проекта
+```python
+# app.py
+from flask import Flask, jsonify
+import os, datetime
 
+app = Flask(__name__)
+visits = 0
+
+@app.route('/')
+def index():
+    global visits
+    visits += 1
+    return jsonify({
+        "сервис": os.environ.get("APP_NAME","Сайт"),
+        "визитов": visits,
+        "время": datetime.datetime.now().isoformat()
+    })
+
+app.run(host='0.0.0.0', port=int(os.environ.get('PORT',8080)))
 ```
-мой-проект/
-├── app.py              ← наш Python-сервер
-├── Dockerfile          ← рецепт образа
-├── docker-compose.yml  ← оркестрация
-├── .env                ← секреты (не в Git!)
-├── .gitignore
-└── README.md
+
+```bash
+docker compose up -d
+curl http://localhost:8080
+docker compose logs -f web
 ```
 
-### Финальный docker-compose.yml с мониторингом
+---
+
+## Урок 22 — Prometheus: собираем метрики
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus-grafana.jpg" alt="Prometheus + Grafana мониторинг" width="85%"/>
+<br/><em>Prometheus — детектив: каждые 15 сек обходит сервисы и записывает числа. Grafana рисует красивые графики</em>
+</div>
 
 ```yaml
-version: "3.9"
+# prometheus.yml
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+```
 
-services:
-  web:
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      APP_NAME: "Мой сайт v2"
-    restart: unless-stopped
-
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_PASSWORD: secret
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      retries: 5
-
-  cache:
-    image: redis:7-alpine
-
+```yaml
+# Добавить в docker-compose.yml:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     volumes:
@@ -117,53 +117,12 @@ services:
     ports:
       - "8081:8080"
 
-volumes:
-  pgdata:
-```
-
-```bash
-docker compose up -d
-curl http://localhost:8080       # Наш сайт
-# http://localhost:8081          # cAdvisor — метрики
-```
-
----
-
-## Урок 21 — Prometheus: собираем метрики
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus-grafana.jpg" alt="Prometheus и Grafana" width="85%"/>
-<br/><em>Прометей — детектив: каждые 15 секунд обходит сервисы и записывает числа. Grafana рисует графики.</em>
-</div>
-
-### prometheus.yml
-
-```yaml
-global:
-  scrape_interval: 15s    # Собирать каждые 15 секунд
-
-scrape_configs:
-  - job_name: 'docker-containers'
-    static_configs:
-      - targets: ['cadvisor:8080']
-
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
-```
-
-### Добавить в docker-compose.yml
-
-```yaml
   prometheus:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.retention.time=7d'
 
   grafana:
     image: grafana/grafana:latest
@@ -171,57 +130,38 @@ scrape_configs:
       - "3000:3000"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: admin
-    volumes:
-      - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
 ```
 
 ```bash
 docker compose up -d
-# http://localhost:9090   → Prometheus
-# http://localhost:3000   → Grafana (admin/admin)
-```
-
-### Настройка Grafana
-
-1. Войти: admin / admin
-2. Configuration → Data Sources → Add → Prometheus → URL: `http://prometheus:9090`
-3. Dashboards → Import → ID `193` (готовый Docker-дашборд)
-4. Готово! Графики CPU, RAM, сети для всех контейнеров
-
----
-
-## Урок 22 — Масштабирование
-
-```bash
-# 3 экземпляра сайта!
-docker compose up -d --scale web=3
-docker compose ps
-docker compose logs -f web
+open http://localhost:9090   # Prometheus
+open http://localhost:3000   # Grafana (admin/admin)
+# В Grafana: Add Data Source → Prometheus → http://prometheus:9090
+# Import Dashboard ID: 193 (Docker metrics)
 ```
 
 ---
 
-## 📋 Шпаргалка Модуля 4
+## Урок 23 — Шпаргалка Compose
 
-| Команда | Что делает |
-|---------|------------|
+| Команда | Действие |
+|---------|---------|
 | `docker compose up -d` | Запустить всё |
 | `docker compose ps` | Статус сервисов |
-| `docker compose logs -f` | Логи всех сервисов |
+| `docker compose logs -f` | Логи всех |
 | `docker compose exec web bash` | Войти в сервис |
 | `docker compose down` | Остановить |
-| `docker compose down -v` | Остановить + удалить данные |
 | `docker compose up --scale web=3` | Масштабировать |
 
-### 🔗 Порты нашего стека
+### Порты нашего стека
 
-| Сервис | Порт | URL |
-|--------|------|-----|
-| Наш сайт | 8080 | http://localhost:8080 |
-| cAdvisor | 8081 | http://localhost:8081 |
-| Prometheus | 9090 | http://localhost:9090 |
-| Grafana | 3000 | http://localhost:3000 |
+| Сервис | Порт |
+|--------|------|
+| Наш сайт | :8080 |
+| cAdvisor | :8081 |
+| Prometheus | :9090 |
+| Grafana | :3000 |
 
 ➡️ [Следующий модуль: Kubernetes →](../module5-kubernetes/)
