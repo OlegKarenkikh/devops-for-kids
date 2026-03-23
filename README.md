@@ -87,3 +87,20 @@ devops-for-kids/
 ---
 
 <div align="center">MIT License · Используй свободно, учи других! 🚀</div>
+
+## 🖼️ Иллюстрации курса
+
+Все схемы созданы в едином светлом стиле на русском языке.
+
+| Модуль | Иллюстрация | Описание |
+|--------|-------------|----------|
+| Модуль 1 | ![Файловая система](images/module1-filesystem.png) | Дерево каталогов Linux + аналогии с Windows |
+| Модуль 1 | ![Bash скрипт](images/module1-bash-script.png) | Структура скрипта: переменные, условия, циклы |
+| Модуль 2 | ![Git workflow](images/module2-git-workflow.png) | Четыре зоны Git + все основные команды |
+| Модуль 2 | ![SSH ключи](images/module2-ssh-keys.png) | Публичный и приватный ключ — замок и ключ |
+| Модуль 3 | ![Docker слои](images/module3-docker-layers.png) | Dockerfile → слои образа → кеширование |
+| Модуль 4 | ![Prometheus](images/module4-prometheus.png) | Поток метрик: контейнеры → Prometheus → Grafana |
+| Модуль 5 | ![kubectl](images/module5-kubectl.png) | Шпаргалка kubectl: смотреть / запускать / отлаживать |
+| Модуль 5 | ![K8s объекты](images/module5-k8s-objects.png) | Pod, Deployment, Service — с примерами YAML |
+| Обзор | ![Карта курса](images/overview-roadmap.png) | Все 5 модулей и итоговый проект |
+
