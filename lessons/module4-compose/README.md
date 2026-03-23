@@ -1,19 +1,19 @@
-# 🎼 Модуль 4 — Docker Compose + Мониторинг (Уроки 16–20)
+# 🎼 Модуль 4 — Docker Compose + Мониторинг (Уроки 19–23)
 
-> **Цель:** связать контейнеры, собрать полный стек, наблюдать за системой через Prometheus и Grafana.
+> **Цель:** связать контейнеры вместе, собрать полный стек, наблюдать через Prometheus + Grafana.
 
 ---
 
-## Урок 16 — Docker Compose: несколько сервисов
+## Урок 19 — Docker Compose: один файл — всё приложение
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose.jpg" alt="От кода до Compose" width="85%"/>
-<br/><em>Последний шаг пути: docker-compose.yml объединяет все контейнеры как здания в городе</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-network.jpg" alt="Docker Compose сеть сервисов" width="85%"/>
+<br/><em>Compose — как многоквартирный дом: каждый сервис живёт отдельно, но соединён общей сетью</em>
 </div>
 
-### 🧠 Зачем Compose?
+### 🧠 Простое объяснение
 
-Настоящее приложение = несколько частей. Вместо трёх команд `docker run` — одна: `docker compose up`.
+> Настоящее приложение = несколько частей. Вместо трёх команд `docker run` — одна: `docker compose up`.
 
 ```yaml
 # docker-compose.yml
@@ -52,20 +52,20 @@ volumes:
 ```
 
 ```bash
-# .env файл (НЕ добавлять в Git!)
 echo "DB_PASSWORD=МойСекрет123" > .env
 echo ".env" >> .gitignore
 
 docker compose up -d        # Запустить всё
 docker compose ps           # Статус
-docker compose logs -f      # Логи всех
+docker compose logs -f      # Логи всех сервисов
+docker compose exec web bash # Войти в сервис
 docker compose down         # Остановить
 docker compose down -v      # + удалить тома
 ```
 
 ---
 
-## Урок 17 — Полный проект: код → Dockerfile → Compose
+## Урок 20 — Полный проект: код → контейнер → Compose
 
 ### Структура проекта
 
@@ -79,38 +79,7 @@ docker compose down -v      # + удалить тома
 └── README.md
 ```
 
-### app.py (с подключением к Redis)
-
-```python
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import json, datetime, os
-
-VISITS = 0
-
-class Handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        global VISITS
-        VISITS += 1
-        data = {
-            "сервис": os.environ.get("APP_NAME", "Сайт"),
-            "визиты": VISITS,
-            "версия": "2.0",
-            "время": datetime.datetime.now().isoformat()
-        }
-        body = json.dumps(data, ensure_ascii=False).encode()
-        self.send_response(200)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Content-Length", len(body))
-        self.end_headers()
-        self.wfile.write(body)
-
-    def log_message(self, fmt, *args):
-        print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {fmt % args}")
-
-HTTPServer(("0.0.0.0", int(os.environ.get("PORT", 8080))), Handler).serve_forever()
-```
-
-### docker-compose.yml с мониторингом
+### Финальный docker-compose.yml с мониторингом
 
 ```yaml
 version: "3.9"
@@ -138,7 +107,6 @@ services:
   cache:
     image: redis:7-alpine
 
-  # Мониторинг контейнеров
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     volumes:
@@ -155,28 +123,18 @@ volumes:
 
 ```bash
 docker compose up -d
-curl http://localhost:8080         # Сайт
-open http://localhost:8081         # cAdvisor — метрики контейнеров
+curl http://localhost:8080       # Наш сайт
+# http://localhost:8081          # cAdvisor — метрики
 ```
 
 ---
 
-## Урок 18 — Prometheus: собираем метрики
+## Урок 21 — Prometheus: собираем метрики
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus-grafana.jpg" alt="Prometheus + Grafana" width="85%"/>
-<br/><em>Прометей — детектив: каждые 15 сек обходит все сервисы и записывает числа. Grafana рисует графики</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus-grafana.jpg" alt="Prometheus и Grafana" width="85%"/>
+<br/><em>Прометей — детектив: каждые 15 секунд обходит сервисы и записывает числа. Grafana рисует графики.</em>
 </div>
-
-### 🧠 Что такое метрики?
-
-> Представь спидометр в машине. Он показывает скорость в реальном времени. **Prometheus** — это спидометр для твоего сервера.
-
-**Типы метрик:**
-- `cpu_usage` — загрузка процессора
-- `memory_usage` — использование памяти
-- `http_requests_total` — сколько запросов пришло
-- `container_up` — работает ли контейнер
 
 ### prometheus.yml
 
@@ -206,22 +164,7 @@ scrape_configs:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=7d'
-```
 
-```bash
-docker compose up -d
-open http://localhost:9090        # Prometheus UI
-# Попробуй запросы (PromQL):
-# container_memory_usage_bytes
-# rate(container_cpu_usage_seconds_total[5m])
-```
-
----
-
-## Урок 19 — Grafana: красивые дашборды
-
-```yaml
-# Добавить в docker-compose.yml:
   grafana:
     image: grafana/grafana:latest
     ports:
@@ -232,70 +175,38 @@ open http://localhost:9090        # Prometheus UI
       - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
-
-volumes:
-  pgdata:
-  grafana_data:
 ```
 
 ```bash
 docker compose up -d
-open http://localhost:3000   # Grafana (admin/admin)
+# http://localhost:9090   → Prometheus
+# http://localhost:3000   → Grafana (admin/admin)
 ```
 
 ### Настройка Grafana
 
-1. **Войти:** admin / admin
-2. **Добавить источник данных:** Configuration → Data Sources → Add → Prometheus → URL: `http://prometheus:9090`
-3. **Импортировать дашборд:** Dashboards → Import → ID `193` (Docker готовый дашборд)
-4. **Готово!** Графики CPU, RAM, сети для всех контейнеров
-
-### Алертинг
-
-```yaml
-# В Grafana: Alerting → Alert Rules → New Alert Rule
-# Условие: container_memory_usage_bytes > 500MB
-# Уведомление: Email / Telegram
-```
+1. Войти: admin / admin
+2. Configuration → Data Sources → Add → Prometheus → URL: `http://prometheus:9090`
+3. Dashboards → Import → ID `193` (готовый Docker-дашборд)
+4. Готово! Графики CPU, RAM, сети для всех контейнеров
 
 ---
 
-## Урок 20 — Итоговый проект
-
-Полный стек: **Python-сайт + PostgreSQL + Redis + Prometheus + Grafana**
+## Урок 22 — Масштабирование
 
 ```bash
-# Финальный docker-compose up
-mkdir итоговый-проект && cd итоговый-проект
-
-# Скопировать все файлы:
-# app.py, Dockerfile, docker-compose.yml, prometheus.yml, .env
-
-docker compose up -d
-docker compose ps          # Все сервисы запущены?
-docker compose logs -f     # Смотрим логи
-
-# Проверяем:
-curl http://localhost:8080        # Сайт
-open http://localhost:8081        # cAdvisor
-open http://localhost:9090        # Prometheus
-open http://localhost:3000        # Grafana
-
-# Масштабируем:
-docker compose up -d --scale web=3   # 3 экземпляра сайта!
+# 3 экземпляра сайта!
+docker compose up -d --scale web=3
+docker compose ps
 docker compose logs -f web
-
-# Уборка после урока:
-docker compose down -v
-docker system prune -f
 ```
 
 ---
 
-## 📋 Полная шпаргалка Модуля 4
+## 📋 Шпаргалка Модуля 4
 
 | Команда | Что делает |
-|---------|-----------|
+|---------|------------|
 | `docker compose up -d` | Запустить всё |
 | `docker compose ps` | Статус сервисов |
 | `docker compose logs -f` | Логи всех сервисов |
