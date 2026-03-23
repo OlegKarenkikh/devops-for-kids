@@ -164,3 +164,65 @@ kubectl describe hpa my-website
 | `kubectl get hpa` | Автомасштаб |
 
 ➡️ [Следующий модуль: Секреты и API →](../module6-secrets-api/)
+
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Запусти Minikube
+```bash
+minikube start
+kubectl get nodes          # нода Ready?
+minikube dashboard         # веб-интерфейс
+```
+
+### Задание 2 — Первый Deployment
+```bash
+cat > deployment.yaml << 'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kids
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-kids
+  template:
+    metadata:
+      labels:
+        app: hello-kids
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+EOF
+
+kubectl apply -f deployment.yaml
+kubectl get pods            # 2 пода Running?
+```
+
+### Задание 3 — Открой сервис в браузере
+```bash
+cat > service.yaml << 'EOF'
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kids-svc
+spec:
+  selector:
+    app: hello-kids
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort
+EOF
+
+kubectl apply -f service.yaml
+minikube service hello-kids-svc   # откроет браузер!
+```
+> ✅ Страница nginx открылась через Kubernetes? Ты сделал это! ☸️
+
