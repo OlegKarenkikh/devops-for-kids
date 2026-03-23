@@ -1,6 +1,6 @@
 # 🔐 Модуль 6 — Секреты и REST API (Уроки 29–35)
 
-> **Цель:** научиться безопасно хранить пароли и токены, и создать первый REST API на Python.
+> **Цель:** научиться безопасно хранить пароли и токены, создать REST API на Python и подключить базу данных SQLite.
 
 ---
 
@@ -11,31 +11,24 @@
 <br/><em>Код на GitHub видят все. Пароль в коде = пароль для всех. .env решает эту проблему</em>
 </div>
 
-> Представь: ты написал пароль прямо в коде и запушил на GitHub. Теперь его видит весь мир!
-
 ```bash
-# Создаём .env файл
 cat > .env << 'EOF'
 DB_PASSWORD=МойСекрет123
 API_KEY=abc123xyz
 APP_PORT=8080
 EOF
-
-# ОБЯЗАТЕЛЬНО добавить в .gitignore
 echo ".env" >> .gitignore
 ```
 
 ```python
-# app.py — читаем секреты из окружения
 import os
 from dotenv import load_dotenv
 
-load_dotenv()   # Загружает .env файл автоматически
+load_dotenv()
 
 db_password = os.environ["DB_PASSWORD"]
-api_key     = os.environ.get("API_KEY", "default-key")
-
-print("Ключ:", api_key[:3] + "***")  # Никогда не печатай целиком!
+api_key = os.environ.get("API_KEY", "default-key")
+print("Ключ:", api_key[:3] + "***")
 ```
 
 > **⚠️ Правило:** `.env` всегда в `.gitignore`. Без исключений.
@@ -49,7 +42,6 @@ docker run --env-file .env моё-приложение
 ```
 
 ```yaml
-# docker-compose.yml
 services:
   web:
     build: .
@@ -61,7 +53,7 @@ services:
 ## Урок 31 — REST API: что это?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API — как меню в ресторане" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API" width="85%"/>
 <br/><em>API — официант между клиентом и сервером</em>
 </div>
 
@@ -71,11 +63,6 @@ services:
 | `POST` | Создать новое | «Хочу заказать пиццу» |
 | `PUT` | Обновить | «Замени пиццу на суп» |
 | `DELETE` | Удалить | «Отмени заказ» |
-
-```bash
-curl http://localhost:8080/items
-curl -X POST http://localhost:8080/items -H "Content-Type: application/json" -d '{"name":"яблоко"}'
-```
 
 ---
 
@@ -101,26 +88,153 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
 ```
 
-```bash
-pip install flask
-python app.py
-curl http://localhost:8080/items
-```
-
 ---
 
-## Урок 33–34 — SQLite и Secrets в Kubernetes
+## Урок 33 — SQLite: база данных в одном файле
+
+> SQLite — это база данных, которая живёт в **одном файле** на диске. Не нужно устанавливать никаких серверов!
 
 ```python
 import sqlite3
+
 db = sqlite3.connect("items.db")
-db.execute("CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name TEXT)")
+
+db.execute("""
+    CREATE TABLE IF NOT EXISTS items (
+        id    INTEGER PRIMARY KEY AUTOINCREMENT,
+        name  TEXT NOT NULL,
+        emoji TEXT DEFAULT '📦'
+    )
+""")
 db.commit()
+
+db.execute("INSERT INTO items (name, emoji) VALUES (?, ?)", ("Гитара", "🎸"))
+db.commit()
+
+rows = db.execute("SELECT * FROM items").fetchall()
+for row in rows:
+    print(row)
+
+db.close()
 ```
 
 ```bash
-kubectl create secret generic my-secret --from-literal=db-password=СекретныйПароль
+# Попробуй прямо в терминале (база в памяти):
+python3 -c "
+import sqlite3
+db = sqlite3.connect(':memory:')
+db.execute('CREATE TABLE t (id INTEGER PRIMARY KEY, val TEXT)')
+db.execute(\"INSERT INTO t (val) VALUES ('Привет!')\")
+db.execute(\"INSERT INTO t (val) VALUES ('Мир!')\")
+db.commit()
+print(db.execute('SELECT * FROM t').fetchall())
+db.close()
+"
+```
+
+### SQLite + Flask API
+
+```python
+import sqlite3
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+DB_PATH = "collection.db"
+
+def get_db():
+    db = sqlite3.connect(DB_PATH)
+    db.row_factory = sqlite3.Row
+    return db
+
+def init_db():
+    db = get_db()
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS items (
+            id    INTEGER PRIMARY KEY AUTOINCREMENT,
+            name  TEXT NOT NULL,
+            emoji TEXT DEFAULT '📦'
+        )
+    """)
+    db.commit()
+    db.close()
+
+@app.route("/items", methods=["GET"])
+def get_all():
+    db = get_db()
+    rows = db.execute("SELECT * FROM items").fetchall()
+    db.close()
+    return jsonify([dict(r) for r in rows])
+
+@app.route("/items", methods=["POST"])
+def create():
+    data = request.get_json()
+    db = get_db()
+    cur = db.execute(
+        "INSERT INTO items (name, emoji) VALUES (?, ?)",
+        (data["name"], data.get("emoji", "📦"))
+    )
+    db.commit()
+    new_id = cur.lastrowid
+    db.close()
+    return jsonify({"id": new_id, "name": data["name"]}), 201
+
+if __name__ == "__main__":
+    init_db()
+    app.run(host="0.0.0.0", port=8080, debug=True)
+```
+
+> **📝 Задание:** запусти API, добавь через curl 3 своих любимых вещи и получи список обратно.
+
+---
+
+## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.jpg" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
+<br/><em>Secret в Kubernetes — как сейф внутри кластера. Пароль хранится отдельно от кода</em>
+</div>
+
+> Разница `.env` vs K8s Secret:
+> - `.env` — для локальной разработки и Docker Compose
+> - `K8s Secret` — для продакшн-кластера Kubernetes
+
+```bash
+kubectl create secret generic db-secret \
+  --from-literal=db-password=МойПароль123 \
+  --from-literal=api-key=abc123xyz
+
 kubectl get secrets
+kubectl describe secret db-secret
+
+kubectl get secret db-secret -o jsonpath='{.data.db-password}' | base64 -d
+```
+
+```yaml
+# pod-with-secret.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+spec:
+  containers:
+  - name: app
+    image: my-collection:latest
+    env:
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: db-secret
+          key: db-password
+    - name: API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: db-secret
+          key: api-key
+```
+
+```bash
+kubectl apply -f pod-with-secret.yaml
+kubectl exec -it my-app -- env | grep DB_PASSWORD
 ```
 
 ---
@@ -132,6 +246,19 @@ kubectl get secrets
 | Пароли в `.env` | Код открыт, .env закрыт |
 | `.env` в `.gitignore` | Иначе GitHub увидит |
 | `os.environ.get("KEY")` | Безопасное чтение |
-| 200=OK, 201=Создано, 404=Не найдено, 500=Ошибка сервера | HTTP коды |
+| `app.run()` в `if __name__` | Не запускать при импорте |
+| 200 = OK | Всё хорошо |
+| 201 = Создано | POST успешен |
+| 404 = Не найдено | Ресурс отсутствует |
+| 500 = Ошибка сервера | Что-то сломалось |
+
+### Команды K8s Secrets
+
+| Команда | Действие |
+|---------|---------|
+| `kubectl create secret generic имя --from-literal=ключ=значение` | Создать |
+| `kubectl get secrets` | Список |
+| `kubectl describe secret имя` | Детали |
+| `kubectl delete secret имя` | Удалить |
 
 ➡️ [Итоговый проект →](../../projects/final-project/)
