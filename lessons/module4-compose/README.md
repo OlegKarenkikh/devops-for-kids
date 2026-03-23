@@ -11,30 +11,37 @@
 <br/><em>Compose = целый город из сервисов. Один файл — один запуск. Все сервисы видят друг друга по имени</em>
 </div>
 
-### 🧠 Зачем Compose?
+### 🧠 Теория: зачем нужен Compose?
 
-> Настоящее приложение — несколько частей: сайт, база данных, кэш. Compose запускает их все вместе одной командой.
+Представь, что ты делаешь интернет-магазин. Ему нужны три части:
+- **Сайт** — показывает страницы пользователю
+- **База данных** — хранит товары и заказы
+- **Кэш** — запоминает часто запрашиваемые данные, чтобы не лезть в базу каждый раз
+
+Запускать каждый контейнер отдельно вручную — это как каждый раз перед поездкой вручную накачивать все 4 колеса по одному. Compose запускает все три одной командой `docker compose up`.
+
+Главный файл Compose — `docker-compose.yml`. В нём описаны все сервисы, их настройки, связи между ними.
 
 ```yaml
 # docker-compose.yml
 version: "3.9"
 services:
   web:
-    build: .
+    build: .                        # Собрать из Dockerfile в текущей папке
     ports:
-      - "8080:8080"
+      - "8080:8080"                 # Открыть порт: хост:контейнер
     depends_on:
       db:
-        condition: service_healthy
-    restart: unless-stopped
+        condition: service_healthy  # Ждать, пока db не станет healthy
+    restart: unless-stopped         # Автоперезапуск при падении
 
   db:
-    image: postgres:15-alpine
+    image: postgres:15-alpine       # Готовый образ из Docker Hub
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}   # Берём из .env
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
+      - pgdata:/var/lib/postgresql/data   # Сохраняем данные БД
+    healthcheck:                    # Проверка готовности
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       retries: 5
@@ -43,16 +50,86 @@ services:
     image: redis:7-alpine
 
 volumes:
-  pgdata:
+  pgdata:                           # Именованный том для БД
 ```
 
 ```bash
 echo "DB_PASSWORD=Секрет123" > .env
-docker compose up -d        # Запустить всё
-docker compose ps           # Статус
-docker compose logs -f      # Логи всех
-docker compose down         # Остановить
-docker compose down -v      # + удалить тома
+docker compose up -d        # Запустить всё (-d = в фоне)
+docker compose ps           # Статус всех сервисов
+docker compose logs -f      # Логи всех (Ctrl+C — выход)
+docker compose down         # Остановить и удалить контейнеры
+docker compose down -v      # + удалить тома (данные БД пропадут!)
+```
+
+---
+
+## Урок 20 — Networks: как сервисы общаются
+
+### 🧠 Теория: почему сервис может «не видеть» другой?
+
+По умолчанию Compose создаёт одну сеть для всех сервисов в файле. Внутри этой сети сервисы обращаются друг к другу **по именам** (не по IP). Например, сайт обращается к базе данных просто как `db:5432` — не надо знать никакой IP-адрес.
+
+Но иногда нужно **разделить** сервисы: например, база данных не должна быть доступна снаружи, только для бэкенда. Для этого используют несколько сетей.
+
+```yaml
+# docker-compose.yml с явными сетями
+version: "3.9"
+services:
+  frontend:
+    image: nginx:latest
+    networks:
+      - public-net           # Видна снаружи
+    ports:
+      - "80:80"
+
+  backend:
+    build: .
+    networks:
+      - public-net           # Принимает запросы от frontend
+      - private-net          # Ходит в БД
+
+  db:
+    image: postgres:15-alpine
+    networks:
+      - private-net          # Только для backend — снаружи недоступна!
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+networks:
+  public-net:                # Публичная сеть (frontend + backend)
+  private-net:               # Приватная сеть (backend + db)
+```
+
+**Что это даёт:**
+- Frontend не может напрямую обратиться к базе — только через backend
+- База защищена от случайного доступа
+- Это называется «сетевая сегментация» — важная практика безопасности
+
+```bash
+# Посмотреть сети
+docker network ls
+docker network inspect my-project_private-net
+
+# Проверить, что backend видит db (зайди в backend и пропингуй)
+docker compose exec backend ping db
+```
+
+### ⚠️ Типичная ошибка: сервис не может подключиться к базе
+
+```
+sqlalchemy.exc.OperationalError: could not connect to server: Connection refused
+    Is the server running on host "localhost"?
+```
+
+**Причина:** в коде написано `localhost` вместо имени сервиса из Compose.
+**Решение:** внутри Docker Compose обращайся по имени сервиса:
+```python
+# ❌ Неправильно:
+DATABASE_URL = "postgresql://user:pass@localhost:5432/mydb"
+
+# ✅ Правильно (имя сервиса из docker-compose.yml):
+DATABASE_URL = "postgresql://user:pass@db:5432/mydb"
 ```
 
 ---
@@ -99,12 +176,18 @@ docker compose logs -f web
 <br/><em>Prometheus — детектив: каждые 15 сек обходит сервисы и записывает числа. Grafana рисует красивые графики</em>
 </div>
 
+### 🧠 Теория: зачем нужен мониторинг?
+
+Представь: сайт стал работать медленно. Пользователи жалуются, но ты не знаешь — в чём причина. Закончилась память? Перегружен CPU? Слишком много запросов к базе?
+
+**Prometheus** каждые несколько секунд опрашивает твои сервисы и записывает числа: сколько памяти используется, сколько запросов в секунду, сколько ошибок. **Grafana** превращает эти числа в красивые графики — ты видишь картину в реальном времени.
+
 ```yaml
 # prometheus.yml
 global:
-  scrape_interval: 15s
+  scrape_interval: 15s            # Опрашивать каждые 15 секунд
 scrape_configs:
-  - job_name: 'cadvisor'
+  - job_name: 'cadvisor'          # cAdvisor собирает метрики Docker
     static_configs:
       - targets: ['cadvisor:8080']
 ```
@@ -140,8 +223,10 @@ scrape_configs:
 
 ```bash
 docker compose up -d
-open http://localhost:9090   # Prometheus
-open http://localhost:3000   # Grafana (admin/admin)
+# Открыть Prometheus:
+curl http://localhost:9090
+# Открыть Grafana (admin/admin):
+curl http://localhost:3000
 # В Grafana: Add Data Source → Prometheus → http://prometheus:9090
 # Import Dashboard ID: 193 (Docker metrics)
 ```
@@ -158,6 +243,7 @@ open http://localhost:3000   # Grafana (admin/admin)
 | `docker compose exec web bash` | Войти в сервис |
 | `docker compose down` | Остановить |
 | `docker compose up --scale web=3` | Масштабировать |
+| `docker compose restart web` | Перезапустить один сервис |
 
 ### Порты нашего стека
 
@@ -167,5 +253,14 @@ open http://localhost:3000   # Grafana (admin/admin)
 | cAdvisor | :8081 |
 | Prometheus | :9090 |
 | Grafana | :3000 |
+
+### Концепции Networks
+
+| Концепция | Смысл |
+|-----------|-------|
+| Сеть по умолчанию | Все сервисы Compose видят друг друга |
+| Обращение по имени | `db:5432`, не `localhost:5432` |
+| Несколько сетей | Разделение: frontend/backend/db |
+| `docker network ls` | Список всех сетей |
 
 ➡️ [Следующий модуль: Kubernetes →](../module5-kubernetes/)
