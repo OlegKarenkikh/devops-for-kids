@@ -72,12 +72,16 @@ def index():
     global visits
     visits += 1
     return jsonify({
-        "сервис": os.environ.get("APP_NAME","Сайт"),
+        "сервис": os.environ.get("APP_NAME", "Сайт"),
         "визитов": visits,
         "время": datetime.datetime.now().isoformat()
     })
 
-app.run(host='0.0.0.0', port=int(os.environ.get('PORT',8080)))
+# ✅ Правило: app.run() ВСЕГДА внутри if __name__ == "__main__"
+# Иначе Flask запустится повторно при импорте модуля другим кодом
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
 ```
 
 ```bash
