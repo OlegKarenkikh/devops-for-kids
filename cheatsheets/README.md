@@ -122,3 +122,24 @@ minikube service имя                        # Открыть сервис
 - `755` → владелец rwx, остальные r-x (исполняемые)
 - `600` → владелец rw-, остальные --- (секреты)
 - `777` → все rwx (⚠️ небезопасно!)
+
+---
+
+## 🎯 Быстрая самопроверка
+
+Открой терминал и выполни — всё должно работать без ошибок:
+
+```bash
+# Linux & Git
+pwd && ls -la && git --version
+
+# Docker
+docker --version && docker run hello-world
+
+# Kubernetes (если установлен)
+kubectl version --client
+
+# Python
+python3 --version && python3 -c "print('Всё работает!')"
+```
+
