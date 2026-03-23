@@ -1,138 +1,66 @@
 # 🐧 Модуль 1 — Терминал и Linux (Уроки 1–8)
 
-> **Цель:** научиться управлять компьютером через текстовые команды.
+> **Цель:** уверенно работать в командной строке Linux, управлять файлами, пользователями и безопасным доступом.
 
 ---
 
 ## Урок 1 — Что такое терминал?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-terminal-analogy.jpg" alt="Что такое терминал" width="85%"/>
-<br/><em>Терминал — это клавиатура для управления компьютером напрямую, без мышки</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-terminal-analogy.jpg" alt="Терминал — это разговор с компьютером" width="85%"/>
+<br/><em>Терминал — это как разговор с компьютером на его языке. Ты пишешь команду — компьютер выполняет</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> Терминал — это разговор с компьютером текстом. Ты пишешь команду, компьютер её выполняет и отвечает.
-
 ```bash
-whoami           # Кто я?
-pwd              # Где я нахожусь?
-date             # Какое время?
-echo "Привет!"   # Напечатать текст
-clear            # Очистить экран
-```
-
-### 🧪 Задание 1
-```bash
-whoami
-pwd
-echo "Моё первое задание выполнено!"
-date
-```
-**Ожидаемый результат:**
-```
-ваня
-/home/ваня
-Моё первое задание выполнено!
-Пн 23 мар 2026 12:00:00
+whoami          # Кто я? (имя текущего пользователя)
+pwd             # Где я? (текущая папка)
+ls              # Что здесь есть? (список файлов)
+ls -la          # Подробный список с правами и размерами
+clear           # Очистить экран (или Ctrl+L)
 ```
 
 ---
 
-## Урок 2 — Файловая система Linux
+## Урок 2 — Файловая система
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-filesystem.jpg" alt="Файловая система Linux" width="70%"/>
-<br/><em>Файловая система — одно большое дерево папок, начинающееся с / (корня)</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-filesystem.jpg" alt="Файловая система Linux" width="85%"/>
+<br/><em>Linux — дерево папок. Корень / — самая верхняя папка, как ствол дерева</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> Файловая система как дерево. Корень `/` — это ствол. Все папки — ветки. Файлы — листья.
-
 ```bash
-ls               # Показать содержимое
-ls -la           # Подробный список со скрытыми файлами
-cd /home         # Перейти в папку
-cd ..            # Подняться уровень выше
-cd ~             # Домашняя папка
-mkdir моя-папка  # Создать папку
-touch файл.txt   # Создать пустой файл
-rm файл.txt      # Удалить файл
-rm -rf папка/    # Удалить папку с содержимым (осторожно!)
-cp файл.txt копия.txt  # Скопировать
-mv файл.txt новое-имя.txt  # Переименовать/переместить
-```
-
-### 🧪 Задание 2
-```bash
-mkdir ~/мой-первый-проект
-cd ~/мой-первый-проект
-touch README.md
-touch app.py
-mkdir данные
-ls -la
-pwd
-```
-**Ожидаемый результат:**
-```
-drwxr-xr-x  4 ваня ваня 4096 ...  .
-drwxr-xr-x 15 ваня ваня 4096 ...  ..
-drwxr-xr-x  2 ваня ваня 4096 ...  данные
--rw-r--r--  1 ваня ваня    0 ...  README.md
--rw-r--r--  1 ваня ваня    0 ...  app.py
+cd /home        # Перейти в папку /home
+cd ~            # Перейти домой (твоя папка)
+cd ..           # Подняться на уровень выше
+mkdir мой-проект          # Создать папку
+touch hello.txt           # Создать пустой файл
+echo "Привет!" > hello.txt  # Записать текст в файл
+cat hello.txt             # Прочитать файл
+cp hello.txt копия.txt    # Скопировать
+mv hello.txt bye.txt      # Переименовать / переместить
+rm bye.txt                # Удалить файл
+rm -rf папка/             # Удалить папку целиком (ОСТОРОЖНО!)
 ```
 
 ---
 
-## Урок 3 — Права доступа и chmod
+## Урок 3 — Права доступа (chmod)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-permissions.jpg" alt="Права доступа" width="85%"/>
-<br/><em>Три замка: владелец, группа и все остальные — у каждого свои права</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-permissions.jpg" alt="Права доступа через замки" width="85%"/>
+<br/><em>Права — три замка: для владельца, группы, всех остальных. r=читать, w=писать, x=запускать</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> У каждого файла — три группы людей: **владелец**, **группа**, **все остальные**. Для каждой группы — три права: читать (r), писать (w), запускать (x).
-
-```
--rwxr-xr-- → расшифровка:
-  r w x  — владелец: читать✅ писать✅ запускать✅
-  r - x  — группа:   читать✅ писать❌ запускать✅  
-  r - -  — остальные: читать✅ писать❌ запускать❌
-```
-
 ```bash
-ls -la файл.sh           # Посмотреть права файла
-chmod +x скрипт.sh       # Дать право запускать
-chmod 755 скрипт.sh      # rwxr-xr-x (стандарт для скриптов)
-chmod 644 файл.txt       # rw-r--r-- (стандарт для файлов)
-chmod 600 секрет.txt     # rw------- (только владелец)
-chmod -R 755 папка/      # Изменить права рекурсивно
-```
+ls -la script.sh          # Смотрим права: -rwxr-xr-x
+chmod +x script.sh        # Добавить право на запуск всем
+chmod 755 script.sh       # rwxr-xr-x (стандарт для скриптов)
+chmod 644 config.txt      # rw-r--r-- (стандарт для конфигов)
+chmod 600 ~/.ssh/id_rsa   # rw------- (только владелец — ключи!)
 
-### 🧪 Задание 3
-```bash
-# Создаём и запускаем свой первый скрипт
-cat > ~/привет.sh << 'EOF'
-#!/bin/bash
-echo "Привет! Меня зовут $(whoami)"
-echo "Сейчас $(date)"
-echo "Я нахожусь в $(pwd)"
-EOF
-
-ls -la ~/привет.sh          # Без x
-chmod +x ~/привет.sh        # Даём право запускать
-ls -la ~/привет.sh          # Теперь есть x
-~/привет.sh                 # Запускаем!
-```
-**Ожидаемый результат:**
-```
-Привет! Меня зовут ваня
-Сейчас Пн 23 мар 2026 12:05:00
-Я нахожусь в /home/ваня
+# Что значат цифры:
+# 4 = r (читать)    2 = w (писать)    1 = x (выполнять)
+# 7 = 4+2+1 = rwx   6 = 4+2 = rw-    5 = 4+1 = r-x
 ```
 
 ---
@@ -140,35 +68,25 @@ ls -la ~/привет.sh          # Теперь есть x
 ## Урок 4 — chown: смена владельца
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-chown.jpg" alt="chown смена владельца" width="85%"/>
-<br/><em>chown — как переписать именной ярлык на посылке. Меняет хозяина файла.</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-chown.jpg" alt="chown — именной ярлык на файле" width="85%"/>
+<br/><em>chown — как именной ярлык на вещи. Меняешь ярлык — меняется хозяин</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> `chmod` меняет **права** (что можно делать). `chown` меняет **владельца** (кому принадлежит). Это как переписать имя получателя на посылке.
-
 ```bash
-ls -la файл.txt                    # Посмотреть владельца
-sudo chown ваня файл.txt           # Сменить владельца
-sudo chown ваня:разработчики файл.txt  # Владелец + группа
-sudo chown -R ваня:ваня /var/www/  # Рекурсивно всю папку
-stat файл.txt                      # Подробная информация о файле
-```
+ls -la app.py
+# -rw-r--r-- 1 root root 1234 Mar 23 app.py
+#              ^^^^  ^^^^
+#           владелец группа
 
-### 🧪 Задание 4
-```bash
-sudo touch /tmp/тест-владельца.txt
-ls -la /tmp/тест-владельца.txt
-# Увидим: root root
+sudo chown alice app.py             # Передать файл пользователю alice
+sudo chown alice:developers app.py  # alice + группа developers
+sudo chown -R alice:www-data /var/www/  # Рекурсивно для папки
+sudo chown $(whoami) файл.txt       # Себе
 
-sudo chown $USER /tmp/тест-владельца.txt
-ls -la /tmp/тест-владельца.txt
-# Теперь: ваня root → файл наш!
-
-sudo chown $USER:$USER /tmp/тест-владельца.txt
-ls -la /tmp/тест-владельца.txt
-# Теперь: ваня ваня → владелец и группа наши
+# Пример — типичная ошибка и её исправление:
+sudo systemctl start nginx          # Ошибка: /var/log/nginx: Permission denied
+sudo chown -R www-data:www-data /var/log/nginx/
+sudo systemctl start nginx          # Теперь работает!
 ```
 
 ---
@@ -177,208 +95,129 @@ ls -la /tmp/тест-владельца.txt
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-users-groups.jpg" alt="Пользователи и группы" width="85%"/>
-<br/><em>Linux как дом: разные пользователи живут в разных «квартирах», root — хозяин всего</em>
+<br/><em>Пользователи — это люди, группы — это команды. Один человек может быть в нескольких командах</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> Linux — как многоквартирный дом. Каждый житель (`пользователь`) живёт в своей квартире (`/home/имя`). Группы жильцов (`sudo`, `docker`) имеют особые права.
-
 ```bash
-# Посмотреть информацию
-whoami                          # Кто я?
-id                              # Мой UID, GID и группы
-groups ваня                     # В каких группах
-cat /etc/passwd | grep ваня     # Инфо из системного файла
+# Просмотр
+id                         # Мой UID, GID и группы
+who                        # Кто сейчас в системе
+cat /etc/passwd            # Все пользователи (имя:x:UID:GID:...)
+cat /etc/group             # Все группы
 
-# Создание и управление (нужен sudo)
-sudo adduser новый-пользователь        # Создать пользователя
-sudo passwd новый-пользователь         # Установить пароль
-sudo usermod -aG sudo ваня             # Добавить в группу sudo
-sudo usermod -aG docker ваня           # Добавить в группу docker
-sudo deluser имя                       # Удалить пользователя
+# Создание пользователя
+sudo adduser alice                      # Создать (с home-папкой)
+sudo useradd -m -s /bin/bash bob        # Вручную
+sudo passwd alice                       # Установить пароль
 
-# Переключение
-su - ваня                       # Переключиться на пользователя
-sudo -i                         # Стать root (осторожно!)
-exit                            # Вернуться назад
+# Управление группами
+sudo groupadd developers                # Создать группу
+sudo usermod -aG docker alice           # Добавить alice в группу docker
+sudo usermod -aG sudo alice             # Сделать alice администратором
+groups alice                            # Проверить группы alice
+sudo deluser alice developers           # Убрать из группы
+
+# Полезно при работе с Docker:
+sudo usermod -aG docker $USER           # Чтобы запускать docker без sudo
+newgrp docker                           # Применить без перезахода
 ```
 
-### 🧪 Задание 5
-```bash
-# Изучаем свои права
-whoami
-id
-groups
-cat /etc/group | grep $USER
-
-# Если есть право sudo — проверяем
-sudo whoami    # Должно ответить: root
-```
+> **📝 Задание:** создай пользователя `devuser`, добавь в группу `docker`, убедись командой `groups devuser`.
 
 ---
 
-## Урок 6 — SSH: вход по ключу
+## Урок 6 — SSH: безопасный вход на сервер
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-ssh-keys.jpg" alt="SSH авторизация по ключу" width="85%"/>
-<br/><em>Публичный ключ = замок на сервере. Приватный ключ = твой ключ от него. Без него не войти.</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-ssh-keys.jpg" alt="SSH ключи — цифровой замок" width="85%"/>
+<br/><em>SSH-ключи — это как замок и ключ. Публичный ключ (замок) — на сервере. Приватный ключ — только у тебя</em>
 </div>
 
-### 🧠 Простое объяснение
-
-> SSH — зашифрованный туннель между твоим компьютером и сервером. Ключ — это как секретный замок: **публичный ключ** ты оставляешь на сервере, **приватный ключ** никому не отдаёшь.
-
 ```bash
-# Шаг 1: Создаём пару ключей
-ssh-keygen -t ed25519 -C "мой@email.com"
-# Жмём Enter три раза (принять значения по умолчанию)
-# Создаются два файла:
-#   ~/.ssh/id_ed25519      — приватный ключ (НИКОМУ не давать!)
-#   ~/.ssh/id_ed25519.pub  — публичный ключ (можно делиться)
+# Генерация ключевой пары (один раз на своей машине)
+ssh-keygen -t ed25519 -C "твой@email.com"
+# Создаётся:
+#   ~/.ssh/id_ed25519      ← приватный ключ (НИКОМУ не давать!)
+#   ~/.ssh/id_ed25519.pub  ← публичный ключ (можно копировать)
 
-# Шаг 2: Смотрим публичный ключ
-cat ~/.ssh/id_ed25519.pub
+# Копировать публичный ключ на сервер
+ssh-copy-id user@сервер_ip          # Автоматически
+# Или вручную:
+cat ~/.ssh/id_ed25519.pub           # Скопировать текст
+ssh user@сервер "mkdir -p ~/.ssh && echo 'ВСТАВИТЬ_КЛЮЧ' >> ~/.ssh/authorized_keys"
 
-# Шаг 3: Копируем ключ на сервер
-ssh-copy-id ваня@192.168.1.10
-# Вводим пароль один раз — и больше никогда!
+# Подключение
+ssh user@192.168.1.100              # По IP
+ssh user@myserver.com               # По домену
+ssh -i ~/.ssh/mykey user@server     # Конкретный ключ
 
-# Шаг 4: Входим без пароля!
-ssh ваня@192.168.1.10
-
-# Удобный ~/.ssh/config
-cat > ~/.ssh/config << 'EOF'
-Host мой-сервер
-    HostName 192.168.1.10
-    User ваня
+# ~/.ssh/config — умные псевдонимы
+cat >> ~/.ssh/config << 'EOF'
+Host prod
+    HostName 192.168.1.100
+    User alice
     IdentityFile ~/.ssh/id_ed25519
+    Port 22
+
+Host dev
+    HostName 10.0.0.5
+    User developer
+    IdentityFile ~/.ssh/dev_key
 EOF
 
-ssh мой-сервер    # Теперь так!
+ssh prod                            # Теперь просто! (вместо ssh alice@192.168.1.100)
+ssh dev
+
+# Права SSH-файлов (обязательно!)
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/config
+
+# Отладка подключения
+ssh -v user@server                  # Verbose — видим процесс
+ssh -vvv user@server                # Максимальная детализация
 ```
 
-### 🧪 Задание 6
-```bash
-# Создаём ключи и проверяем
-ssh-keygen -t ed25519 -C "обучение" -f ~/.ssh/учебный_ключ -N ""
-
-# Смотрим что создалось
-ls -la ~/.ssh/
-cat ~/.ssh/учебный_ключ.pub
-
-# Проверяем права (должно быть 600 для приватного!)
-chmod 600 ~/.ssh/учебный_ключ
-ls -la ~/.ssh/учебный_ключ
-```
-**Ожидаемый результат:**
-```
--rw------- 1 ваня ваня  419 ... учебный_ключ
--rw-r--r-- 1 ваня ваня  104 ... учебный_ключ.pub
-```
+> **🔐 Правило:** приватный ключ `id_ed25519` — как паспорт. Никому не отправляй, не коммить в Git!
 
 ---
 
-## Урок 7 — Bash-скрипты: автоматизация
-
-### 🧠 Простое объяснение
-
-> Bash-скрипт — это список команд в файле. Вместо того чтобы каждый раз писать 10 команд, ты пишешь их один раз в файл — и запускаешь одной командой.
+## Урок 7 — Bash-скрипты
 
 ```bash
 #!/bin/bash
-# Скрипт: инфо-о-системе.sh
+# Мой первый скрипт (hello.sh)
 
-echo "======================================"
-echo "       ИНФОРМАЦИЯ О СИСТЕМЕ"
-echo "======================================"
-echo "Пользователь:  $(whoami)"
-echo "Компьютер:     $(hostname)"
-echo "Дата:          $(date '+%d.%m.%Y %H:%M')"
-echo "ОС:            $(uname -o)"
-echo "--------------------------------------"
-echo "Диск:"
-df -h / | grep -v Filesystem
-echo "--------------------------------------"
-echo "Память:"
-free -h | grep Mem
-echo "======================================"
+NAME=$(whoami)
+DATE=$(date +"%d.%m.%Y %H:%M")
+echo "Привет, $NAME! Сейчас $DATE"
+echo "Ты находишься в: $(pwd)"
+echo "Диск: $(df -h / | tail -1 | awk '{print $5}')"
 ```
 
 ```bash
-# Создаём, даём права, запускаем
-nano ~/инфо-о-системе.sh
-chmod +x ~/инфо-о-системе.sh
-~/инфо-о-системе.sh
-```
-
-### 🧪 Задание 7 — Цикл и условие
-```bash
-cat > ~/приветствие.sh << 'EOF'
-#!/bin/bash
-for имя in Ваня Маша Петя; do
-    echo "Привет, $имя!"
-done
-
-if [ -z "$1" ]; then
-    echo "Использование: $0 <имя>"
-else
-    echo "Особое приветствие для $1!"
-fi
-EOF
-
-chmod +x ~/приветствие.sh
-~/приветствие.sh              # Без аргумента
-~/приветствие.sh Оля          # С аргументом
+chmod +x hello.sh
+./hello.sh
 ```
 
 ---
 
-## Урок 8 — Полезные команды для работы
+## Урок 8 — Шпаргалка
 
-```bash
-# Просмотр файлов
-cat файл.txt            # Вывести содержимое
-less файл.txt           # Постраничный просмотр (q — выход)
-head -n 10 файл.txt     # Первые 10 строк
-tail -n 20 файл.txt     # Последние 20 строк
-tail -f /var/log/syslog # Следить за логом в реальном времени
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-commands-cheatsheet.jpg" alt="Шпаргалка по командам Linux" width="85%"/>
+</div>
 
-# Поиск
-grep "ошибка" файл.txt  # Найти слово в файле
-grep -r "TODO" ~/код/   # Поиск во всех файлах папки
-find / -name "*.py" 2>/dev/null  # Найти файлы по имени
-
-# Процессы
-ps aux                  # Все запущенные процессы
-htop                    # Интерактивный диспетчер задач
-kill 1234               # Завершить процесс с PID 1234
-kill -9 1234            # Принудительно завершить
-
-# Сеть
-ping google.com         # Проверить связь
-curl -I https://google.com  # HTTP-заголовки сайта
-wget https://example.com/файл.zip  # Скачать файл
-ss -tlnp                # Открытые порты
-```
-
----
-
-## 📋 Шпаргалка Модуля 1
-
-| Команда | Что делает |
-|---------|------------|
-| `pwd` | Текущая папка |
-| `ls -la` | Подробный список файлов |
-| `cd путь` | Перейти в папку |
-| `mkdir имя` | Создать папку |
-| `touch файл` | Создать файл |
-| `chmod +x файл` | Дать право запуска |
-| `chmod 755 файл` | Стандартные права для скриптов |
-| `chown user:group файл` | Сменить владельца |
-| `sudo adduser имя` | Создать пользователя |
-| `sudo usermod -aG группа имя` | Добавить в группу |
-| `ssh-keygen -t ed25519` | Создать SSH-ключи |
+| Команда | Действие |
+|---------|---------|
+| `ls -la` | Список файлов с правами |
+| `chmod 755 file` | Установить права |
+| `chown user:group file` | Сменить владельца |
+| `adduser alice` | Создать пользователя |
+| `usermod -aG group user` | Добавить в группу |
+| `ssh-keygen -t ed25519` | Создать ключи |
 | `ssh-copy-id user@host` | Скопировать ключ на сервер |
 
 ➡️ [Следующий модуль: Git →](../module2-git/)
