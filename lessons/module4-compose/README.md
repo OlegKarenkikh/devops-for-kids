@@ -244,6 +244,45 @@ curl http://localhost:3000
 
 ---
 
+
+---
+
+## 🎯 Практические задания
+
+### Задание 1 — Стек одной командой
+```bash
+mkdir compose-test && cd compose-test
+
+cat > docker-compose.yml << 'EOF'
+version: "3.9"
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: testdb
+EOF
+
+docker compose up -d
+docker compose ps      # оба Running?
+docker compose down
+```
+> ✅ Два сервиса запустились одной командой!
+
+### Задание 2 — Переменные окружения
+```bash
+cat > .env << 'EOF'
+DB_PASSWORD=supersecret
+WEB_PORT=9090
+EOF
+# Используй ${DB_PASSWORD} и ${WEB_PORT} в docker-compose.yml
+docker compose up -d
+```
+
 ## Урок 23 — Шпаргалка Compose
 
 | Команда | Действие |
