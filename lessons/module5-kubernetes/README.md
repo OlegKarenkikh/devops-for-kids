@@ -52,6 +52,12 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
+  <br/><em>☸️ Рис. 7 — Три главных объекта k8s: Pod → Deployment → Service с YAML примерами</em>
+</div>
+
+
 > **Важно:** имена объектов в Kubernetes — только латиница, цифры и дефис. Кириллица не работает!
 
 ```yaml
@@ -123,6 +129,12 @@ kubectl rollout undo deployment/my-website
 ---
 
 ## Урок 28 — Автомасштабирование HPA
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="900"/>
+  <br/><em>⚙️ Рис. 8 — Шпаргалка kubectl: смотреть / запускать / отлаживать</em>
+</div>
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg" alt="HPA автомасштабирование" width="85%"/>
