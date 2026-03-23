@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/cover.jpg" alt="DevOps для детей и начинающих" width="100%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/course-roadmap.jpg" alt="DevOps для детей — дорожная карта" width="100%"/>
 
 # 🐧🐳⚙️ DevOps для детей и начинающих
 
-> **Полный курс от терминала до Kubernetes** — простым языком, с иллюстрациями, примерами и заданиями.
+> **Полный курс от терминала до Kubernetes** — простым языком, с иллюстрациями, примерами и задачами в терминале.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Lessons](https://img.shields.io/badge/уроков-28-blue)](#-карта-курса)
+[![Lessons](https://img.shields.io/badge/уроков-35-blue)](#-карта-курса)
 [![Language](https://img.shields.io/badge/язык-Русский-red)](README.md)
 [![For Kids](https://img.shields.io/badge/возраст-8%2B-green)](#-для-кого-курс)
 
@@ -15,11 +15,7 @@
 
 ---
 
-## 🗺️ Дорожная карта
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/course-roadmap.jpg" alt="Дорожная карта" width="85%"/>
-</div>
+## 🗺️ Карта курса
 
 | Модуль | Уроки | Темы |
 |--------|-------|------|
@@ -28,18 +24,19 @@
 | 🐳 [Docker](lessons/module3-docker/) | 12–18 | Образы, Dockerfile, exec, logs, prune |
 | 🎼 [Compose + Мониторинг](lessons/module4-compose/) | 19–23 | Compose, Prometheus, Grafana |
 | ⚙️ [Kubernetes](lessons/module5-kubernetes/) | 24–28 | Pod, Deployment, HPA, rolling update |
+| 🔐 [Секреты и API](lessons/module6-secrets-api/) | 29–35 | .env, Vault, REST API, JWT, Gravitee |
 
 ---
 
 ## 🚀 Быстрый старт
 
 ```bash
-whoami    # Открой терминал и напиши это
+whoami    # Открой терминал и напиши это — поехали!
 ```
 
 ---
 
-## 📖 Онлайн-ресурсы
+## 📖 Полезные ресурсы
 
 | Ресурс | Что делает |
 |--------|-----------|
