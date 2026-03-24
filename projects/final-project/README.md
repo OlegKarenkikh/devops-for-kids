@@ -53,7 +53,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/project_architecture.png" alt="Архитектура проекта" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/project_architecture.jpg" alt="Архитектура проекта" width="90%"/>
 <br/><em>Запрос от пользователя → Flask API → SQLite → ответ JSON. Всё внутри Docker!</em>
 </div>
 ### Маршрут API
