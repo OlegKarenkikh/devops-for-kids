@@ -44,7 +44,7 @@ docker run hello-world              # Тест: скачает и запусти
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.png" alt="Частые ошибки Docker" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.jpg" alt="Частые ошибки Docker" width="90%"/>
 <br/><em>Три самые частые ошибки и как их исправить</em>
 </div>
 ### ⚠️ Частая ошибка: permission denied
@@ -160,7 +160,7 @@ curl http://localhost:8080          # Проверить
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png" alt="Dockerfile порядок слоёв" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg" alt="Dockerfile порядок слоёв" width="90%"/>
 <br/><em>Меняется редко — наверх. Меняется часто — вниз. Кэш экономит минуты сборки!</em>
 </div>
 ### ⚠️ Частые ошибки при сборке
@@ -246,7 +246,7 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png" alt="Docker Volume" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
 <br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
 </div>
 ## Урок 17 — Тома (Volumes): сохраняем данные
