@@ -4,6 +4,10 @@
 
 ---
 
+> 💡 **Image vs Container? Порт 8080:8080? Зачем Volume?**  
+> → [Ответы в Детском FAQ](../kids-faq/#модуль-3--docker)
+
+
 ## Урок 12 — Зачем нужен Docker?
 
 <div align="center">
