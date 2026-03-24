@@ -56,7 +56,7 @@ nothing to commit, working tree clean
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png" alt="Git ветки" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.jpg" alt="Git ветки" width="90%"/>
 <br/><em>Main всегда работает. Эксперименты — в отдельных ветках!</em>
 </div>
 ### 🧠 Теория: зачем нужны ветки?
@@ -98,7 +98,7 @@ git pull                        # Получить чужие изменения
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.png" alt="SSH ключи" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
 <br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
 </div>
 ### 🧠 Теория: что такое SSH и зачем он нужен?
@@ -126,7 +126,7 @@ ssh -T git@github.com
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.png" alt="SSH troubleshooting" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.jpg" alt="SSH troubleshooting" width="90%"/>
 <br/><em>Следуй блок-схеме — шаг за шагом найдёшь проблему</em>
 </div>
 ### ⚠️ Что делать если SSH не пускает?
