@@ -17,7 +17,7 @@
 ## 🗺️ Начни здесь — Вводный модуль
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_full_architecture.png" alt="Полная архитектура системы" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_full_architecture.jpg" alt="Полная архитектура системы" width="90%"/>
 <br/><em>Ты построишь именно такую систему — от нуля до продакшена</em>
 </div>
 
