@@ -49,6 +49,7 @@
 | 4 | 🎼 [Compose + Мониторинг](lessons/module4-compose/) | 19–23 | Docker Compose, Prometheus, Grafana |
 | 5 | ⚙️ [Kubernetes](lessons/module5-kubernetes/) | 24–28 | Pod, Deployment, Service, HPA |
 | 6 | 🔐 [Секреты и REST API](lessons/module6-secrets-api/) | 29–35 | .env, Flask API, Kubernetes Secrets |
+| 📚 | [❓ Детский FAQ](lessons/kids-faq/) | — | 48 ответов на вопросы новичков |
 | ⭐ | [Бонус](lessons/module-bonus/) | — | GPU, AI, HTTPS, Telegram-бот, FastAPI |
 
 ➡️ **[🏆 Итоговый проект — «Моя Коллекция»](projects/final-project/)**
