@@ -68,7 +68,7 @@ docker compose down -v      # + удалить тома (данные БД пр�
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks.png" alt="Docker Networks" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks.jpg" alt="Docker Networks" width="90%"/>
 <br/><em>База данных защищена — Frontend не видит её напрямую!</em>
 </div>
 ### 🧠 Теория: почему сервис может «не видеть» другой?
