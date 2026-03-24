@@ -4,6 +4,10 @@
 
 ---
 
+> 💡 **Что такое Pod? Как произносить kubectl? Чем Deployment отличается от Pod?**  
+> → [Ответы в Детском FAQ](../kids-faq/#модуль-5--kubernetes)
+
+
 ## Урок 24 — Docker vs Kubernetes
 
 <div align="center">
