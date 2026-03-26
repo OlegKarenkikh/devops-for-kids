@@ -153,12 +153,11 @@ bash: docker: command not found
 
 Новичок видит ошибку, переходит к следующей команде... и снова ошибка. Фрустрация нарастает.
 
-**Рекомендация:** Добавить отдельный файл `.comments/SETUP.md` (или секцию в модуле 0) с установкой для каждой ОС:
+**Рекомендация:** Добавить отдельный файл `.comments/SETUP.md` (или секцию в модуле 0) с установкой для каждой ОС.
 
-```markdown
-## Установка инструментов
+Содержание такого раздела:
 
-### Linux Ubuntu/Debian
+#### Linux Ubuntu/Debian
 
 **Git:**
 ```bash
@@ -167,10 +166,16 @@ git --version  # должно показать git 2.x
 ```
 
 **Docker:**
+
+> ⚠️ Рекомендуем устанавливать Docker по официальной инструкции, а не через скрипт `curl | sh`
+> (запуск удалённого скрипта без предварительной проверки — небезопасная практика):
+> - Ubuntu: https://docs.docker.com/engine/install/ubuntu/
+> - Debian: https://docs.docker.com/engine/install/debian/
+
 ```bash
-curl -fsSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-# ВАЖНО: выйди из системы и войди снова!
+# После установки по официальной инструкции добавь себя в группу docker:
+sudo usermod -aG docker "$USER"
+# ВАЖНО: выйди из системы и войди снова, чтобы изменения применились!
 docker --version  # должно показать Docker 24+
 ```
 
@@ -180,7 +185,7 @@ sudo apt install python3 python3-pip -y
 python3 --version  # должно показать Python 3.x
 ```
 
-### Windows (WSL2)
+#### Windows (WSL2)
 
 Docker на Windows работает через WSL2 (Windows Subsystem for Linux):
 
@@ -190,7 +195,7 @@ Docker на Windows работает через WSL2 (Windows Subsystem for Linu
 4. Установи Docker Desktop: https://www.docker.com/products/docker-desktop
 5. В настройках Docker Desktop включи интеграцию с WSL2
 
-### macOS
+#### macOS
 
 ```bash
 # Homebrew (установщик пакетов для Mac):
@@ -199,16 +204,15 @@ Docker на Windows работает через WSL2 (Windows Subsystem for Linu
 brew install git
 brew install --cask docker
 ```
-```
 
 ---
 
 #### Проблема 3: Модуль 5 (Kubernetes) значительно короче остальных
 
-**Что случилось:** Сравнивая размеры модулей:
-- Модуль 0: 21 КБ
-- Модуль 3 (Docker): 16 КБ  
-- Модуль 5 (Kubernetes): **5 КБ** — в 3-4 раза меньше!
+**Что случилось:** По приблизительной оценке объёма материалов (по размеру Markdown‑файлов в репозитории на момент обзора) модули выглядят так:
+- Модуль 0: около 21 КБ
+- Модуль 3 (Docker): около 16 КБ  
+- Модуль 5 (Kubernetes): **около 5 КБ** — в 3–4 раза меньше!
 
 Kubernetes — самая сложная тема курса. При этом она наименее раскрыта. Модуль 5 содержит:
 - Краткое сравнение Docker vs K8s
@@ -297,10 +301,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Установить Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -419,7 +423,8 @@ deploy_app "my-app:latest"
 
 **Рекомендация:** Добавить step-by-step с ожидаемым результатом:
 
-```markdown
+---
+
 ## Что ты должен увидеть после запуска
 
 ### Шаг 1: Проверь что всё запустилось
@@ -446,7 +451,6 @@ docker compose ps
 1. Слева меню → "Data sources" → "Add data source" → выбери Prometheus
 2. URL: http://prometheus:9090 (не localhost! Это имя сервиса в Docker сети)
 3. Нажми "Save & Test" — должно появиться зелёное "Data source is working"
-```
 
 ---
 
@@ -467,7 +471,8 @@ def get_all():
 
 **Рекомендация:** Добавить мини-введение в Python конструкции, используемые в курсе:
 
-```markdown
+---
+
 ## Python для DevOps: минимальный необходимый минимум
 
 Ты не становишься Python-разработчиком. Но понять 5 концепций нужно:
@@ -517,7 +522,6 @@ def get_all():
 from flask import Flask, jsonify, request
 # flask — название библиотеки
 # Flask, jsonify, request — конкретные инструменты из неё
-```
 ```
 
 ---
@@ -692,9 +696,10 @@ echo "Результат: $PASS пройдено, $FAIL не пройдено"
 
 **Проблема:** Junior DevOps сегодня почти всегда работает с облачными провайдерами (AWS, GCP, Azure). В курсе об этом ни слова.
 
-**Рекомендация:** Добавить хотя бы вводный урок (возможно, в бонусном модуле):
+**Рекомендация:** Добавить хотя бы вводный урок (возможно, в бонусном модуле).
 
-```markdown
+Содержание такого урока:
+
 ## Облака: AWS, GCP, Azure — что это и зачем?
 
 Ты построил сервис на своём компьютере. Хорошо. Но как дать доступ
@@ -713,22 +718,29 @@ echo "Результат: $PASS пройдено, $FAIL не пройдено"
 - GCP Free Tier: $300 кредитов на 90 дней
 - Azure Free: $200 кредитов на 30 дней
 
-Минимальный пример — запустить наш Flask API в AWS:
-```bash
-# 1. Установи AWS CLI
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip && sudo ./aws/install
+Минимальный пример — **запустить наш Flask API в AWS** лучше строить не на «магической» команде, а на официальном туториале, чтобы:
+- использовать **актуальные AMI для выбранного региона**;
+- избежать ошибок с устаревшими ID образов;
+- сразу привыкать к **безопасной работе с облаком**.
 
-# 2. Настрой доступ (ключи из AWS Console)
-aws configure
+Предлагаем вместо готовой команды дать ученику такой маршрут:
 
-# 3. Запусти EC2 инстанс (виртуальный сервер)
-aws ec2 run-instances \
-    --image-id ami-0c55b159cbfafe1f0 \
-    --instance-type t2.micro \
-    --key-name my-key
-```
-```
+1. Создать аккаунт AWS и внимательно прочитать условия **AWS Free Tier**.
+2. Пройти официальный гайд по запуску приложения на EC2/через консоль:
+   - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
+   — или пошаговый туториал из раздела Tutorials в AWS Console (Launch a virtual machine).
+3. При необходимости установить AWS CLI по официальной инструкции:
+   - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+4. Для развёртывания своего Flask API использовать:
+   - либо user data (скрипт инициализации) из официальных примеров;
+   - либо готовые инструкции, где AMI подбирается автоматически для нужного региона.
+
+> ⚠️ **Важно добавить в курс явное предупреждение:**
+> - Все облачные ресурсы (EC2, базы данных и т.п.) **могут стоить денег**, даже на Free Tier.
+> - После экспериментов **обязательно удаляй инстансы и другие ресурсы**, иначе счёт может расти.
+> - Не храни AWS access keys в Git-репозиториях и общих файлах.
+> - Создавай учётки/роли с **минимально необходимыми правами** (principle of least privilege).
+> - По возможности используй **SSO/role** вместо «вечных» access keys на локальной машине.
 
 ---
 
