@@ -339,3 +339,86 @@ kubectl get secret my-secret -o jsonpath='{.data.db-password}' | base64 -d
 ```
 
 ➡️ [Итоговый проект →](../../projects/final-project/)
+
+---
+
+## ❓ Вопросы новичков — Секреты и API
+
+<details>
+<summary><strong>Что такое API простыми словами?</strong></summary>
+
+API — **меню в ресторане**. Ты не знаешь как повар готовит, но знаешь что можно заказать.
+
+```
+Ты (клиент)  →  GET /menu        →  API  →  База данных
+             ←  ["борщ","пицца"] ←
+```
+
+Примеры API которые ты уже используешь:
+- Погода в телефоне → weather API
+- Карты → Google Maps API
+- Войти через Google → OAuth API
+- Оплата картой → Stripe API
+
+</details>
+
+<details>
+<summary><strong>Зачем .env файл и почему его нельзя коммитить?</strong></summary>
+
+.env хранит **секреты** — пароли и ключи, которые нельзя показывать:
+
+```bash
+# .env — НИКОГДА не коммить в git!
+DATABASE_URL=postgresql://admin:SUPER_SECRET_PASS@db:5432/mydb
+OPENAI_API_KEY=sk-proj-AbCdEfGhIjKlMnOpQrStUvWx
+TELEGRAM_BOT_TOKEN=1234567890:ABCdef-GHIjkl_MNOpqr
+```
+
+Если закоммитишь и запушишь — **боты сканируют GitHub за секунды** и украдут ключи.
+
+```bash
+echo ".env" >> .gitignore     # добавь в .gitignore
+git rm --cached .env          # убери из git если уже добавил
+```
+
+</details>
+
+<details>
+<summary><strong>Чем Secret в Kubernetes лучше .env?</strong></summary>
+
+| | .env файл | Kubernetes Secret |
+|---|---|---|
+| Где хранится | В файле на диске | В etcd (зашифровано) |
+| Попадает в git | Легко случайно | Никогда |
+| Ротация | Перезапуск вручную | Обновление без restart |
+| Доступ | Кто угодно с SSH | Только нужные Pod |
+
+```bash
+# Создать Secret:
+kubectl create secret generic db-creds   --from-literal=password=supersecret
+
+# Использовать в Pod:
+env:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: db-creds
+        key: password
+```
+
+</details>
+
+<details>
+<summary><strong>Что такое base64 и зачем Kubernetes хранит секреты в нём?</strong></summary>
+
+**Base64 — это НЕ шифрование!** Это просто способ сохранить бинарные данные как текст.
+
+```bash
+echo "supersecret" | base64          # c3VwZXJzZWNyZXQK
+echo "c3VwZXJzZWNyZXQK" | base64 -d  # supersecret
+```
+
+Kubernetes хранит в base64 для совместимости — секрет может содержать бинарные файлы (сертификаты, ключи). Для настоящего шифрования используй **Sealed Secrets** или **HashiCorp Vault**.
+
+</details>
+
