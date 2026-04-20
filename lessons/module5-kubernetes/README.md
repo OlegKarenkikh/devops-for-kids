@@ -172,8 +172,6 @@ kubectl describe hpa my-website
 
 ---
 
-## 🎯 Практические задания
-
 ### Задание 1 — Запусти Minikube
 ```bash
 minikube start
@@ -273,5 +271,5 @@ kubectl get pods && kubectl logs my-pod && kubectl exec -it my-pod -- bash
 
 </details>
 
-> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+> 💬 [Полный FAQ](../../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
 
