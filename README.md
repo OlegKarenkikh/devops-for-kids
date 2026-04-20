@@ -44,7 +44,7 @@
 |---|--------|-------|------------|
 | 0 | 📖 [Введение](lessons/module0-intro/) | — | Как всё устроено, глоссарий, психология обучения |
 | 1 | 🐧 [Терминал и Linux](lessons/module1-terminal/) | 1–8 | Команды, файлы, chmod, SSH, bash-скрипты |
-| 2 | 🌿 [Git и GitHub](lessons/module2-git/) | 9–11 | Версии кода, ветки, SSH-ключи |
+| 2 | 🌿 [Git и GitHub](lessons/module2-git/) | 9–11 + 🔧 | Версии кода, ветки, SSH-ключи, curl и GitHub API |
 | 3 | 🐳 [Docker](lessons/module3-docker/) | 12–18 | Контейнеры, Dockerfile, exec, volumes |
 | 4 | 🎼 [Compose + Мониторинг](lessons/module4-compose/) | 19–23 | Docker Compose, Prometheus, Grafana |
 | 5 | ⚙️ [Kubernetes](lessons/module5-kubernetes/) | 24–28 | Pod, Deployment, Service, HPA |
