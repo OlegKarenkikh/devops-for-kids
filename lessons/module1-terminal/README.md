@@ -200,8 +200,6 @@ chmod +x hello.sh
 
 ---
 
-## 🎯 Практические задания
-
 ### Задание 1 — Навигация и файлы
 ```bash
 # Выполни все команды по порядку
@@ -325,5 +323,5 @@ git pull && npm install && npm run build && docker build -t app . && docker push
 
 </details>
 
-> 💬 Остались вопросы? Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue на GitHub](https://github.com/OlegKarenkikh/devops-for-kids/issues).
+> 💬 Остались вопросы? Смотри [полный FAQ (48 вопросов)](../../kids-faq/) или открой [issue на GitHub](https://github.com/OlegKarenkikh/devops-for-kids/issues).
 
