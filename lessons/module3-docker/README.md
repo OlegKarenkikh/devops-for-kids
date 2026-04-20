@@ -70,7 +70,7 @@ newgrp docker
 ## Урок 13 — Образ vs Контейнер
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-image-vs-container.png" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
 <br/><em>Образ = рецепт (неизменный). Контейнер = приготовленное блюдо. Из одного рецепта — сколько угодно блюд</em>
 </div>
 
@@ -164,7 +164,7 @@ curl http://localhost:8080          # Проверить
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg" alt="Dockerfile порядок слоёв" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-dockerfile-layers.png" alt="Dockerfile порядок слоёв" width="90%"/>
 <br/><em>Меняется редко — наверх. Меняется часто — вниз. Кэш экономит минуты сборки!</em>
 </div>
 ### ⚠️ Частые ошибки при сборке
@@ -250,7 +250,7 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-volume.png" alt="Docker Volume" width="90%"/>
 <br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
 </div>
 ## Урок 17 — Тома (Volumes): сохраняем данные
@@ -341,3 +341,66 @@ exit
 | Port mapping | Дверь снаружи → дверь внутри (-p 8080:80) |
 
 ➡️ [Следующий модуль: Docker Compose →](../module4-compose/)
+
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>В чём разница между Image и Container?</b></summary>
+
+| | Docker Image | Docker Container |
+|---|---|---|
+| Что это | Шаблон / снимок | Живая копия, работает сейчас |
+| Можно изменить | ❌ Нет | ✅ Да (изменения пропадут при удалении) |
+| Количество | Один Image | Сколько угодно контейнеров из одного Image |
+| Аналогия | Рецепт / форма для кекса | Готовый кекс |
+
+```bash
+docker images        # все Image
+docker ps            # запущенные контейнеры
+docker run nginx     # запустить контейнер из Image nginx
+```
+
+</details>
+
+<details>
+<summary><b>Порт 8080:8080 — почему два раза?</b></summary>
+
+Это **два разных мира** — твой компьютер и контейнер:
+
+```
+docker run -p 9999:8080 app
+              ↑     ↑
+              |     Порт ВНУТРИ контейнера
+              Порт на ТВОЁМ компьютере
+```
+
+Открываешь `http://localhost:9999` — система перенаправляет в порт `8080` внутри контейнера.
+
+> 🚪 Аналогия: IP-адрес = дом, порт = номер квартиры.
+
+</details>
+
+<details>
+<summary><b>Зачем нужен Volume?</b></summary>
+
+Контейнер — временный. Удалил контейнер — **все данные внутри исчезли**. Volume решает это:
+
+```yaml
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # данные переживут удаление контейнера
+
+volumes:
+  pgdata:
+```
+
+> 📦 Аналогия: контейнер — арендованная квартира. Volume — личный склад, куда перевозишь вещи перед отъездом.
+
+</details>
+
+> 💬 Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue](https://github.com/OlegKarenkikh/devops-for-kids/issues).
+
