@@ -303,7 +303,10 @@ curl -I https://google.com           # Только заголовки отве�
 curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user
 
 # POST-запрос (отправить данные):
-curl -X POST -H "Content-Type: application/json"      -d '{"name":"test"}' https://api.github.com/user/repos
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"name":"test"}' \
+  https://api.github.com/user/repos
 ```
 
 DevOps используют `curl` для автоматизации — деплой, проверка здоровья сервиса, работа с API — всё без браузера.
