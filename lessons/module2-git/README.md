@@ -90,6 +90,33 @@ git push                        # Последующие разы
 git pull                        # Получить чужие изменения
 ```
 
+### ⚠️ git push просит пароль — и не принимает его?
+
+GitHub убрал вход по паролю в **августе 2021**. При попытке `git push` с паролем увидишь:
+```
+remote: Support for password authentication was removed on August 13, 2021.
+fatal: Authentication failed for 'https://github.com/...'
+```
+
+**Способ 1 — Personal Access Token (PAT, быстро):**
+```bash
+# Создай токен: github.com → Settings → Developer Settings
+# → Personal Access Tokens → Tokens (classic) → Generate new token
+# Выбери права: repo (полный доступ к репозиториям), срок: 90 дней
+
+# Подставь токен в remote URL:
+export GITHUB_TOKEN="ghp_твой_токен_здесь"
+git remote set-url origin https://$GITHUB_TOKEN@github.com/ТЫ/проект.git
+git push
+```
+
+**Способ 2 — SSH (правильно, один раз навсегда):**
+```bash
+# → Урок 11 этого модуля — там полная инструкция
+```
+
+> 🔐 Никогда не коммить токен в код и не оставлять его в истории shell. После использования отзови на github.com/settings/tokens.
+
 ---
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
@@ -215,6 +242,35 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ---
 
+## Урок 12 — curl и GitHub API: автоматизация через токен
+
+### 🧠 Теория: что такое curl и зачем он DevOps-инженеру?
+
+`curl` — это команда для отправки HTTP-запросов прямо из терминала. Как браузер, но без интерфейса — только текст. DevOps используют `curl` для автоматизации: проверить API, создать репозиторий, запустить деплой — всё без мыши.
+
+**Personal Access Token (PAT)** — это «пароль для программ». Браузер входит в GitHub через логин/пароль, а скрипты — через токен.
+
+```bash
+# Создать токен: github.com → Settings → Developer Settings
+# → Personal Access Tokens → Tokens (classic) → Generate new token
+# Минимальные права для примеров ниже: repo, read:user
+
+export GITHUB_TOKEN="ghp_твой_токен"
+
+# Кто я?
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/user | python3 -m json.tool | grep '"login"'
+
+# Список репозиториев
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/user/repos      | python3 -m json.tool | grep '"name"'
+
+# Создать репозиторий через API (без браузера!)
+curl -s -X POST      -H "Authorization: Bearer $GITHUB_TOKEN"      -H "Content-Type: application/json"      -d '{"name":"my-api-repo","private":false,"description":"Создан через curl!"}'      https://api.github.com/user/repos | python3 -m json.tool | grep '"html_url"'
+
+# Проверить лимит запросов к API
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/rate_limit      | python3 -m json.tool | grep -A3 '"core"'
+```
+
+> 📝 **Задание:** создай репозиторий `curl-test` через API, затем удали его через `DELETE /repos/{owner}/{repo}`.
 
 ---
 
