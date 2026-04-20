@@ -190,8 +190,6 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ---
 
-## 🎯 Практические задания
-
 ### Задание 1 — Первый репозиторий
 ```bash
 mkdir moy-proekt && cd moy-proekt
@@ -298,5 +296,5 @@ cat ~/.ssh/id_ed25519.pub  # копируй в GitHub → Settings → SSH Keys
 
 </details>
 
-> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+> 💬 [Полный FAQ](../../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
 
