@@ -11,7 +11,7 @@
 ## Урок 24 — Docker vs Kubernetes
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-docker-vs-k8s.jpg" alt="Docker один корабль, Kubernetes флот" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-docker-vs-k8s.png" alt="Docker один корабль, Kubernetes флот" width="85%"/>
 <br/><em>Docker — один корабль. Kubernetes — целый флот с капитаном. Нужно много контейнеров? Kubernetes!</em>
 </div>
 
@@ -118,7 +118,7 @@ minikube service website-service --url
 ## Урок 27 — Самовосстановление
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg" alt="Самовосстановление Kubernetes" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-k8s-self-healing.png" alt="Самовосстановление Kubernetes" width="85%"/>
 <br/><em>Упал Pod → Kubernetes заметил → за 5 секунд запустил новый. Автоматически, без тебя!</em>
 </div>
 
@@ -135,13 +135,13 @@ kubectl rollout undo deployment/my-website
 ## Урок 28 — Автомасштабирование HPA
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-kubectl.png" alt="kubectl шпаргалка" width="900"/>
   <br/><em>⚙️ Рис. 8 — Шпаргалка kubectl: смотреть / запускать / отлаживать</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg" alt="HPA автомасштабирование" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-k8s-autoscale.png" alt="HPA автомасштабирование" width="85%"/>
 <br/><em>HPA следит за нагрузкой: больше запросов → больше Pod'ов. Меньше — уменьшает. Экономия и надёжность</em>
 </div>
 
