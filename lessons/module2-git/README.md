@@ -11,7 +11,7 @@
 ## Урок 9 — Что такое Git?
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="90%"/>
   <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
 </div>
 
@@ -122,7 +122,7 @@ git push
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
   <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
 </div>
 
