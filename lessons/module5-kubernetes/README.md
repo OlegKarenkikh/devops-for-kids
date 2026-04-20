@@ -241,7 +241,7 @@ kubectl describe hpa my-website
 > kubectl autoscale deployment hello-kids --min=2 --max=5 --cpu-percent=50
 > kubectl get hpa -w                      # наблюдай изменения в реальном времени
 > # Нагрузи сервис (в другом терминале):
-> kubectl run -i --tty load-generator --rm --image=busybox --restart=Never >   -- /bin/sh -c "while true; do wget -q -O- http://hello-kids-svc; done"
+> kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while true; do wget -q -O- http://hello-kids-svc; done"
 > # Смотри как растёт REPLICAS в kubectl get hpa ✅
 > ```
 
