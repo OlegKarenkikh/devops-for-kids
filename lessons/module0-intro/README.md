@@ -344,7 +344,7 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 ## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="80%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
 <br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
