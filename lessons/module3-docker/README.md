@@ -341,3 +341,81 @@ exit
 | Port mapping | Дверь снаружи → дверь внутри (-p 8080:80) |
 
 ➡️ [Следующий модуль: Docker Compose →](../module4-compose/)
+
+---
+
+## ❓ Вопросы новичков — Docker
+
+<details>
+<summary><strong>Docker — это как виртуальная машина?</strong></summary>
+
+Похоже, но **намного легче**:
+
+| | Виртуальная машина | Docker-контейнер |
+|---|---|---|
+| Размер | 1–20 ГБ | 50–500 МБ |
+| Старт | 30–60 секунд | 1–2 секунды |
+| ОС внутри | Полная (ядро+система) | Только нужные файлы |
+| На одном ПК | 2–3 одновременно | 100+ одновременно |
+
+> 🍱 Аналогия: виртуальная машина — отдельный дом (фундамент, стены, крыша). Контейнер — комната в общежитии (общий фундамент, своя мебель).
+
+</details>
+
+<details>
+<summary><strong>Что такое образ (image) и контейнер?</strong></summary>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_container.jpg" alt="Образ и контейнер" width="85%"/>
+<br/><em>Образ = рецепт. Контейнер = готовое блюдо. Из одного рецепта — сколько угодно блюд</em>
+</div>
+
+- **Образ (image)** — неизменный шаблон, как рецепт блюда. Только читается.
+- **Контейнер** — запущенный экземпляр образа, как приготовленное блюдо.
+
+```bash
+# Из ОДНОГО образа — МНОГО контейнеров:
+docker run -d --name web1 -p 8080:80 nginx
+docker run -d --name web2 -p 8081:80 nginx
+docker run -d --name web3 -p 8082:80 nginx
+```
+
+</details>
+
+<details>
+<summary><strong>Зачем нужен Dockerfile?</strong></summary>
+
+Dockerfile — **инструкция** как собрать образ. Как рецепт в кулинарной книге.
+
+```dockerfile
+FROM python:3.11-slim          # Берём базовый образ
+WORKDIR /app                   # Рабочая папка
+COPY requirements.txt .        # Копируем зависимости
+RUN pip install -r requirements.txt  # Устанавливаем
+COPY . .                       # Копируем код
+CMD ["python", "app.py"]       # Запускаем
+```
+
+> Dockerfile = список шагов. `docker build` = выполнить эти шаги.
+
+</details>
+
+<details>
+<summary><strong>Почему контейнер «умирает» когда я закрываю терминал?</strong></summary>
+
+Если запустил **без флага `-d`** (detach), контейнер привязан к терминалу.
+
+```bash
+docker run nginx          # ❌ умрёт когда закроешь терминал
+docker run -d nginx       # ✅ работает в фоне
+docker run -d --restart always nginx  # ✅ перезапустится даже после reboot
+```
+
+```bash
+docker ps         # запущенные контейнеры
+docker ps -a      # все, включая остановленные
+docker start ИМЯ  # запустить остановленный
+```
+
+</details>
+
