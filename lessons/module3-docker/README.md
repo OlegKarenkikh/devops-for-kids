@@ -111,7 +111,7 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="90%"/>
   <br/><em>🐳 Рис. 5 — Dockerfile → слои образа → кеширование: что меняется — то пересобирается</em>
 </div>
 
