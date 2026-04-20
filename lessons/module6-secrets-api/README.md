@@ -194,7 +194,7 @@ if __name__ == "__main__":
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.jpg" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-secrets-vault.png" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
 <br/><em>Secret в Kubernetes — как сейф внутри кластера. Пароль хранится отдельно от кода</em>
 </div>
 
