@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/course-roadmap.jpg" alt="DevOps для детей" width="100%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/course-roadmap.png" alt="DevOps для детей" width="100%"/>
 
 # 🐧🐳⚙️ DevOps для детей и начинающих
 
@@ -36,7 +36,7 @@ cat lessons/module0-intro/README.md
 ## 🗺️ Начни здесь — Вводный модуль
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_full_architecture.jpg" alt="Полная архитектура системы" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/intro_full_architecture.png" alt="Полная архитектура системы" width="90%"/>
 <br/><em>Ты построишь именно такую систему — от нуля до продакшена</em>
 </div>
 
@@ -55,7 +55,7 @@ cat lessons/module0-intro/README.md
 ## 🗺️ Карта курса (35 уроков)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/overview-roadmap.jpg" alt="Карта курса" width="900"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/overview-roadmap.png" alt="Карта курса" width="900"/>
 <br/><em>Путь от нуля до Kubernetes — 6 модулей, 35 уроков, 1 финальный проект</em>
 </div>
 
