@@ -404,3 +404,55 @@ volumes:
 
 > 💬 Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue](https://github.com/OlegKarenkikh/devops-for-kids/issues).
 
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>В чём разница между Image и Container?</b></summary>
+
+| | Docker Image | Docker Container |
+|---|---|---|
+| Что это | Шаблон / снимок | Живая копия прямо сейчас |
+| Изменить | Нельзя | Можно (но при удалении пропадёт) |
+| Количество | Один | Сколько угодно из одного Image |
+| Аналогия | Рецепт / форма | Готовый кекс |
+
+```bash
+docker images && docker ps && docker run nginx
+```
+
+</details>
+
+<details>
+<summary><b>Порт 8080:8080 — почему два раза?</b></summary>
+
+Это два разных мира — твой компьютер и контейнер:
+
+```
+docker run -p 9999:8080 app
+              ↑     ↑
+              |     Порт ВНУТРИ контейнера
+              Порт на ТВОЁМ компьютере
+```
+
+Открываешь `localhost:9999` — перенаправляется в `8080` контейнера.
+
+</details>
+
+<details>
+<summary><b>Зачем нужен Volume? Данные же в контейнере?</b></summary>
+
+Контейнер временный — удалил и все данные пропали. Volume решает это:
+
+```yaml
+volumes:
+  - pgdata:/var/lib/postgresql/data
+```
+
+> 📦 Аналогия: контейнер — арендованная квартира, Volume — личный склад.
+
+</details>
+
+> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+
