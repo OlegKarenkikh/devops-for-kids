@@ -58,7 +58,7 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
-  <br/><em>☸️ Рис. 7 — Три главных объекта k8s: Pod → Deployment → Service с YAML примерами</em>
+  <br/><em>🏙️ Kubernetes-кластер — как город: Cluster → Node-районы → Pod-здания с контейнерами внутри, Service — полицейский соединяет их</em>
 </div>
 
 
@@ -136,7 +136,7 @@ kubectl rollout undo deployment/my-website
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="900"/>
-  <br/><em>⚙️ Рис. 8 — Шпаргалка kubectl: смотреть / запускать / отлаживать</em>
+  <br/><em>⚓ kubectl — пульт управления флотом: Смотреть 👀 / Запустить 🚀 / Отладить 🔧</em>
 </div>
 
 
