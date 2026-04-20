@@ -102,34 +102,6 @@ git pull                        # Получить чужие изменения
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-keys.png" alt="SSH ключи" width="90%"/>
-<br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
-</div>
-### 🧠 Теория: что такое SSH и зачем он нужен?
-
-SSH (Secure Shell) — протокол безопасного подключения к удалённым серверам. Вместо пароля используется пара ключей: **публичный** (можно раздавать всем) и **приватный** (только у тебя, никому не показывать).
-
-GitHub рекомендует использовать SSH вместо HTTPS-пароля — это удобнее и безопаснее.
-
-```bash
-# Создать SSH ключ
-ssh-keygen -t ed25519 -C "твой@email.com"
-# Нажми Enter 3 раза (путь по умолчанию, без пароля)
-
-# Посмотреть публичный ключ
-cat ~/.ssh/id_ed25519.pub
-# Скопируй всё (начинается с "ssh-ed25519 ...")
-
-# Добавить ключ в GitHub:
-# github.com → Settings → SSH and GPG keys → New SSH key → вставь
-
-# Проверить подключение
-ssh -T git@github.com
-# Должно ответить: Hi username! You've successfully authenticated
-```
-
-
-<div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.jpg" alt="SSH troubleshooting" width="90%"/>
 <br/><em>Следуй блок-схеме — шаг за шагом найдёшь проблему</em>
 </div>
@@ -267,76 +239,6 @@ git push -u origin main
 | `chmod 600 ~/.ssh/id_ed25519` | Исправить права ключа |
 
 ➡️ [Следующий модуль: Docker →](../module3-docker/)
-
----
-
-## ❓ Частые вопросы новичков по этому уроку
-
-<details>
-<summary><b>Git и GitHub — это одно и то же?</b></summary>
-
-**Нет**, это разные вещи:
-
-| | Git | GitHub |
-|---|---|---|
-| Что это | Программа на твоём компьютере | Сайт в интернете |
-| Где хранит | На твоём диске | В облаке (серверы Microsoft) |
-| Без интернета | Работает ✅ | Не работает ❌ |
-
-**Аналогия:** Git — твой личный дневник. GitHub — публичная библиотека, куда ты выкладываешь копию.
-
-Аналоги GitHub: **GitLab** (популярен в России), **Bitbucket**, **Gitea** (self-hosted).
-
-</details>
-
-<details>
-<summary><b>Что такое «ветка» в Git?</b></summary>
-
-Ветка — **параллельная копия** кода, где можно экспериментировать не ломая основной код.
-
-```bash
-git checkout -b feature/новая-кнопка   # создать ветку
-# ... делаешь изменения ...
-git add . && git commit -m "Добавил кнопку"
-git checkout main                      # вернуться
-git merge feature/новая-кнопка        # влить изменения
-```
-
-> 🎮 Аналогия: ветка — как «сохранить и попробовать другой путь» в RPG. Не удалось — просто удаляешь ветку.
-
-</details>
-
-<details>
-<summary><b>Зачем нужен .gitignore?</b></summary>
-
-`.gitignore` — список того, что Git **не должен отслеживать** и не должно попасть на GitHub:
-
-```bash
-.env           # пароли и секреты — никогда не в Git!
-node_modules/  # тысячи файлов библиотек (скачиваются заново)
-__pycache__/   # скомпилированный Python-кэш
-*.log          # логи — большие и бесполезные для других
-.DS_Store      # служебные файлы macOS
-```
-
-</details>
-
-<details>
-<summary><b>SSH-ключ — это как замок с ключом?</b></summary>
-
-Точно! **Публичный ключ** (`.pub`) = замок — даёшь серверам и GitHub. **Приватный ключ** = ключ — только у тебя, никому не показывай.
-
-```bash
-ssh-keygen -t ed25519 -C "твой@email.com"
-# ~/.ssh/id_ed25519      ← приватный (только у тебя!)
-# ~/.ssh/id_ed25519.pub  ← публичный (вставляй в GitHub Settings → SSH Keys)
-```
-
-</details>
-
-> 💬 Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue](https://github.com/OlegKarenkikh/devops-for-kids/issues).
-
----
 
 ## ❓ Частые вопросы новичков по этому уроку
 
