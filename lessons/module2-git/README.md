@@ -127,7 +127,6 @@ git push
 </div>
 
 
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
 <br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
