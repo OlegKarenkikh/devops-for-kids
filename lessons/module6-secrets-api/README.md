@@ -11,7 +11,7 @@
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.jpg" alt="Секреты — не в код, а в .env" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-secrets-env.png" alt="Секреты — не в код, а в .env" width="85%"/>
 <br/><em>Код на GitHub видят все. Пароль в коде = пароль для всех. .env решает эту проблему</em>
 </div>
 
@@ -57,7 +57,7 @@ services:
 ## Урок 31 — REST API: что это?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-rest-api.png" alt="REST API" width="85%"/>
 <br/><em>API — официант между клиентом и сервером</em>
 </div>
 
@@ -339,3 +339,49 @@ kubectl get secret my-secret -o jsonpath='{.data.db-password}' | base64 -d
 ```
 
 ➡️ [Итоговый проект →](../../projects/final-project/)
+
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>.env — точка в начале что означает?</b></summary>
+
+В Linux точка = **скрытый файл**. Не виден в `ls`, нужно `ls -a`.
+Скрытый — чтобы не выложить случайно на GitHub (обязательно добавь в `.gitignore`).
+
+</details>
+
+<details>
+<summary><b>REST API — REST это «отдых»?</b></summary>
+
+REST = REpresentational State Transfer. Четыре действия:
+
+| Метод | Действие |
+|-------|---------|
+| GET | Получить |
+| POST | Создать |
+| PUT | Обновить |
+| DELETE | Удалить |
+
+```bash
+curl http://localhost:8080/items           # GET
+curl -X POST http://localhost:8080/items   # POST
+```
+
+</details>
+
+<details>
+<summary><b>JSON — это имя человека?</b></summary>
+
+Нет, аббревиатура: **J**ava**S**cript **O**bject **N**otation. Придумал Дуглас Крокфорд ~2001.
+Универсальный формат данных — понимают все языки программирования.
+
+```json
+{"имя": "Вася", "возраст": 12, "игры": ["Minecraft"]}
+```
+
+</details>
+
+> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+
