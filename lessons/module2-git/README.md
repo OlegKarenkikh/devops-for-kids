@@ -258,16 +258,26 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 export GITHUB_TOKEN="ghp_твой_токен"
 
 # Кто я?
-curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/user | python3 -m json.tool | grep '"login"'
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/user | python3 -m json.tool | grep '"login"'
 
 # Список репозиториев
-curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/user/repos      | python3 -m json.tool | grep '"name"'
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/user/repos | python3 -m json.tool | grep '"name"'
 
 # Создать репозиторий через API (без браузера!)
-curl -s -X POST      -H "Authorization: Bearer $GITHUB_TOKEN"      -H "Content-Type: application/json"      -d '{"name":"my-api-repo","private":false,"description":"Создан через curl!"}'      https://api.github.com/user/repos | python3 -m json.tool | grep '"html_url"'
+curl -s -X POST \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"my-api-repo","private":false,"description":"Создан через curl!"}' \
+  https://api.github.com/user/repos | python3 -m json.tool | grep '"html_url"'
 
 # Проверить лимит запросов к API
-curl -s -H "Authorization: Bearer $GITHUB_TOKEN"      https://api.github.com/rate_limit      | python3 -m json.tool | grep -A3 '"core"'
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/rate_limit | python3 -m json.tool | grep -A3 '"core"'
 ```
 
 > 📝 **Задание:** создай репозиторий `curl-test` через API, затем удали его через `DELETE /repos/{owner}/{repo}`.
