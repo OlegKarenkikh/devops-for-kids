@@ -42,7 +42,7 @@ kubectl get all
 ## Урок 25 — Архитектура кластера
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.jpg" alt="Архитектура кластера Kubernetes" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-k8s-cluster.png" alt="Архитектура кластера Kubernetes" width="85%"/>
 <br/><em>Control Plane — мозг (планирует и управляет). Nodes — рабочие (запускают Pod'ы)</em>
 </div>
 
@@ -57,7 +57,7 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 ## Урок 26 — Pod, Deployment, Service
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module5-k8s-objects.png" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
   <br/><em>☸️ Рис. 7 — Три главных объекта k8s: Pod → Deployment → Service с YAML примерами</em>
 </div>
 
@@ -229,4 +229,49 @@ kubectl apply -f service.yaml
 minikube service hello-kids-svc   # откроет браузер!
 ```
 > ✅ Страница nginx открылась через Kubernetes? Ты сделал это! ☸️
+
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>«Kubernetes» — откуда слово, как произносить?</b></summary>
+
+Греческое (κυβερνήτης) = «кормчий». Произносится **«кубернэтес»** или **«кубик»**.
+`k8s` = k + 8 букв + s. Создан Google в 2014, open source.
+
+</details>
+
+<details>
+<summary><b>Pod — это стручок гороха?</b></summary>
+
+Да! Внутри Pod — контейнеры, которые всегда вместе: один сервер, один localhost, общая сеть.
+
+```bash
+kubectl get pods && kubectl logs my-pod && kubectl exec -it my-pod -- bash
+```
+
+</details>
+
+<details>
+<summary><b>Чем Deployment отличается от Pod?</b></summary>
+
+| | Pod | Deployment |
+|---|---|---|
+| Упал | Не перезапустится | Создаст новый автоматически |
+| Масштаб | 1 | Любое количество реплик |
+| Обновление | Вручную | Rolling update |
+
+> 👔 Pod — рабочий. Deployment — менеджер, следящий за нужным числом рабочих.
+
+</details>
+
+<details>
+<summary><b>kubectl — как произносится?</b></summary>
+
+**«кубе-контрол»** или **«кубектл»** — единого стандарта нет. `kube` + `ctl` (control).
+
+</details>
+
+> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
 
