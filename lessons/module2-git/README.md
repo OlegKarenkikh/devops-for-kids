@@ -12,7 +12,7 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="900"/>
-  <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
+  <br/><em>📸 Git-workflow: ты пишешь код → кладёшь в Staging → делаешь коммит-снимок → отправляешь в облако GitHub</em>
 </div>
 
 
@@ -96,15 +96,11 @@ git pull                        # Получить чужие изменения
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="900"/>
-  <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
+  <br/><em>🗝️ SSH-ключи как замок и ключ: публичный ключ отдаёшь серверу, приватный — хранишь только у себя</em>
 </div>
 
 
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
-<br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
-</div>
 ### 🧠 Теория: что такое SSH и зачем он нужен?
 
 SSH (Secure Shell) — протокол безопасного подключения к удалённым серверам. Вместо пароля используется пара ключей: **публичный** (можно раздавать всем) и **приватный** (только у тебя, никому не показывать).
