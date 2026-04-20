@@ -34,29 +34,6 @@ clear           # Очистить экран (или Ctrl+L)
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-filesystem.jpg" alt="Файловая система Linux" width="85%"/>
-<br/><em>Linux — дерево папок. Корень / — самая верхняя папка, как ствол дерева</em>
-</div>
-
-```bash
-cd /home        # Перейти в папку /home
-cd ~            # Перейти домой (твоя папка)
-cd ..           # Подняться на уровень выше
-mkdir мой-проект          # Создать папку
-touch hello.txt           # Создать пустой файл
-echo "Привет!" > hello.txt  # Записать текст в файл
-cat hello.txt             # Прочитать файл
-cp hello.txt копия.txt    # Скопировать
-mv hello.txt bye.txt      # Переименовать / переместить
-rm bye.txt                # Удалить файл
-rm -rf папка/             # Удалить папку целиком (ОСТОРОЖНО!)
-```
-
----
-
-## Урок 3 — Права доступа (chmod)
-
-<div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-permissions.jpg" alt="Права доступа через замки" width="85%"/>
 <br/><em>Права — три замка: для владельца, группы, всех остальных. r=читать, w=писать, x=запускать</em>
 </div>
