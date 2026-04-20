@@ -314,3 +314,91 @@ docker compose up -d
 | `docker network ls` | Список всех сетей |
 
 ➡️ [Следующий модуль: Kubernetes →](../module5-kubernetes/)
+
+---
+
+## ❓ Вопросы новичков — Docker Compose
+
+<details>
+<summary><strong>Зачем Compose если можно запустить docker run вручную?</strong></summary>
+
+При реальном проекте нужно **несколько контейнеров**, и каждый раз вводить 5+ команд — невозможно.
+
+Без Compose:
+```bash
+docker run -d --name db -e POSTGRES_PASSWORD=secret -v pgdata:/var/lib/postgresql/data postgres:15
+docker run -d --name redis redis:alpine
+docker run -d --name app -p 8000:8000 --link db --link redis myapp
+docker run -d --name nginx -p 80:80 --link app nginx
+```
+
+С Compose:
+```bash
+docker compose up -d   # ← одна команда, всё запущено
+```
+
+> Compose — как **дирижёр оркестра**: все инструменты (контейнеры) играют вместе.
+
+</details>
+
+<details>
+<summary><strong>Что такое volume и зачем он нужен?</strong></summary>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_volume.jpg" alt="Docker Volume как внешний диск" width="85%"/>
+<br/><em>Volume = внешний диск. Контейнер удалился — данные остались на «диске»</em>
+</div>
+
+Без volume данные **исчезают** когда контейнер удаляется:
+```yaml
+# docker-compose.yml — с volume данные сохраняются:
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # данные хранятся вне контейнера
+
+volumes:
+  pgdata:  # Docker создаст и управляет этим хранилищем
+```
+
+```bash
+docker volume ls          # список всех volumes
+docker volume inspect ИМЯ # где физически хранится
+```
+
+</details>
+
+<details>
+<summary><strong>Чем отличается docker-compose от docker compose (без дефиса)?</strong></summary>
+
+`docker-compose` — **старая версия** (Compose v1, Python, отдельная утилита).  
+`docker compose` — **новая версия** (Compose v2, встроена в Docker, Go).
+
+```bash
+docker-compose --version   # v1: docker-compose version 1.29.2
+docker compose version     # v2: Docker Compose version v2.24.0
+```
+
+> Используй `docker compose` (без дефиса) — это современный стандарт с 2022 года.
+
+</details>
+
+<details>
+<summary><strong>Что такое Prometheus и Grafana простыми словами?</strong></summary>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.jpg" alt="Prometheus и Grafana" width="85%"/>
+<br/><em>Prometheus = медсестра с буфером (собирает метрики). Grafana = доктор с монитором (показывает графики)</em>
+</div>
+
+- **Prometheus** — каждые 15 секунд «опрашивает» сервисы: сколько запросов, памяти, CPU. Сохраняет цифры.
+- **Grafana** — берёт цифры из Prometheus и рисует красивые графики и дашборды.
+
+```
+Твой сервис  →  Prometheus (собирает)  →  Grafana (показывает)
+   /metrics        pull каждые 15с           дашборды
+```
+
+</details>
+
