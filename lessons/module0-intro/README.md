@@ -13,7 +13,7 @@
 
 ---
 
-> 💡 **Не понимаешь термин?** → [Детский FAQ с ответами на 48 вопросов](../kids-faq/)
+> 💡 **Не понимаешь термин?** → [Детский FAQ с ответами на 48 вопросов](../../kids-faq/)
 
 
 ## Что такое терминал — и зачем он вообще нужен
@@ -456,5 +456,5 @@ APP_PORT=8080
 
 </details>
 
-> 💬 Остались вопросы? Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue на GitHub](https://github.com/OlegKarenkikh/devops-for-kids/issues).
+> 💬 Остались вопросы? Смотри [полный FAQ (48 вопросов)](../../kids-faq/) или открой [issue на GitHub](https://github.com/OlegKarenkikh/devops-for-kids/issues).
 
