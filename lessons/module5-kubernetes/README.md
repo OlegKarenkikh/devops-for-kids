@@ -98,7 +98,7 @@ services:            # ключ верхнего уровня
 | `Service` | Даёт постоянный адрес Pod'ам | Ресепшн — не важно кто отвечает |
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="90%"/>
   <br/><em>☸️ Рис. 7 — Три главных объекта k8s: Pod → Deployment → Service с YAML примерами</em>
 </div>
 
@@ -205,7 +205,7 @@ requests.cpu: 100m  →  лимит = 100 миллицпу
 Диапазон `--min=2 --max=10`: никогда не меньше 2 Pod'ов (надёжность), никогда больше 10 (защита от перерасхода ресурсов).
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="90%"/>
   <br/><em>⚙️ Рис. 8 — Шпаргалка kubectl: смотреть / запускать / отлаживать</em>
 </div>
 
