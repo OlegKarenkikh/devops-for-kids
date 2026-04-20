@@ -242,7 +242,7 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ---
 
-## Урок 12 — curl и GitHub API: автоматизация через токен
+## 🔧 Бонус-урок — curl и GitHub API: автоматизация через токен
 
 ### 🧠 Теория: что такое curl и зачем он DevOps-инженеру?
 
