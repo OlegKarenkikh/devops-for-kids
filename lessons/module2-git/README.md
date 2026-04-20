@@ -17,7 +17,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.jpg" alt="Git — система сохранений как в игре" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-analogy.png" alt="Git — система сохранений как в игре" width="85%"/>
 <br/><em>Git — как точки сохранения в игре. Каждый commit = сохранение. Можно вернуться в любой момент!</em>
 </div>
 
@@ -102,7 +102,7 @@ git pull                        # Получить чужие изменения
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.jpg" alt="SSH troubleshooting" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-troubleshoot.png" alt="SSH troubleshooting" width="90%"/>
 <br/><em>Следуй блок-схеме — шаг за шагом найдёшь проблему</em>
 </div>
 ### ⚠️ Что делать если SSH не пускает?
