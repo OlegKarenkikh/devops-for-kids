@@ -14,6 +14,25 @@
 
 ---
 
+
+## 💻 Что нужно для старта
+
+| | Минимум | Рекомендуется |
+|--|---------|--------------|
+| **ОС** | Ubuntu 20.04 / macOS 12 / Windows (WSL2) | Ubuntu 22.04 LTS |
+| **RAM** | 4 GB | 8 GB |
+| **Диск** | 10 GB свободных | 20 GB |
+| **Интернет** | Да (для pull образов) | — |
+
+> **Нет своей машины?** Бесплатно в браузере: [killercoda.com](https://killercoda.com) или [labs.play-with-docker.com](https://labs.play-with-docker.com)
+
+```bash
+git clone https://github.com/OlegKarenkikh/devops-for-kids.git
+cd devops-for-kids
+cat lessons/module0-intro/README.md
+```
+
+
 ## 🗺️ Начни здесь — Вводный модуль
 
 <div align="center">
