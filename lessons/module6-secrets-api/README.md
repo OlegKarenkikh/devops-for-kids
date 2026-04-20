@@ -179,7 +179,7 @@ if __name__ == "__main__":
 
 **SQLite** — база данных в одном `.db` файле. Не нужен отдельный сервер. Идеально для обучения и маленьких проектов.
 
-> SQLite — это база данных, которая живёт в **одном файле** на диске. Не нужно устанавливать никаких серверов! — это база данных, которая живёт в **одном файле** на диске. Не нужно устанавливать никаких серверов!
+> SQLite — это база данных, которая живёт в **одном файле** на диске. Не нужно устанавливать никаких серверов!
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.jpg" alt="SQLite таблица и SQL запросы" width="85%"/>
@@ -291,10 +291,6 @@ echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
 ```
 
 **Реальная защита** Secrets — это RBAC (права доступа): не все пользователи кластера могут читать Secrets, только авторизованные сервисы. Для продакшна используют также `etcd` encryption at rest.
-
-> Разница `.env` vs K8s Secret:
-> - `.env` — для локальной разработки и Docker Compose
-> - `K8s Secret` — для продакшн-кластера Kubernetes
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.jpg" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
