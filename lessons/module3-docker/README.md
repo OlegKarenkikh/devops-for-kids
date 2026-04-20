@@ -11,7 +11,7 @@
 ## Урок 12 — Зачем нужен Docker?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.jpg" alt="Зачем нужен Docker" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-why-docker.png" alt="Зачем нужен Docker" width="85%"/>
 <br/><em>«У меня работает, у тебя нет» — классическая проблема. Docker решает её раз и навсегда</em>
 </div>
 
@@ -48,7 +48,7 @@ docker run hello-world              # Тест: скачает и запусти
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.jpg" alt="Частые ошибки Docker" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-errors.png" alt="Частые ошибки Docker" width="90%"/>
 <br/><em>Три самые частые ошибки и как их исправить</em>
 </div>
 ### ⚠️ Частая ошибка: permission denied
@@ -110,13 +110,13 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-layers.png" alt="Слои Docker образа" width="900"/>
   <br/><em>🐳 Рис. 5 — Dockerfile → слои образа → кеширование: что меняется — то пересобирается</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.jpg" alt="Dockerfile — пошаговый рецепт" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-dockerfile-recipe.png" alt="Dockerfile — пошаговый рецепт" width="85%"/>
 <br/><em>Dockerfile — пошаговый рецепт: каждая строка добавляет новый слой к образу</em>
 </div>
 
