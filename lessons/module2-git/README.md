@@ -267,3 +267,81 @@ git push -u origin main
 | `chmod 600 ~/.ssh/id_ed25519` | Исправить права ключа |
 
 ➡️ [Следующий модуль: Docker →](../module3-docker/)
+
+---
+
+## ❓ Вопросы новичков — Git
+
+<details>
+<summary><strong>Git и GitHub — это одно и то же?</strong></summary>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_git_github.jpg" alt="Git vs GitHub" width="85%"/>
+<br/><em>Git = программа на твоём компьютере. GitHub = сайт в интернете. Разные вещи!</em>
+</div>
+
+Нет, это **разные вещи**:
+
+| | Git | GitHub |
+|---|---|---|
+| Что это | Программа на компьютере | Сайт в интернете |
+| Где хранит | На твоём диске | В облаке (серверы Microsoft) |
+| Без интернета | Работает | Не работает |
+
+Существуют аналоги: **GitLab** (популярен в России), **Bitbucket**, **Gitea**.
+
+</details>
+
+<details>
+<summary><strong>Что такое «ветка» в Git?</strong></summary>
+
+Ветка — **параллельная копия** твоего кода для экспериментов, не ломающих основной код.
+
+```bash
+git checkout -b feature/новая-кнопка   # Создать ветку
+# ... делаешь изменения ...
+git add . && git commit -m "Добавил кнопку"
+git checkout main                       # Вернуться
+git merge feature/новая-кнопка         # Влить изменения
+```
+
+> 🎮 Аналогия: ветка — как «сохранить и попробовать другой путь» в RPG. Не удался — просто удаляешь ветку.
+
+</details>
+
+<details>
+<summary><strong>SSH-ключ — это как замок с ключом?</strong></summary>
+
+Точно! SSH работает **именно как замок с ключом**:
+- **Публичный ключ** (`.pub`) = замок — даёшь серверу/GitHub
+- **Приватный ключ** = ключ — только у тебя, никому не показываешь
+
+```bash
+ssh-keygen -t ed25519 -C "твой@email.com"
+# Создаст два файла:
+# ~/.ssh/id_ed25519      ← приватный (только у тебя!)
+# ~/.ssh/id_ed25519.pub  ← публичный (вставляешь в GitHub Settings → SSH Keys)
+```
+
+> 🔐 Правило: приватный ключ — как паспорт. Никому не показывай.
+
+</details>
+
+<details>
+<summary><strong>Зачем .gitignore?</strong></summary>
+
+.gitignore — список того, что Git **не должен** отслеживать и не отправлять в GitHub:
+
+```bash
+# .gitignore — примеры:
+.env            # пароли и секреты
+node_modules/   # тысячи файлов библиотек
+__pycache__/    # кэш Python
+.DS_Store       # служебные файлы macOS
+*.log           # лог-файлы
+```
+
+Главное правило: **никогда не коммить `.env`** — там пароли, которые увидит весь мир.
+
+</details>
+
