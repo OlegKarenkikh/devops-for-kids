@@ -336,3 +336,65 @@ ssh-keygen -t ed25519 -C "твой@email.com"
 
 > 💬 Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue](https://github.com/OlegKarenkikh/devops-for-kids/issues).
 
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>Git и GitHub — это одно и то же?</b></summary>
+
+**Нет**, это разные вещи:
+
+| | Git | GitHub |
+|---|---|---|
+| Что это | Программа на твоём компьютере | Сайт в интернете |
+| Без интернета | Работает | Не работает |
+| Аналог | Личный дневник | Публичная библиотека |
+
+Аналоги GitHub: **GitLab**, **Bitbucket**, **Gitea** (self-hosted).
+
+</details>
+
+<details>
+<summary><b>Что такое ветка в Git?</b></summary>
+
+Ветка — параллельная копия кода для экспериментов без риска сломать основной код.
+
+```bash
+git checkout -b feature/новая-кнопка
+git add . && git commit -m "Кнопка готова"
+git checkout main && git merge feature/новая-кнопка
+```
+
+> 🎮 Аналогия: как «сохранить и попробовать другой путь» в RPG-игре.
+
+</details>
+
+<details>
+<summary><b>Зачем нужен .gitignore?</b></summary>
+
+Список файлов которые Git не должен отслеживать и которые не должны попасть на GitHub:
+
+```
+.env           # пароли — никогда в Git!
+node_modules/  # библиотеки (скачиваются заново)
+__pycache__/   # Python-кэш
+*.log          # логи
+```
+
+</details>
+
+<details>
+<summary><b>SSH-ключ — как замок и ключ?</b></summary>
+
+Точно! **Публичный** (.pub) = замок, даёшь GitHub. **Приватный** = ключ, только у тебя.
+
+```bash
+ssh-keygen -t ed25519 -C "email@example.com"
+cat ~/.ssh/id_ed25519.pub  # копируй в GitHub → Settings → SSH Keys
+```
+
+</details>
+
+> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+
