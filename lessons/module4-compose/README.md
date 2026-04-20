@@ -183,7 +183,7 @@ docker compose logs -f web
 ## Урок 22 — Prometheus: собираем метрики
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.jpg" alt="Prometheus и Grafana" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.jpg" alt="Prometheus и Grafana" width="90%"/>
   <br/><em>📊 Рис. 6 — Поток метрик: контейнеры → Prometheus → Grafana</em>
 </div>
 
