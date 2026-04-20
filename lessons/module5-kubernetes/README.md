@@ -230,3 +230,59 @@ minikube service hello-kids-svc   # откроет браузер!
 ```
 > ✅ Страница nginx открылась через Kubernetes? Ты сделал это! ☸️
 
+---
+
+## ❓ Вопросы новичков — Kubernetes
+
+<details>
+<summary><strong>«Kubernetes» — откуда это слово?</strong></summary>
+
+Kubernetes — **греческое слово** (κυβερνήτης), означает «кормчий» или «рулевой корабля». Произносится: **«кубернэтес»** или просто **«кубик»**.
+
+```
+K u b e r n e t e s  →  k  +  8 букв  +  s  =  k8s
+```
+Создан в Google в 2014 году, открыт как open source.
+
+</details>
+
+<details>
+<summary><strong>Pod — это стручок гороха?</strong></summary>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.jpg" alt="Pod как стручок гороха" width="85%"/>
+<br/><em>Pod = стручок. Контейнеры внутри всегда запускаются вместе</em>
+</div>
+
+Да! «Pod» по-английски — «стручок». Контейнеры внутри Pod всегда вместе: один сервер, одна сеть, одно хранилище.
+
+```bash
+kubectl get pods              # Список Pod
+kubectl describe pod ИМЯ      # Подробности
+kubectl logs ИМЯ              # Логи
+kubectl exec -it ИМЯ -- bash  # Зайти внутрь
+```
+
+</details>
+
+<details>
+<summary><strong>Чем Deployment отличается от Pod?</strong></summary>
+
+| | Pod | Deployment |
+|---|---|---|
+| Если упадёт | Не перезапустится | Создаст новый автоматически |
+| Масштаб | 1 штука | Указываешь `replicas: 3` |
+| Обновление | Вручную | Rolling update сам |
+
+> 👔 Аналогия: Pod — рабочий. Deployment — менеджер, следит чтобы рабочих было нужное количество.
+
+</details>
+
+<details>
+<summary><strong>kubectl — как произносится?</strong></summary>
+
+**«кубе-контрол»** или **«кубектл»** — единого стандарта нет.
+`kubectl` = **kube** (Kubernetes) + **ctl** (control)
+
+</details>
+
