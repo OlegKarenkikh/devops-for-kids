@@ -11,7 +11,7 @@
 ## Урок 9 — Что такое Git?
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-workflow.png" alt="Git workflow" width="900"/>
   <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
 </div>
 
@@ -60,7 +60,7 @@ nothing to commit, working tree clean
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.jpg" alt="Git ветки" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-branches.png" alt="Git ветки" width="90%"/>
 <br/><em>Main всегда работает. Эксперименты — в отдельных ветках!</em>
 </div>
 ### 🧠 Теория: зачем нужны ветки?
@@ -95,14 +95,14 @@ git pull                        # Получить чужие изменения
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-keys.png" alt="SSH ключи" width="900"/>
   <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
 </div>
 
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-keys.png" alt="SSH ключи" width="90%"/>
 <br/><em>Публичный — всем, приватный — только тебе. Никогда не отправляй приватный ключ!</em>
 </div>
 ### 🧠 Теория: что такое SSH и зачем он нужен?
@@ -267,3 +267,72 @@ git push -u origin main
 | `chmod 600 ~/.ssh/id_ed25519` | Исправить права ключа |
 
 ➡️ [Следующий модуль: Docker →](../module3-docker/)
+
+---
+
+## ❓ Частые вопросы новичков по этому уроку
+
+<details>
+<summary><b>Git и GitHub — это одно и то же?</b></summary>
+
+**Нет**, это разные вещи:
+
+| | Git | GitHub |
+|---|---|---|
+| Что это | Программа на твоём компьютере | Сайт в интернете |
+| Где хранит | На твоём диске | В облаке (серверы Microsoft) |
+| Без интернета | Работает ✅ | Не работает ❌ |
+
+**Аналогия:** Git — твой личный дневник. GitHub — публичная библиотека, куда ты выкладываешь копию.
+
+Аналоги GitHub: **GitLab** (популярен в России), **Bitbucket**, **Gitea** (self-hosted).
+
+</details>
+
+<details>
+<summary><b>Что такое «ветка» в Git?</b></summary>
+
+Ветка — **параллельная копия** кода, где можно экспериментировать не ломая основной код.
+
+```bash
+git checkout -b feature/новая-кнопка   # создать ветку
+# ... делаешь изменения ...
+git add . && git commit -m "Добавил кнопку"
+git checkout main                      # вернуться
+git merge feature/новая-кнопка        # влить изменения
+```
+
+> 🎮 Аналогия: ветка — как «сохранить и попробовать другой путь» в RPG. Не удалось — просто удаляешь ветку.
+
+</details>
+
+<details>
+<summary><b>Зачем нужен .gitignore?</b></summary>
+
+`.gitignore` — список того, что Git **не должен отслеживать** и не должно попасть на GitHub:
+
+```bash
+.env           # пароли и секреты — никогда не в Git!
+node_modules/  # тысячи файлов библиотек (скачиваются заново)
+__pycache__/   # скомпилированный Python-кэш
+*.log          # логи — большие и бесполезные для других
+.DS_Store      # служебные файлы macOS
+```
+
+</details>
+
+<details>
+<summary><b>SSH-ключ — это как замок с ключом?</b></summary>
+
+Точно! **Публичный ключ** (`.pub`) = замок — даёшь серверам и GitHub. **Приватный ключ** = ключ — только у тебя, никому не показывай.
+
+```bash
+ssh-keygen -t ed25519 -C "твой@email.com"
+# ~/.ssh/id_ed25519      ← приватный (только у тебя!)
+# ~/.ssh/id_ed25519.pub  ← публичный (вставляй в GitHub Settings → SSH Keys)
+```
+
+</details>
+
+> 💬 Смотри [полный FAQ (48 вопросов)](../kids-faq/) или открой [issue](https://github.com/OlegKarenkikh/devops-for-kids/issues).
+
