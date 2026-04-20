@@ -142,6 +142,23 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Теперь копируем весь остальной код
+> ### ⚠️ Обязательно создай файл `.dockerignore`!
+>
+> `COPY . .` копирует **всё** из папки — включая `.env` с паролями и секретами!
+> Создай файл `.dockerignore` рядом с `Dockerfile`:
+>
+> ```
+> .env
+> .git
+> .gitignore
+> __pycache__
+> *.pyc
+> node_modules
+> *.log
+> ```
+>
+> **Без этого файла твои пароли окажутся внутри образа** — и если кто-то скачает образ с Docker Hub, он получит все твои секреты!
+
 COPY . .
 
 # EXPOSE — документирует, какой порт слушает приложение
@@ -178,22 +195,6 @@ CMD ["app.py"]          # аргумент по умолчанию
 # docker run my-app other.py     → python other.py
 ```
 
-> ### ⚠️ Обязательно создай файл `.dockerignore`!
->
-> `COPY . .` копирует **всё** из папки — включая `.env` с паролями и секретами!
-> Создай файл `.dockerignore` рядом с `Dockerfile`:
->
-> ```
-> .env
-> .git
-> .gitignore
-> __pycache__
-> *.pyc
-> node_modules
-> *.log
-> ```
->
-> **Без этого файла твои пароли окажутся внутри образа** — и если кто-то скачает образ с Docker Hub, он получит все твои секреты!
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg" alt="Dockerfile порядок слоёв" width="90%"/>
