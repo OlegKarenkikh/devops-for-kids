@@ -268,8 +268,6 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 
 ---
 
-## 🎯 Практические задания
-
 ### Задание 1 — Flask API с нуля
 ```bash
 mkdir flask-api && cd flask-api
@@ -383,5 +381,5 @@ curl -X POST http://localhost:8080/items   # POST
 
 </details>
 
-> 💬 [Полный FAQ](../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
+> 💬 [Полный FAQ](../../kids-faq/) | [Задать вопрос](https://github.com/OlegKarenkikh/devops-for-kids/issues)
 
