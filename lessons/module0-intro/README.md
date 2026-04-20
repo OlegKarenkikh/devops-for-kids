@@ -35,7 +35,7 @@
 ## Как открыть терминал
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/how_open_terminal.jpg" alt="Как открыть терминал на Windows, Linux, Mac" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/how_open_terminal.png" alt="Как открыть терминал на Windows, Linux, Mac" width="90%"/>
 <br/><em>Три операционные системы — три разных способа. Запомни свой раз и навсегда.</em>
 </div>
 
@@ -164,7 +164,7 @@ cp        -r                папка/ /новое-место/
 ## Как читать ответы терминала — зелёный и красный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/terminal_output.jpg" alt="Успех и ошибка в терминале" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/terminal_output.png" alt="Успех и ошибка в терминале" width="90%"/>
 <br/><em>Ошибка — это подсказка, не катастрофа. Главное — прочитать её до конца.</em>
 </div>
 
@@ -207,7 +207,7 @@ cat: несуществующий.txt: No such file or directory
 ## Точка, две точки и тильда — невидимые ориентиры
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/path_symbols.jpg" alt="Спецсимволы в путях Linux" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/path_symbols.png" alt="Спецсимволы в путях Linux" width="90%"/>
 <br/><em>Три символа которые встречаются везде — запомни раз и навсегда.</em>
 </div>
 
@@ -246,7 +246,7 @@ ls ..              # Посмотреть содержимое папки выш
 ## Почему пробелы в YAML критичны
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/yaml_indentation.jpg" alt="YAML отступы" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/yaml_indentation.png" alt="YAML отступы" width="90%"/>
 <br/><em>Невидимые пробелы — видимый результат. Один лишний пробел = ошибка запуска.</em>
 </div>
 
@@ -277,7 +277,7 @@ services:
 ## Что происходит когда пишешь git add и git commit
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/git_stages.jpg" alt="Три зоны Git" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/git_stages.png" alt="Три зоны Git" width="90%"/>
 <br/><em>Черновики на столе → стопка для сдачи → архив. Git работает так же.</em>
 </div>
 
@@ -298,7 +298,7 @@ services:
 ## Как строится Docker-образ слой за слоем
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/docker_build_layers.jpg" alt="Слои Docker образа" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/docker_build_layers.png" alt="Слои Docker образа" width="90%"/>
 <br/><em>Каждая строка Dockerfile — один слой. Изменилась строка — пересобирается слой и все после него.</em>
 </div>
 
@@ -344,7 +344,7 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 ## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="80%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/checkpoint.png" alt="Чекпойнт понимания" width="80%"/>
 <br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
