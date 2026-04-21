@@ -1,0 +1,60 @@
+name: Final project CI
+
+on:
+  push:
+    paths:
+      - 'projects/final-project/**'
+  pull_request:
+    paths:
+      - 'projects/final-project/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        working-directory: projects/final-project
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run API smoke tests
+        working-directory: projects/final-project
+        env:
+          APP_PORT: 8080
+          APP_NAME: CI-МояКоллекция
+          DB_PATH: collection-ci.db
+        run: |
+          python - << 'PY'
+          from app import app, init_db
+          ctx = app.test_client()
+          init_db()
+          resp = ctx.get('/')
+          assert resp.status_code == 200, resp.status_code
+          data = resp.get_json()
+          assert 'маршруты' in data, data
+          print('Root endpoint OK')
+          resp = ctx.get('/items')
+          assert resp.status_code == 200, resp.status_code
+          print('Items endpoint OK')
+          PY
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        working-directory: projects/final-project
+        run: |
+          docker build -t my-collection:ci .
