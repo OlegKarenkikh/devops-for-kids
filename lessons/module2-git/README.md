@@ -253,6 +253,9 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ## 🔧 Бонус-урок — curl и GitHub API: автоматизация через токен
 
+![module2-pat-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-pat-token.png)
+
+
 ![module2-curl-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.png)
 
 
