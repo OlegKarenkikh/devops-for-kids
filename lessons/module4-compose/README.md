@@ -6,6 +6,9 @@
 
 ## Урок 19 — Docker Compose: город сервисов
 
+![module4-code-to-compose-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.png)
+
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-network.jpg" alt="Docker Compose — город сервисов" width="85%"/>
 <br/><em>Compose = целый город из сервисов. Один файл — один запуск. Все сервисы видят друг друга по имени</em>
@@ -65,6 +68,9 @@ docker compose down -v      # + удалить тома (данные БД пр�
 ---
 
 ## Урок 20 — Networks: как сервисы общаются
+
+![module4-compose-networks-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-ru.png)
+
 
 ![module4-compose-networks-segmentation](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-segmentation.png)
 
