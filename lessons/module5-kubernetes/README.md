@@ -41,6 +41,9 @@ kubectl get all
 
 ## Урок 25 — Архитектура кластера
 
+![module5-kubectl](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.png)
+
+
 ![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
 
 
@@ -164,6 +167,9 @@ minikube service website-service --url
 
 ## Урок 27 — Самовосстановление
 
+![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.png)
+
+
 ### 🧠 Теория: Reconciliation Loop
 
 Kubernetes работает по принципу **«желаемое состояние»**: ты говоришь «хочу 3 реплики», и Kubernetes **постоянно** проверяет — а сколько реплик сейчас? Если меньше — запускает новые. Если упал Pod — замечает за секунды и поднимает замену автоматически, без твоего участия.
@@ -195,6 +201,9 @@ kubectl rollout undo deployment/my-website
 ---
 
 ## Урок 28 — Автомасштабирование HPA
+
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
+
 
 ![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
 
@@ -234,6 +243,9 @@ kubectl describe hpa my-website
 ---
 
 ## 📋 Шпаргалка Kubernetes
+
+![module5-k8s-rolling-update](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.png)
+
 
 > 💡 **Задание к уроку 27 — Самовосстановление:**
 > ```bash
