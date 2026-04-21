@@ -2,9 +2,14 @@
 
 > **Цель:** запускать несколько сервисов одной командой и наблюдать за ними через Prometheus + Grafana.
 
+> 💡 **Вопросы по Compose?** Зачем несколько сетей? Что такое том? Как работает depends_on?  
+> → [Ответы в Детском FAQ](../kids-faq/#модуль-4--compose)
+
 ---
 
 ## Урок 19 — Docker Compose: город сервисов
+
+![module4-compose-overview](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-overview.png)
 
 ![module4-code-to-compose-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.png)
 
@@ -191,6 +196,8 @@ docker compose logs -f web
 
 ## Урок 22 — Prometheus: собираем метрики
 
+![module4-monitoring](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.png)
+
 ![module4-prometheus](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.png)
 
 
@@ -346,6 +353,28 @@ docker compose up -d
 
 
 ---
+
+### Задание 3 — Мониторинг в действии
+```bash
+# Запусти стек с Prometheus:
+docker compose up -d
+# Открой в браузере: http://localhost:9090
+# Найди метрику: container_cpu_usage_seconds_total
+# Запрос PromQL: rate(container_cpu_usage_seconds_total[5m])
+```
+> ✅ Grafana показала график CPU? Мониторинг работает!
+
+---
+
+## 🧩 Быстрый тест — проверь себя
+
+| Вопрос | Ответ |
+|--------|-------|
+| Как обратиться к сервису `db` из `backend` внутри Compose? | `db:5432` (не localhost!) |
+| Что делает `depends_on: db: condition: service_healthy`? | Ждёт, пока db не пройдёт healthcheck |
+| Чем том (`volume`) отличается от `tmpfs`? | Том сохраняется на диск, tmpfs — в RAM (исчезает) |
+| Что такое cAdvisor? | Агент, который собирает метрики Docker в Prometheus |
+| Что делает `docker compose down -v`? | Удаляет контейнеры И тома (данные пропадают!) |
 
 ## 🧠 Чекпойнт понимания — обязательный
 
