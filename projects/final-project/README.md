@@ -1,77 +1,42 @@
 # 🏆 Итоговый проект — «Моя Коллекция»
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/final-project-pyramid.jpg" alt="Итоговый проект — пирамида знаний" width="85%"/>
-<br/><em>Один проект — все знания курса. От терминала до Kubernetes!</em>
+
+![final-project-pyramid](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/final-project-pyramid.png)
+
+**Ты прошёл весь курс — и теперь строишь настоящий DevOps-проект!**
+
 </div>
 
 ---
 
 ## 🤔 Что мы строим и зачем?
 
-### Задача
-
-Представь: ты хочешь вести список своей коллекции — книг, игр, фильмов, чего угодно. Можно завести таблицу в Excel. Но что если ты хочешь, чтобы к твоей коллекции мог обращаться телефон, другой компьютер, или даже другой программист?
-
-Для этого создают **REST API** — программу, которая отвечает на запросы по сети и умеет хранить данные. Это именно то, что мы и построим.
+«Моя Коллекция» — это REST API-сервис, который хранит список твоих любимых вещей  
+(книги, игры, фильмы — что угодно!) в базе данных.
 
 ### Что будет в итоге?
 
-После выполнения проекта у тебя будет полноценный сервис:
-
-| Что | Зачем |
-|-----|-------|
-| Flask REST API | Принимает запросы, работает с данными |
-| SQLite база | Хранит коллекцию (не теряется при перезапуске) |
-| Docker контейнер | Запускается одинаково везде |
-| Docker Compose | Запускает всё одной командой с правильными настройками |
-| Kubernetes Deployment | Управляет 3 копиями сервиса, автоперезапуск |
-| GitHub репозиторий | История всех изменений, публичный код |
-
-### Как всё работает вместе?
-
 ```
-Пользователь (curl / браузер)
-        │
-        │ HTTP запрос: GET /items
-        ▼
-   Flask API (app.py)           ← Python код, обрабатывает запрос
-        │
-        │ SQL запрос: SELECT * FROM items
-        ▼
-   SQLite (collection.db)       ← Файл на диске, хранит данные
-        │
-        │ Возвращает строки
-        ▼
-   Flask API → JSON ответ       ← [{"id":1,"name":"Гитара"}, ...]
-        │
-        ▼
-Пользователь получает данные
+Браузер / curl
+      │
+      ▼
+Flask REST API (:8080)
+      │
+      ▼
+SQLite (файл collection.db)
 ```
 
-Всё это работает **внутри Docker контейнера**. Контейнер запускается в **Kubernetes** — системе, которая следит чтобы сервис всегда работал.
+### Маршруты API
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/project_architecture.jpg" alt="Архитектура проекта" width="90%"/>
-<br/><em>Запрос от пользователя → Flask API → SQLite → ответ JSON. Всё внутри Docker!</em>
-</div>
-### Маршрут API
-
-| Маршрут | Метод | Что делает |
-|---------|-------|-----------|
-| `/` | GET | Информация о сервисе |
-| `/items` | GET | Получить все предметы коллекции |
-| `/items` | POST | Добавить новый предмет |
-| `/items/<id>` | DELETE | Удалить предмет по ID |
-| `/health` | GET | Проверка что сервис жив (для Kubernetes) |
-
----
-
-
-> **Когда делать:** после прохождения всех 35 уроков
-> **Время:** 3–4 часа
-> **Что создаём:** REST API «Моя Коллекция» — список любимых вещей
+| Метод  | Маршрут          | Что делает               |
+|--------|-----------------|--------------------------|
+| GET    | `/`              | Информация о сервисе     |
+| GET    | `/items`         | Список всех предметов    |
+| GET    | `/items/<id>`    | Один предмет по ID       |
+| POST   | `/items`         | Добавить предмет         |
+| PUT    | `/items/<id>`    | Изменить предмет         |
+| DELETE | `/items/<id>`    | Удалить предмет          |
 
 ---
 
@@ -79,56 +44,64 @@
 
 ```
 final-project/
-├── app.py                ← Flask API (главный код)
-├── requirements.txt      ← Зависимости
-├── Dockerfile            ← Рецепт контейнера
-├── docker-compose.yml    ← Запуск локально
-├── .env.example          ← Пример переменных
-├── .gitignore
+├── app.py                 ← Flask REST API (Модуль 6)
+├── requirements.txt       ← зависимости Python
+├── .env.example           ← пример переменных окружения (Модуль 6)
+├── .gitignore             ← что не коммитим в Git (Модуль 2)
+├── Dockerfile             ← рецепт образа (Модуль 3)
+├── docker-compose.yml     ← оркестрация (Модуль 4)
+├── Makefile               ← удобные команды (make run / make k8s-deploy)
 └── k8s/
-    ├── deployment.yaml
-    └── service.yaml
+    ├── deployment.yaml    ← Deployment с livenessProbe (Модуль 5)
+    ├── service.yaml       ← NodePort :30080 (Модуль 5)
+    ├── hpa.yaml           ← авто-масштабирование CPU 70% (Модуль 5)
+    ├── configmap.yaml     ← конфиг (Модуль 5)
+    └── secret.yaml        ← пример Secret (Модуль 6)
 ```
 
 ---
 
-## Шаг 1 — Создать проект (Модули 1–2)
+## 🛠️ Быстрый старт
 
 ```bash
-mkdir my-collection && cd my-collection
-git init
-echo ".env" > .gitignore
-echo "__pycache__/" >> .gitignore
+# Клонировать репо
+git clone https://github.com/OlegKarenkikh/devops-for-kids.git
+cd devops-for-kids/projects/final-project
 
-cat > .env << 'ENVEOF'
-APP_PORT=8080
-APP_NAME=МояКоллекция
-DB_PATH=collection.db
-ENVEOF
+# Создать .env из примера
+cp .env.example .env
+```
 
-git add .gitignore && git commit -m "Старт проекта"
+---
+
+## Шаг 1 — Запуск локально (Модули 1–2)
+
+```bash
+pip install -r requirements.txt
+python app.py
+# Открой http://localhost:8080
 ```
 
 ---
 
 ## Шаг 2 — Код на Python (Модуль 6)
 
-Смотри файл `app.py` рядом с этим README.
+Изучи `app.py` — обрати внимание:
+- **`os.environ.get()`** — читаем настройки из переменных окружения
+- **`load_dotenv()`** — загружаем `.env` файл
+- **SQLite** — лёгкая база данных в одном файле
 
 ```bash
-pip install -r requirements.txt
-python app.py
-
-# Тестируем
+# Тест вручную
 curl http://localhost:8080/
-curl http://localhost:8080/items
 
+# Добавить предмет
 curl -X POST http://localhost:8080/items \
-     -H "Content-Type: application/json" \
-     -d '{"name":"Гитара","emoji":"🎸","comment":"Yamaha F310"}'
+  -H "Content-Type: application/json" \
+  -d '{"name": "Моя книга", "emoji": "📚", "comment": "очень интересная"}'
 
+# Посмотреть список
 curl http://localhost:8080/items
-curl -X DELETE http://localhost:8080/items/1
 ```
 
 ---
@@ -136,10 +109,14 @@ curl -X DELETE http://localhost:8080/items/1
 ## Шаг 3 — Docker (Модуль 3)
 
 ```bash
-docker build -t my-collection .
-docker run -d -p 8080:8080 --env-file .env my-collection
-curl http://localhost:8080/items
-docker stop $(docker ps -q --filter ancestor=my-collection)
+# Собрать образ
+docker build -t my-collection:latest .
+
+# Запустить контейнер
+docker run -p 8080:8080 my-collection:latest
+
+# Или используй Makefile:
+make build
 ```
 
 ---
@@ -148,112 +125,112 @@ docker stop $(docker ps -q --filter ancestor=my-collection)
 
 ```bash
 docker compose up -d
+
+# Проверить статус
+docker compose ps
 docker compose logs -f
-# Добавляем данные, затем перезапускаем:
-docker compose down && docker compose up -d
-curl http://localhost:8080/items   # Данные сохранились!
+
+# Или через Makefile:
+make compose-up
+make logs
 ```
+
+> Данные сохраняются в volume `collection-data` — даже после перезапуска!
 
 ---
 
 ## Шаг 5 — Kubernetes (Модуль 5)
 
 ```bash
+# Запустить minikube
 minikube start
-eval $(minikube docker-env)
-docker build -t my-collection .
+
+# Задеплоить всё одной командой
+make k8s-deploy
+
+# Или вручную:
 kubectl apply -f k8s/
 kubectl get pods
+kubectl get services
+
+# Открыть сервис
 minikube service collection-service --url
 ```
 
----
+### Проверь самовосстановление!
 
-
----
-
-## 🎯 Пошаговые задания
-
-Выполняй по порядку — каждый шаг проверяет предыдущий.
-
-### Шаг 1 — Запусти локально
-```bash
-git clone https://github.com/OlegKarenkikh/devops-for-kids.git
-cd devops-for-kids/projects/final-project
-
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env          # скопируй настройки
-
-python app.py
-# Открой http://localhost:5000
-```
-> ✅ Страница открылась? Переходи к Шагу 2!
-
-### Шаг 2 — Упакуй в Docker
-```bash
-docker build -t my-collection:1.0 .
-docker run -d -p 5000:5000 --name collection my-collection:1.0
-
-# Проверь
-docker ps
-curl http://localhost:5000/api/items
-```
-> ✅ API отвечает из контейнера? Переходи к Шагу 3!
-
-### Шаг 3 — Запусти через Compose
-```bash
-docker compose up -d
-docker compose ps           # все сервисы Running?
-docker compose logs -f      # логи в реальном времени
-```
-> ✅ Все сервисы зелёные? Переходи к Шагу 4!
-
-### Шаг 4 — Деплой в Kubernetes
-```bash
-minikube start
-kubectl apply -f k8s/
-kubectl get pods -w          # ждём Running
-kubectl get svc
-
-minikube service collection-service --url   # получи URL
-curl <URL>/api/items
-```
-> ✅ Приложение работает в Kubernetes? Ты Junior DevOps! 🏆
-
-### Шаг 5 — Проверь самовосстановление
 ```bash
 # Удали под вручную
-kubectl get pods
-kubectl delete pod <имя-пода>
+kubectl delete pod -l app=collection
 
-# Kubernetes сразу создаст новый!
+# Kubernetes сразу создаст новый! Проверь:
 kubectl get pods -w
 ```
-> ✅ Новый под появился автоматически? Kubernetes работает!
 
-### Шаг 6 — Опубликуй на GitHub
+### Авто-масштабирование HPA
+
 ```bash
+kubectl get hpa
+# При нагрузке CPU > 70% — добавит поды автоматически (до 5)
+```
+
+---
+
+## Шаг 6 — Опубликуй на GitHub (Модуль 2)
+
+```bash
+# Все изменения закоммить
 git add .
-git commit -m "feat: my first DevOps project 🚀"
+git commit -m "feat: мой первый DevOps-проект"
 git push origin main
 ```
-> ✅ Проект на GitHub? Поздравляем — это твоё портфолио!
+
+---
+
+## make — все команды
+
+```
+make run          — запустить локально (Python)
+make build        — собрать Docker-образ
+make compose-up   — запустить через Docker Compose
+make compose-down — остановить Docker Compose
+make k8s-deploy   — задеплоить в Kubernetes
+make k8s-delete   — удалить из Kubernetes
+make test         — тест API (curl)
+make clean        — очистить всё
+make help         — эта помощь
+```
+
+---
 
 ## ✅ Чеклист
 
-- [ ] `python app.py` — работает локально
-- [ ] `docker build` — образ собирается
-- [ ] `docker compose up -d` — сервис запускается
-- [ ] Данные сохраняются после перезапуска
-- [ ] `kubectl apply -f k8s/` — деплой прошёл
-- [ ] Удалил Pod — K8s запустил новый автоматически
-- [ ] Код в GitHub с понятными коммитами
+- [ ] Запустил локально (`python app.py`)
+- [ ] Добавил 3+ предмета через curl
+- [ ] Собрал Docker-образ (`docker build`)
+- [ ] Запустил через `docker compose up -d`
+- [ ] Задеплоил в Kubernetes (`make k8s-deploy`)
+- [ ] Проверил самовосстановление pod'а
+- [ ] Посмотрел на HPA (`kubectl get hpa`)
+- [ ] Запушил на GitHub (`git push`)
 
 ---
 
 ## 🎓 Поздравляем!
 
-Ты только что применил ВСЁ что изучил:
-Linux + Git + Python + Docker + Compose + Kubernetes = **Junior DevOps!** 🚀
+Ты прошёл весь курс **DevOps для детей** и запустил настоящий сервис:
 
+| Модуль | Что использовал |
+|--------|----------------|
+| M0-1   | Терминал, команды, файловая система |
+| M2     | Git, ветки, GitHub, SSH |
+| M3     | Docker, образ, контейнер, Dockerfile |
+| M4     | Docker Compose, сети, volumes |
+| M5     | Kubernetes, Pod, Deployment, HPA |
+| M6     | Flask REST API, .env, SQLite, Secrets |
+
+**Ты — настоящий DevOps-инженер! 🚀**
+
+---
+
+*← [Модуль 6](../../lessons/module6-secrets-api/) | [FAQ](../../lessons/kids-faq/)*
