@@ -10,6 +10,9 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
+![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
+
+
 ### 🧠 Теория: почему пароль в коде = катастрофа
 
 Представь: ты написал в коде `password = "мойСуперПароль"` и запушил на GitHub. GitHub индексирует **весь публичный код**. Существуют боты, которые сканируют GitHub в поисках паролей и токенов — и находят их за минуты. Реальные случаи: слитые AWS-ключи → счёт на $50 000 за одну ночь майнинга криптовалюты.
@@ -81,6 +84,9 @@ services:
 ---
 
 ## Урок 31 — REST API: что это?
+
+![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
+
 
 ### 🧠 Теория: HTTP запрос и ответ
 
@@ -161,6 +167,9 @@ if __name__ == "__main__":
 ---
 
 ## Урок 33 — SQLite: база данных в одном файле
+
+![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
+
 
 ![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
 
@@ -289,6 +298,9 @@ if __name__ == "__main__":
 ---
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
+
+![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
+
 
 ![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.png)
 
