@@ -101,6 +101,9 @@ password = os.environ["DB_PASSWORD"]   # Читаем переменную
 
 ## 💻 Модуль 1 — Терминал
 
+![faq-server](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-server.png)
+
+
 ### ❓ Почему команды такие короткие (ls, cd, pwd)?
 
 Потому что их придумали в **1970-х годах**, когда клавиатуры были медленными и дорогими, а интернет передавал данные очень медленно. Чем короче команда — тем быстрее набрать и передать.
@@ -202,6 +205,9 @@ docker push myapp
 ---
 
 ## 🌿 Модуль 2 — Git
+
+![faq-git](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-git.png)
+
 
 ### ❓ Git и GitHub — это одно и то же?
 
@@ -353,6 +359,9 @@ __pycache__/
 
 ## 🐳 Модуль 3 — Docker
 
+![faq-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-docker.png)
+
+
 ### ❓ В чём разница между Image и Container?
 
 <div align="center">
@@ -421,6 +430,9 @@ volumes:
 ---
 
 ## ⚙️ Модуль 5 — Kubernetes
+
+![faq-kubernetes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-kubernetes.png)
+
 
 ### ❓ «Kubernetes» — откуда это слово?
 
