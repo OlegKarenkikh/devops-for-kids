@@ -11,13 +11,13 @@
 ## Урок 9 — Что такое Git?
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-workflow.png" alt="Git workflow" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.png" alt="Git workflow" width="900"/>
   <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-analogy.png" alt="Git — система сохранений как в игре" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.png" alt="Git — система сохранений как в игре" width="85%"/>
 <br/><em>Git — как точки сохранения в игре. Каждый commit = сохранение. Можно вернуться в любой момент!</em>
 </div>
 
@@ -60,7 +60,7 @@ nothing to commit, working tree clean
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-git-branches.png" alt="Git ветки" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png" alt="Git ветки" width="90%"/>
 <br/><em>Main всегда работает. Эксперименты — в отдельных ветках!</em>
 </div>
 ### 🧠 Теория: зачем нужны ветки?
@@ -95,14 +95,14 @@ git pull                        # Получить чужие изменения
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-keys.png" alt="SSH ключи" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.png" alt="SSH ключи" width="900"/>
   <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
 </div>
 
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module2-ssh-troubleshoot.png" alt="SSH troubleshooting" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.png" alt="SSH troubleshooting" width="90%"/>
 <br/><em>Следуй блок-схеме — шаг за шагом найдёшь проблему</em>
 </div>
 ### ⚠️ Что делать если SSH не пускает?
