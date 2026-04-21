@@ -52,6 +52,8 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
+![module6-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-dotenv.png)
+
 ![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
 
 
@@ -374,6 +376,8 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 ---
 
 ## Урок 35 — Шпаргалка
+
+![module6-api-gateway-jwt](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-api-gateway-jwt.png)
 
 | Правило | Почему |
 |---------|--------|
