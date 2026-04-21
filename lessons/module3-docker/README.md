@@ -70,6 +70,9 @@ newgrp docker
 
 ## Урок 13 — Образ vs Контейнер
 
+![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png)
+
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
 <br/><em>Образ = рецепт (неизменный). Контейнер = приготовленное блюдо. Из одного рецепта — сколько угодно блюд</em>
@@ -109,6 +112,9 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ---
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
+
+![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
+
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="90%"/>
@@ -288,6 +294,9 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 </div>
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
+
+![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png)
+
 
 ### 🧠 Теория: почему данные исчезают?
 
