@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-collection
+  labels:
+    app: collection
+    version: "1.0"
 spec:
   replicas: 2
   selector:
@@ -24,7 +27,7 @@ spec:
         - name: APP_PORT
           value: "8080"
         - name: DB_PATH
-          value: "/tmp/collection.db"
+          value: "/app/data/collection.db"
         resources:
           requests:
             memory: "64Mi"
@@ -32,3 +35,21 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /items
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        volumeMounts:
+        - name: data-volume
+          mountPath: /app/data
+      volumes:
+      - name: data-volume
+        emptyDir: {}
