@@ -41,6 +41,9 @@ kubectl get all
 
 ## Урок 25 — Архитектура кластера
 
+![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
+
+
 ### 🧠 Теория: Control Plane и Worker Nodes
 
 Kubernetes-кластер состоит из двух типов машин:
@@ -72,6 +75,9 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 ---
 
 ## Урок 26 — Pod, Deployment, Service
+
+![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png)
+
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
 
@@ -189,6 +195,9 @@ kubectl rollout undo deployment/my-website
 ---
 
 ## Урок 28 — Автомасштабирование HPA
+
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
+
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
 
