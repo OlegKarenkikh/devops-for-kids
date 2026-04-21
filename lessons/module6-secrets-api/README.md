@@ -10,6 +10,9 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
+![module6-secrets-env](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.png)
+
+
 ![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
 
 ![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
@@ -88,6 +91,9 @@ services:
 ---
 
 ## Урок 31 — REST API
+
+![kid_rest_api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_rest_api.png)
+
 
 ![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
 : что это?
