@@ -353,6 +353,19 @@ git push -u origin main
 
 ---
 
+---
+
+## 🧩 Быстрый тест — проверь себя
+
+| Вопрос | Ответ |
+|--------|-------|
+| Три состояния файла в git? | Untracked → Staged → Committed |
+| Чем `git fetch` отличается от `git pull`? | fetch скачивает, pull — скачивает + мержит |
+| Зачем нужны ветки (branches)? | Параллельная разработка без конфликтов с main |
+| Что такое PAT-токен? | Personal Access Token — пароль для GitHub API/HTTPS |
+| Чем SSH отличается от HTTPS для GitHub? | SSH использует ключи (без пароля), HTTPS — логин/токен |
+| Что такое Pull Request? | Запрос на влитие ветки в main с code review |
+
 ## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
