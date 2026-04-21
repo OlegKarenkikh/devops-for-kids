@@ -134,6 +134,9 @@ git push
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
+![module2-ssh-keys](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.png)
+
+
 ![module2-ssh-troubleshoot-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.png)
 
 
