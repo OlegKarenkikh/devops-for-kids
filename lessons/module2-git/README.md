@@ -104,10 +104,17 @@ fatal: Authentication failed for 'https://github.com/...'
 # → Personal Access Tokens → Tokens (classic) → Generate new token
 # Выбери права: repo (полный доступ к репозиториям), срок: 90 дней
 
-# Подставь токен в remote URL:
-export GITHUB_TOKEN="ghp_твой_токен_здесь"
-git remote set-url origin https://$GITHUB_TOKEN@github.com/ТЫ/проект.git
+# Безопасный способ — сохранить через credential helper:
+git config --global credential.helper store
+
+# При первом git push введи:
+#   Username: твой_логин_github
+#   Password: ghp_твой_токен  (не пароль от аккаунта, а токен!)
 git push
+
+# Токен сохранится в ~/.git-credentials и больше не будет спрашиваться.
+# ⚠️ Не используй https://токен@github.com/... — токен окажется в .git/config
+#    и будет виден через git remote -v (утечка секрета!)
 ```
 
 **Способ 2 — SSH (правильно, один раз навсегда):**
