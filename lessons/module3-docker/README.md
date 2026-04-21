@@ -10,6 +10,9 @@
 
 ## Урок 12 — Зачем нужен Docker?
 
+![module3-why-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.png)
+
+
 ![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.png)
 
 
@@ -115,6 +118,9 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ---
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
+
+![module3-dockerfile-recipe](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.png)
+
 
 ![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
 
@@ -330,6 +336,9 @@ docker volume rm mydata              # Удалить
 ---
 
 ## 🎯 Практические задания
+
+![module3-docker-errors](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.png)
+
 
 ### Задание 1 — Первый контейнер
 ```bash
