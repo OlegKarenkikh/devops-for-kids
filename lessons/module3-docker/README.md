@@ -11,7 +11,7 @@
 ## Урок 12 — Зачем нужен Docker?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-why-docker.png" alt="Зачем нужен Docker" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.png" alt="Зачем нужен Docker" width="85%"/>
 <br/><em>«У меня работает, у тебя нет» — классическая проблема. Docker решает её раз и навсегда</em>
 </div>
 
@@ -48,7 +48,7 @@ docker run hello-world              # Тест: скачает и запусти
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-errors.png" alt="Частые ошибки Docker" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.png" alt="Частые ошибки Docker" width="90%"/>
 <br/><em>Три самые частые ошибки и как их исправить</em>
 </div>
 ### ⚠️ Частая ошибка: permission denied
@@ -70,7 +70,7 @@ newgrp docker
 ## Урок 13 — Образ vs Контейнер
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-image-vs-container.png" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
 <br/><em>Образ = рецепт (неизменный). Контейнер = приготовленное блюдо. Из одного рецепта — сколько угодно блюд</em>
 </div>
 
@@ -110,13 +110,13 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-layers.png" alt="Слои Docker образа" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.png" alt="Слои Docker образа" width="900"/>
   <br/><em>🐳 Рис. 5 — Dockerfile → слои образа → кеширование: что меняется — то пересобирается</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-dockerfile-recipe.png" alt="Dockerfile — пошаговый рецепт" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.png" alt="Dockerfile — пошаговый рецепт" width="85%"/>
 <br/><em>Dockerfile — пошаговый рецепт: каждая строка добавляет новый слой к образу</em>
 </div>
 
@@ -164,7 +164,7 @@ curl http://localhost:8080          # Проверить
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-dockerfile-layers.png" alt="Dockerfile порядок слоёв" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png" alt="Dockerfile порядок слоёв" width="90%"/>
 <br/><em>Меняется редко — наверх. Меняется часто — вниз. Кэш экономит минуты сборки!</em>
 </div>
 ### ⚠️ Частые ошибки при сборке
@@ -246,7 +246,7 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module3-docker-volume.png" alt="Docker Volume" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png" alt="Docker Volume" width="90%"/>
 <br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
 </div>
 ### 🧠 Теория: почему данные исчезают?
