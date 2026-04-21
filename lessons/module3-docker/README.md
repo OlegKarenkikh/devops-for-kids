@@ -378,6 +378,8 @@ exit
 
 ## Урок 18 — Шпаргалка Docker
 
+![module3-deployment-path](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-deployment-path.png)
+
 ![module3-docker-prune](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.png)
 
 
