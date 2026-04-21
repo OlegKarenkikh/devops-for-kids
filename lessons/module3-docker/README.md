@@ -76,6 +76,9 @@ newgrp docker
 
 ## Урок 13 — Образ vs Контейнер
 
+![kid_image_container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_image_container.png)
+
+
 ![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png)
 
 
@@ -309,6 +312,9 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 </div>
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
+
+![module3-docker-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.png)
+
 
 ![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png)
 
