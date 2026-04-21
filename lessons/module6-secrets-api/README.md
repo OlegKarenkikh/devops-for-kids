@@ -11,7 +11,7 @@
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-secrets-env.png" alt="Секреты — не в код, а в .env" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.png" alt="Секреты — не в код, а в .env" width="85%"/>
 <br/><em>Код на GitHub видят все. Пароль в коде = пароль для всех. .env решает эту проблему</em>
 </div>
 
@@ -57,7 +57,7 @@ services:
 ## Урок 31 — REST API: что это?
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-rest-api.png" alt="REST API" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png" alt="REST API" width="85%"/>
 <br/><em>API — официант между клиентом и сервером</em>
 </div>
 
@@ -194,7 +194,7 @@ if __name__ == "__main__":
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/audit-unified-illustrations-faq/images/module6-secrets-vault.png" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.png" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
 <br/><em>Secret в Kubernetes — как сейф внутри кластера. Пароль хранится отдельно от кода</em>
 </div>
 
