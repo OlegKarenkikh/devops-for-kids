@@ -41,6 +41,23 @@ kubectl get all
 
 ## Урок 25 — Архитектура кластера
 
+### 🧠 Теория: Control Plane и Worker Nodes
+
+Kubernetes-кластер состоит из двух типов машин:
+
+**Control Plane** (мозг) — принимает решения:
+- `kube-apiserver` — принимает все команды (через kubectl)
+- `etcd` — база данных кластера, хранит всё состояние
+- `scheduler` — решает, на каком Node запустить Pod
+- `controller-manager` — следит что реальность соответствует желаемому
+
+**Worker Nodes** (рабочие) — выполняют работу:
+- `kubelet` — агент на каждой ноде, запускает Pod'ы
+- `kube-proxy` — управляет сетью между Pod'ами
+- `container runtime` — Docker или containerd — запускает сами контейнеры
+
+> 💡 На minikube всё это работает на одной машине — Control Plane + Node в одном.
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.jpg" alt="Архитектура кластера Kubernetes" width="85%"/>
 <br/><em>Control Plane — мозг (планирует и управляет). Nodes — рабочие (запускают Pod'ы)</em>
@@ -56,9 +73,33 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
+### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
+
+**YAML** — это формат для записи конфигурации. Как JSON, но читается людьми. Правила:
+- Отступы = структура (всегда пробелы, **никогда табы**)
+- `ключ: значение` — пара
+- `- элемент` — список
+- `#` — комментарий
+
+```yaml
+# Пример YAML — список сервисов
+services:            # ключ верхнего уровня
+  - name: nginx      # список (дефис = элемент)
+    port: 80         # вложенное значение
+  - name: postgres
+    port: 5432
+```
+
+**Три главных объекта Kubernetes:**
+| Объект | Что делает | Аналогия |
+|--------|-----------|----------|
+| `Pod` | Запускает 1+ контейнеров | Один рабочий |
+| `Deployment` | Управляет N копиями Pod'ов | Бригадир + рабочие |
+| `Service` | Даёт постоянный адрес Pod'ам | Ресепшн — не важно кто отвечает |
+
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="900"/>
-  <br/><em>🏙️ Kubernetes-кластер — как город: Cluster → Node-районы → Pod-здания с контейнерами внутри, Service — полицейский соединяет их</em>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg" alt="Kubernetes: Pod, Deployment, Service" width="90%"/>
+  <br/><em>☸️ Рис. 7 — Три главных объекта k8s: Pod → Deployment → Service с YAML примерами</em>
 </div>
 
 
@@ -117,6 +158,21 @@ minikube service website-service --url
 
 ## Урок 27 — Самовосстановление
 
+### 🧠 Теория: Reconciliation Loop
+
+Kubernetes работает по принципу **«желаемое состояние»**: ты говоришь «хочу 3 реплики», и Kubernetes **постоянно** проверяет — а сколько реплик сейчас? Если меньше — запускает новые. Если упал Pod — замечает за секунды и поднимает замену автоматически, без твоего участия.
+
+Это называется **Reconciliation Loop** (петля согласования):
+```
+Желаемое состояние (replicas: 3)
+         ↓
+  Проверка каждые ~5 сек
+         ↓
+Реальное состояние (2 пода — один упал)
+         ↓
+Действие: запустить новый Pod
+```
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg" alt="Самовосстановление Kubernetes" width="85%"/>
 <br/><em>Упал Pod → Kubernetes заметил → за 5 секунд запустил новый. Автоматически, без тебя!</em>
@@ -134,9 +190,23 @@ kubectl rollout undo deployment/my-website
 
 ## Урок 28 — Автомасштабирование HPA
 
+### 🧠 Теория: что такое HPA и cpu-percent?
+
+**HPA (Horizontal Pod Autoscaler)** — автоматически добавляет или убирает Pod'ы в зависимости от нагрузки.
+
+`--cpu-percent=70` означает: **если среднее использование CPU всех Pod'ов превысит 70% от их `requests.cpu` — добавь новые Pod'ы**.
+
+```
+requests.cpu: 100m  →  лимит = 100 миллицпу
+Текущее использование = 80m  →  80%  →  > 70%  →  HPA добавит Pod
+Текущее использование = 50m  →  50%  →  < 70%  →  HPA уберёт лишние Pod'ы
+```
+
+Диапазон `--min=2 --max=10`: никогда не меньше 2 Pod'ов (надёжность), никогда больше 10 (защита от перерасхода ресурсов).
+
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="900"/>
-  <br/><em>⚓ kubectl — пульт управления флотом: Смотреть 👀 / Запустить 🚀 / Отладить 🔧</em>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg" alt="kubectl шпаргалка" width="90%"/>
+  <br/><em>⚙️ Рис. 8 — Шпаргалка kubectl: смотреть / запускать / отлаживать</em>
 </div>
 
 
@@ -155,6 +225,25 @@ kubectl describe hpa my-website
 ---
 
 ## 📋 Шпаргалка Kubernetes
+
+> 💡 **Задание к уроку 27 — Самовосстановление:**
+> ```bash
+> # 1. Запусти Deployment из урока 26
+> # 2. Открой два терминала: в первом смотри поды, во втором удаляй
+> kubectl get pods -w                     # терминал 1 — наблюдай в реальном времени
+> kubectl delete pod <имя-любого-пода>    # терминал 2 — убей Pod
+> # Видишь? Новый Pod поднялся автоматически за несколько секунд ✅
+> ```
+
+> 💡 **Задание к уроку 28 — Автомасштабирование:**
+> ```bash
+> minikube addons enable metrics-server
+> kubectl autoscale deployment hello-kids --min=2 --max=5 --cpu-percent=50
+> kubectl get hpa -w                      # наблюдай изменения в реальном времени
+> # Нагрузи сервис (в другом терминале):
+> kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while true; do wget -q -O- http://hello-kids-svc; done"
+> # Смотри как растёт REPLICAS в kubectl get hpa ✅
+> ```
 
 | Команда | Действие |
 |---------|---------|
@@ -232,57 +321,21 @@ minikube service hello-kids-svc   # откроет браузер!
 
 ---
 
-## ❓ Вопросы новичков — Kubernetes
-
-<details>
-<summary><strong>«Kubernetes» — откуда это слово?</strong></summary>
-
-Kubernetes — **греческое слово** (κυβερνήτης), означает «кормчий» или «рулевой корабля». Произносится: **«кубернэтес»** или просто **«кубик»**.
-
-```
-K u b e r n e t e s  →  k  +  8 букв  +  s  =  k8s
-```
-Создан в Google в 2014 году, открыт как open source.
-
-</details>
-
-<details>
-<summary><strong>Pod — это стручок гороха?</strong></summary>
+## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.jpg" alt="Pod как стручок гороха" width="85%"/>
-<br/><em>Pod = стручок. Контейнеры внутри всегда запускаются вместе</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
+<br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
-Да! «Pod» по-английски — «стручок». Контейнеры внутри Pod всегда вместе: один сервер, одна сеть, одно хранилище.
+Прежде чем перейти к Модулю 6 — ответь себе вслух или письменно:
 
-```bash
-kubectl get pods              # Список Pod
-kubectl describe pod ИМЯ      # Подробности
-kubectl logs ИМЯ              # Логи
-kubectl exec -it ИМЯ -- bash  # Зайти внутрь
-```
+**1. Зачем нужен Kubernetes если уже есть Docker Compose? Когда один заменяет другой?**
 
-</details>
+**2. Что такое Pod, Deployment и Service? Объясни каждый одним предложением.**
 
-<details>
-<summary><strong>Чем Deployment отличается от Pod?</strong></summary>
+**3. Как HPA (Horizontal Pod Autoscaler) понимает, что нужно добавить Pod'ы?**
 
-| | Pod | Deployment |
-|---|---|---|
-| Если упадёт | Не перезапустится | Создаст новый автоматически |
-| Масштаб | 1 штука | Указываешь `replicas: 3` |
-| Обновление | Вручную | Rolling update сам |
+**4. Что такое Rolling Update и почему он лучше чем просто остановить всё и перезапустить?**
 
-> 👔 Аналогия: Pod — рабочий. Deployment — менеджер, следит чтобы рабочих было нужное количество.
-
-</details>
-
-<details>
-<summary><strong>kubectl — как произносится?</strong></summary>
-
-**«кубе-контрол»** или **«кубектл»** — единого стандарта нет.
-`kubectl` = **kube** (Kubernetes) + **ctl** (control)
-
-</details>
-
+> 💡 Если не можешь ответить на вопрос — вернись к соответствующему уроку. Понимание важнее скорости!

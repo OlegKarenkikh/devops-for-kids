@@ -80,3 +80,53 @@ ls lessons/
 ## Вопросы
 
 Открывай [Discussion](https://github.com/OlegKarenkikh/devops-for-kids/discussions) — рады любым вопросам и идеям.
+
+## 🖼️ Требования к иллюстрациям
+
+Все изображения должны соответствовать стандарту курса:
+
+| Параметр | Стандарт |
+|----------|----------|
+| Формат | `.jpg` (основной) + `.png` (оригинал) |
+| Ширина в Markdown | `width="90%"` — обязательно! |
+| Alt-текст | Описательный, не пустой |
+| Стиль | Схема-инфографика ИЛИ иллюстрация — единый внутри урока |
+| Именование | `moduleN-topic-name.jpg` (строчные, через дефис) |
+
+```html
+<!-- ✅ Правильно -->
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-filesystem.jpg"
+     alt="Файловая система Linux — дерево папок" width="90%"/>
+</div>
+
+<!-- ❌ Неправильно: пиксели, нет alt -->
+<img src="..." width="900"/>
+```
+
+## 📝 Соглашение о коммитах
+
+Используй префиксы:
+
+```
+feat(module3): добавить урок про multi-stage build
+fix(module2): исправить опечатку в Уроке 10
+docs(readme): обновить таблицу модулей
+style(cheatsheets): выровнять отступы
+```
+
+## 🧪 Превью локально
+
+```bash
+git clone https://github.com/OlegKarenkikh/devops-for-kids.git
+cd devops-for-kids
+# Просматривай .md файлы в VS Code (Ctrl+Shift+V) или:
+npx serve .   # статический сервер для браузера
+```
+
+## 📋 Code of Conduct
+
+Будь уважительным — этот курс для тех, кто только начинает.
+Никаких насмешек над «глупыми» вопросами — у каждого свой темп.
+
+> «Если ты самый умный в комнате — ты в не той комнате.»

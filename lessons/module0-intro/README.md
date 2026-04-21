@@ -3,7 +3,6 @@
 > **🎯 Цель модуля:** понять, зачем нужны терминал, Git, Docker и Kubernetes — и как они связаны между собой. После этого модуля ты будешь знать «карту местности» и не потеряешься в следующих уроках.
 
 
-
 > **Этот урок для тех, кто:**
 > - Впервые открывает терминал и не знает что это
 > - Видел чёрный экран с текстом и испугался
@@ -344,7 +343,7 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 ## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="80%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
 <br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
