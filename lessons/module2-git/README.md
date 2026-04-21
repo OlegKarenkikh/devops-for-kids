@@ -10,6 +10,9 @@
 
 ## Урок 9 — Что такое Git?
 
+![module2-git-analogy](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.png)
+
+
 ![module2-git-workflow](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.png)
 
 
@@ -60,6 +63,9 @@ nothing to commit, working tree clean
 ---
 
 ## Урок 10 — Ветки и GitHub
+
+![kid_git_github](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_git_github.png)
+
 
 ![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png)
 
@@ -339,6 +345,9 @@ git push -u origin main
 ```
 
 ## Шпаргалка Git + SSH
+
+![module2-ssh-troubleshoot](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.png)
+
 
 | Команда | Действие |
 |---------|---------|
