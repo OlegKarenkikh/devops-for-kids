@@ -10,6 +10,9 @@
 
 ## Урок 9 — Что такое Git?
 
+![module2-git-workflow](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.png)
+
+
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="90%"/>
   <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
@@ -57,6 +60,9 @@ nothing to commit, working tree clean
 ---
 
 ## Урок 10 — Ветки и GitHub
+
+![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png)
+
 
 
 <div align="center">
@@ -127,6 +133,9 @@ git push
 ---
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
+
+![module2-ssh-server-vs-github](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-server-vs-github.png)
+
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
@@ -243,6 +252,9 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 ---
 
 ## 🔧 Бонус-урок — curl и GitHub API: автоматизация через токен
+
+![module2-curl-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.png)
+
 
 ### 🧠 Теория: что такое curl и зачем он DevOps-инженеру?
 
