@@ -130,6 +130,9 @@ Authorization: Bearer xxx
 
 ## Урок 32 — Первый API на Flask
 
+![module6-github-azure-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-github-azure-secrets.png)
+
+
 ![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
 
 
@@ -307,6 +310,9 @@ if __name__ == "__main__":
 ---
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
+
+![module6-secrets-vault](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.png)
+
 
 ![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
 
