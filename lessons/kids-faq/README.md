@@ -273,9 +273,12 @@ GitHub убрал поддержку паролей в августе 2021. Те
 ```bash
 # Вариант 1 — PAT (быстро):
 # Создать: github.com → Settings → Developer Settings → Personal Access Tokens
-export GITHUB_TOKEN="ghp_твой_токен"
-git remote set-url origin https://$GITHUB_TOKEN@github.com/ТЫ/проект.git
+git config --global credential.helper store
 git push
+# При первом запросе введи:
+#   Username: твой_логин_github
+#   Password: ghp_твой_токен  ← именно токен, не пароль аккаунта!
+# Токен сохранится в ~/.git-credentials
 
 # Вариант 2 — SSH (один раз, навсегда):
 # → Модуль 2, Урок 11
