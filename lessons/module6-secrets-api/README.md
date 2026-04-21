@@ -83,7 +83,10 @@ services:
 
 ---
 
-## Урок 31 — REST API: что это?
+## Урок 31 — REST API
+
+![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
+: что это?
 
 ![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
 
