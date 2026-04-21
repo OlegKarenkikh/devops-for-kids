@@ -168,6 +168,9 @@ cp        -r                папка/ /новое-место/
 
 ## Как читать ответы терминала — зелёный и красный
 
+![intro_env_vars](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_env_vars.png)
+
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/terminal_output.jpg" alt="Успех и ошибка в терминале" width="90%"/>
 <br/><em>Ошибка — это подсказка, не катастрофа. Главное — прочитать её до конца.</em>
@@ -210,6 +213,9 @@ cat: несуществующий.txt: No such file or directory
 ---
 
 ## Точка, две точки и тильда — невидимые ориентиры
+
+![intro_filesystem](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_filesystem.png)
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/path_symbols.jpg" alt="Спецсимволы в путях Linux" width="90%"/>
@@ -322,6 +328,9 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 
 ## ⛔ Главные НЕ — прочитай до первой команды
 
+![intro_ports](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_ports.png)
+
+
 ```
 НЕ бойся терминала
    Просто напечатать текст ничего не сломает.
@@ -382,6 +391,9 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 ---
 
 ## Итог урока 0
+
+![intro_full_architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_full_architecture.png)
+
 
 ![overview-roadmap](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/overview-roadmap.png)
 
