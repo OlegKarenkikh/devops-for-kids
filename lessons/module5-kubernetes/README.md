@@ -79,6 +79,9 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
+![kid_pod](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.png)
+
+
 ![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png)
 
 
@@ -201,6 +204,9 @@ kubectl rollout undo deployment/my-website
 ---
 
 ## Урок 28 — Автомасштабирование HPA
+
+![kid_three_layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_three_layers.png)
+
 
 ![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
 
