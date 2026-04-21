@@ -11,8 +11,8 @@
 ## Урок 9 — Что такое Git?
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="900"/>
-  <br/><em>📸 Git-workflow: ты пишешь код → кладёшь в Staging → делаешь коммит-снимок → отправляешь в облако GitHub</em>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg" alt="Git workflow" width="90%"/>
+  <br/><em>🌿 Рис. 3 — Четыре зоны Git: рабочая папка → Staging → Local → GitHub</em>
 </div>
 
 
@@ -90,17 +90,48 @@ git push                        # Последующие разы
 git pull                        # Получить чужие изменения
 ```
 
+### ⚠️ git push просит пароль — и не принимает его?
+
+GitHub убрал вход по паролю в **августе 2021**. При попытке `git push` с паролем увидишь:
+```
+remote: Support for password authentication was removed on August 13, 2021.
+fatal: Authentication failed for 'https://github.com/...'
+```
+
+**Способ 1 — Personal Access Token (PAT, быстро):**
+```bash
+# Создай токен: github.com → Settings → Developer Settings
+# → Personal Access Tokens → Tokens (classic) → Generate new token
+# Выбери права: repo (полный доступ к репозиториям), срок: 90 дней
+
+# Безопасный способ — сохранить через credential helper:
+git config --global credential.helper store
+
+# При первом git push введи:
+#   Username: твой_логин_github
+#   Password: ghp_твой_токен  (не пароль от аккаунта, а токен!)
+git push
+
+# Токен сохранится в ~/.git-credentials и больше не будет спрашиваться.
+# ⚠️ Не используй https://токен@github.com/... — токен окажется в .git/config
+#    и будет виден через git remote -v (утечка секрета!)
+```
+
+**Способ 2 — SSH (правильно, один раз навсегда):**
+```bash
+# → Урок 11 этого модуля — там полная инструкция
+```
+
+> 🔐 Никогда не коммить токен в код и не оставлять его в истории shell. После использования отзови на github.com/settings/tokens.
+
 ---
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="900"/>
-  <br/><em>🗝️ SSH-ключи как замок и ключ: публичный ключ отдаёшь серверу, приватный — хранишь только у себя</em>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.jpg" alt="SSH ключи" width="90%"/>
+  <br/><em>🔑 Рис. 4 — SSH: публичный ключ на сервере, приватный — только у тебя</em>
 </div>
-
-
-
 ### 🧠 Теория: что такое SSH и зачем он нужен?
 
 SSH (Secure Shell) — протокол безопасного подключения к удалённым серверам. Вместо пароля используется пара ключей: **публичный** (можно раздавать всем) и **приватный** (только у тебя, никому не показывать).
@@ -211,6 +242,45 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ---
 
+## 🔧 Бонус-урок — curl и GitHub API: автоматизация через токен
+
+### 🧠 Теория: что такое curl и зачем он DevOps-инженеру?
+
+`curl` — это команда для отправки HTTP-запросов прямо из терминала. Как браузер, но без интерфейса — только текст. DevOps используют `curl` для автоматизации: проверить API, создать репозиторий, запустить деплой — всё без мыши.
+
+**Personal Access Token (PAT)** — это «пароль для программ». Браузер входит в GitHub через логин/пароль, а скрипты — через токен.
+
+```bash
+# Создать токен: github.com → Settings → Developer Settings
+# → Personal Access Tokens → Tokens (classic) → Generate new token
+# Минимальные права для примеров ниже: repo, read:user
+
+export GITHUB_TOKEN="ghp_твой_токен"
+
+# Кто я?
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/user | python3 -m json.tool | grep '"login"'
+
+# Список репозиториев
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/user/repos | python3 -m json.tool | grep '"name"'
+
+# Создать репозиторий через API (без браузера!)
+curl -s -X POST \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"my-api-repo","private":false,"description":"Создан через curl!"}' \
+  https://api.github.com/user/repos | python3 -m json.tool | grep '"html_url"'
+
+# Проверить лимит запросов к API
+curl -s \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/rate_limit | python3 -m json.tool | grep -A3 '"core"'
+```
+
+> 📝 **Задание:** создай репозиторий `curl-test` через API, затем удали его через `DELETE /repos/{owner}/{repo}`.
 
 ---
 
@@ -262,82 +332,26 @@ git push -u origin main
 | `ssh-add ~/.ssh/id_ed25519` | Добавить ключ в агент |
 | `chmod 600 ~/.ssh/id_ed25519` | Исправить права ключа |
 
-➡️ [Следующий модуль: Docker →](../module3-docker/)
 
 ---
 
-## ❓ Вопросы новичков — Git
-
-<details>
-<summary><strong>Git и GitHub — это одно и то же?</strong></summary>
+## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_git_github.jpg" alt="Git vs GitHub" width="85%"/>
-<br/><em>Git = программа на твоём компьютере. GitHub = сайт в интернете. Разные вещи!</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
+<br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
-Нет, это **разные вещи**:
+Прежде чем перейти к Модулю 3 — ответь себе вслух или письменно:
 
-| | Git | GitHub |
-|---|---|---|
-| Что это | Программа на компьютере | Сайт в интернете |
-| Где хранит | На твоём диске | В облаке (серверы Microsoft) |
-| Без интернета | Работает | Не работает |
+**1. В чём разница между `git add` и `git commit`? Зачем нужны два шага?**
 
-Существуют аналоги: **GitLab** (популярен в России), **Bitbucket**, **Gitea**.
+**2. Что такое ветка в Git? Объясни как метафору — без технических слов.**
 
-</details>
+**3. Почему SSH-ключ безопаснее пароля при работе с GitHub?**
 
-<details>
-<summary><strong>Что такое «ветка» в Git?</strong></summary>
+**4. Что делает `git merge` и что может пойти не так (merge conflict)?**
 
-Ветка — **параллельная копия** твоего кода для экспериментов, не ломающих основной код.
+> 💡 Если не можешь ответить на вопрос — вернись к соответствующему уроку. Понимание важнее скорости!
 
-```bash
-git checkout -b feature/новая-кнопка   # Создать ветку
-# ... делаешь изменения ...
-git add . && git commit -m "Добавил кнопку"
-git checkout main                       # Вернуться
-git merge feature/новая-кнопка         # Влить изменения
-```
-
-> 🎮 Аналогия: ветка — как «сохранить и попробовать другой путь» в RPG. Не удался — просто удаляешь ветку.
-
-</details>
-
-<details>
-<summary><strong>SSH-ключ — это как замок с ключом?</strong></summary>
-
-Точно! SSH работает **именно как замок с ключом**:
-- **Публичный ключ** (`.pub`) = замок — даёшь серверу/GitHub
-- **Приватный ключ** = ключ — только у тебя, никому не показываешь
-
-```bash
-ssh-keygen -t ed25519 -C "твой@email.com"
-# Создаст два файла:
-# ~/.ssh/id_ed25519      ← приватный (только у тебя!)
-# ~/.ssh/id_ed25519.pub  ← публичный (вставляешь в GitHub Settings → SSH Keys)
-```
-
-> 🔐 Правило: приватный ключ — как паспорт. Никому не показывай.
-
-</details>
-
-<details>
-<summary><strong>Зачем .gitignore?</strong></summary>
-
-.gitignore — список того, что Git **не должен** отслеживать и не отправлять в GitHub:
-
-```bash
-# .gitignore — примеры:
-.env            # пароли и секреты
-node_modules/   # тысячи файлов библиотек
-__pycache__/    # кэш Python
-.DS_Store       # служебные файлы macOS
-*.log           # лог-файлы
-```
-
-Главное правило: **никогда не коммить `.env`** — там пароли, которые увидит весь мир.
-
-</details>
-
+➡️ [Следующий модуль: Docker →](../module3-docker/)

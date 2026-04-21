@@ -10,6 +10,12 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
+### 🧠 Теория: почему пароль в коде = катастрофа
+
+Представь: ты написал в коде `password = "мойСуперПароль"` и запушил на GitHub. GitHub индексирует **весь публичный код**. Существуют боты, которые сканируют GitHub в поисках паролей и токенов — и находят их за минуты. Реальные случаи: слитые AWS-ключи → счёт на $50 000 за одну ночь майнинга криптовалюты.
+
+**Решение — переменные окружения:** код читает пароль из окружения (`os.environ`), а само значение хранится в `.env` файле, который **никогда не коммитится**.
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.jpg" alt="Секреты — не в код, а в .env" width="85%"/>
 <br/><em>Код на GitHub видят все. Пароль в коде = пароль для всех. .env решает эту проблему</em>
@@ -41,6 +47,23 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
+### 🧠 Теория: как .env попадает в контейнер?
+
+Контейнер изолирован — он не видит файлы твоей машины. Как передать ему переменные окружения? Два способа:
+
+| Способ | Команда | Когда использовать |
+|--------|---------|-------------------|
+| Один файл | `--env-file .env` | Docker run, для разработки |
+| Compose-файл | `env_file: .env` | Docker Compose, основной способ |
+| По одному | `-e KEY=value` | Одна переменная, скрипты |
+
+Compose автоматически ищет `.env` в папке с `docker-compose.yml` — можно не указывать `env_file` явно, просто используй `${KEY}` в yaml и создай `.env` рядом.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.jpg" alt=".env в Docker и Compose" width="85%"/>
+<br/><em>Docker run с --env-file и Compose с env_file: переменные попадают внутрь контейнера</em>
+</div>
+
 ```bash
 docker run --env-file .env моё-приложение
 ```
@@ -55,6 +78,25 @@ services:
 ---
 
 ## Урок 31 — REST API: что это?
+
+### 🧠 Теория: HTTP запрос и ответ
+
+Каждый раз когда ты открываешь сайт — твой браузер отправляет **HTTP запрос** серверу, а сервер присылает **HTTP ответ**.
+
+```
+Запрос:                          Ответ:
+GET /items HTTP/1.1              HTTP/1.1 200 OK
+Host: api.example.com     →      Content-Type: application/json
+Authorization: Bearer xxx        
+                                 {"items": [...]}
+```
+
+**REST** — это соглашение о том, как строить API: один URL = один ресурс, HTTP-метод = действие над ним. REST = **Re**presentational **S**tate **T**ransfer — «передача представления состояния». В быту: стандартный способ для сервисов общаться по HTTP.
+
+**JSON** (JavaScript Object Notation) — формат данных для передачи по API:
+```json
+{"name": "яблоко", "count": 5, "fresh": true}
+```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API" width="85%"/>
@@ -71,6 +113,24 @@ services:
 ---
 
 ## Урок 32 — Первый API на Flask
+
+### 🧠 Теория: что такое декоратор @app.route?
+
+**Декоратор** `@app.route("/items")` говорит Flask: «когда придёт запрос на URL `/items` — вызови функцию прямо под мной». Это связывает URL с Python-функцией.
+
+```python
+# Как это работает:
+@app.route("/items", methods=["GET"])  # ← этот URL + этот метод
+def get_all():                          # ← вызывает эту функцию
+    return jsonify({"items": []})       # ← которая возвращает JSON
+```
+
+**Flask** — минимальный веб-фреймворк для Python. Делает одно: принимает HTTP запросы и вызывает твои функции. Весь код API — это просто обычные Python-функции с декораторами.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.jpg" alt="Flask декораторы и маршруты" width="85%"/>
+<br/><em>@app.route связывает URL с Python-функцией. GET /items → get_all(), POST /items → create()</em>
+</div>
 
 ```python
 from flask import Flask, jsonify, request
@@ -96,7 +156,35 @@ if __name__ == "__main__":
 
 ## Урок 33 — SQLite: база данных в одном файле
 
+### 🧠 Теория: что такое реляционная база данных?
+
+**База данных** — это организованное хранилище данных. **Реляционная** — значит данные хранятся в **таблицах** (как Excel), а таблицы могут быть связаны между собой.
+
+```
+Таблица items:
+┌────┬─────────┬───────┐
+│ id │ name    │ emoji │
+├────┼─────────┼───────┤
+│  1 │ Гитара  │  🎸   │
+│  2 │ Кот     │  🐱   │
+│  3 │ Книга   │  📚   │
+└────┴─────────┴───────┘
+```
+
+**SQL** (Structured Query Language) — язык запросов к таблицам:
+- `SELECT * FROM items` — дай все строки
+- `INSERT INTO items VALUES (...)` — добавь строку
+- `UPDATE items SET name='...' WHERE id=1` — измени строку
+- `DELETE FROM items WHERE id=2` — удали строку
+
+**SQLite** — база данных в одном `.db` файле. Не нужен отдельный сервер. Идеально для обучения и маленьких проектов.
+
 > SQLite — это база данных, которая живёт в **одном файле** на диске. Не нужно устанавливать никаких серверов!
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.jpg" alt="SQLite таблица и SQL запросы" width="85%"/>
+<br/><em>SQLite = один файл .db. SELECT читает строки, INSERT добавляет, DELETE удаляет</em>
+</div>
 
 ```python
 import sqlite3
@@ -192,6 +280,17 @@ if __name__ == "__main__":
 ---
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
+
+### 🧠 Теория: почему Secret хранится в base64?
+
+Kubernetes Secret хранит данные в **base64** — это НЕ шифрование! Base64 — просто способ закодировать любые байты в текст (чтобы JSON/YAML не ломался от спецсимволов). Декодировать может кто угодно:
+
+```bash
+echo "МойПароль123" | base64          # → 0J3QvtC5UGFyb2xsMTIz
+echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
+```
+
+**Реальная защита** Secrets — это RBAC (права доступа): не все пользователи кластера могут читать Secrets, только авторизованные сервисы. Для продакшна используют также `etcd` encryption at rest.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.jpg" alt="Kubernetes Secrets — сейф в кластере" width="85%"/>
@@ -338,87 +437,26 @@ kubectl get secret my-secret -o yaml
 kubectl get secret my-secret -o jsonpath='{.data.db-password}' | base64 -d
 ```
 
-➡️ [Итоговый проект →](../../projects/final-project/)
 
 ---
 
-## ❓ Вопросы новичков — Секреты и API
+## 🧠 Чекпойнт понимания — обязательный
 
-<details>
-<summary><strong>Что такое API простыми словами?</strong></summary>
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
+<br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
+</div>
 
-API — **меню в ресторане**. Ты не знаешь как повар готовит, но знаешь что можно заказать.
+Ты прошёл весь основной курс! Финальная проверка — ответь себе вслух или письменно:
 
-```
-Ты (клиент)  →  GET /menu        →  API  →  База данных
-             ←  ["борщ","пицца"] ←
-```
+**1. Почему нельзя хранить пароли в коде или в git-репозитории? Что случится если утечёт?**
 
-Примеры API которые ты уже используешь:
-- Погода в телефоне → weather API
-- Карты → Google Maps API
-- Войти через Google → OAuth API
-- Оплата картой → Stripe API
+**2. Чем `.env` файл отличается от Kubernetes Secret? Когда что использовать?**
 
-</details>
+**3. Что такое JWT-токен? Из каких трёх частей он состоит?**
 
-<details>
-<summary><strong>Зачем .env файл и почему его нельзя коммитить?</strong></summary>
+**4. Объясни полный путь запроса: пользователь нажал кнопку → Flask получил запрос → данные сохранились в SQLite. Что происходит на каждом шаге?**
 
-.env хранит **секреты** — пароли и ключи, которые нельзя показывать:
+> 🏆 Если ответил на все 4 вопроса — ты готов к итоговому проекту! Переходи в `projects/`
 
-```bash
-# .env — НИКОГДА не коммить в git!
-DATABASE_URL=postgresql://admin:SUPER_SECRET_PASS@db:5432/mydb
-OPENAI_API_KEY=sk-proj-AbCdEfGhIjKlMnOpQrStUvWx
-TELEGRAM_BOT_TOKEN=1234567890:ABCdef-GHIjkl_MNOpqr
-```
-
-Если закоммитишь и запушишь — **боты сканируют GitHub за секунды** и украдут ключи.
-
-```bash
-echo ".env" >> .gitignore     # добавь в .gitignore
-git rm --cached .env          # убери из git если уже добавил
-```
-
-</details>
-
-<details>
-<summary><strong>Чем Secret в Kubernetes лучше .env?</strong></summary>
-
-| | .env файл | Kubernetes Secret |
-|---|---|---|
-| Где хранится | В файле на диске | В etcd (зашифровано) |
-| Попадает в git | Легко случайно | Никогда |
-| Ротация | Перезапуск вручную | Обновление без restart |
-| Доступ | Кто угодно с SSH | Только нужные Pod |
-
-```bash
-# Создать Secret:
-kubectl create secret generic db-creds   --from-literal=password=supersecret
-
-# Использовать в Pod:
-env:
-  - name: DB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: db-creds
-        key: password
-```
-
-</details>
-
-<details>
-<summary><strong>Что такое base64 и зачем Kubernetes хранит секреты в нём?</strong></summary>
-
-**Base64 — это НЕ шифрование!** Это просто способ сохранить бинарные данные как текст.
-
-```bash
-echo "supersecret" | base64          # c3VwZXJzZWNyZXQK
-echo "c3VwZXJzZWNyZXQK" | base64 -d  # supersecret
-```
-
-Kubernetes хранит в base64 для совместимости — секрет может содержать бинарные файлы (сертификаты, ключи). Для настоящего шифрования используй **Sealed Secrets** или **HashiCorp Vault**.
-
-</details>
-
+➡️ [Итоговый проект →](../../projects/final-project/)

@@ -51,6 +51,7 @@ docker run hello-world              # Тест: скачает и запусти
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.jpg" alt="Частые ошибки Docker" width="90%"/>
 <br/><em>Три самые частые ошибки и как их исправить</em>
 </div>
+
 ### ⚠️ Частая ошибка: permission denied
 
 ```
@@ -110,10 +111,9 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="900"/>
+  <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="90%"/>
   <br/><em>🐳 Рис. 5 — Dockerfile → слои образа → кеширование: что меняется — то пересобирается</em>
 </div>
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.jpg" alt="Dockerfile — пошаговый рецепт" width="85%"/>
@@ -142,6 +142,23 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Теперь копируем весь остальной код
+> ### ⚠️ Обязательно создай файл `.dockerignore`!
+>
+> `COPY . .` копирует **всё** из папки — включая `.env` с паролями и секретами!
+> Создай файл `.dockerignore` рядом с `Dockerfile`:
+>
+> ```
+> .env
+> .git
+> .gitignore
+> __pycache__
+> *.pyc
+> node_modules
+> *.log
+> ```
+>
+> **Без этого файла твои пароли окажутся внутри образа** — и если кто-то скачает образ с Docker Hub, он получит все твои секреты!
+
 COPY . .
 
 # EXPOSE — документирует, какой порт слушает приложение
@@ -162,11 +179,28 @@ docker run -d -p 8080:8080 my-site  # Запустить
 curl http://localhost:8080          # Проверить
 ```
 
+### CMD vs ENTRYPOINT — в чём разница?
+
+| | CMD | ENTRYPOINT |
+|---|---|---|
+| Что делает | Команда по умолчанию | Основная команда, не заменяется |
+| Можно переопределить? | Да (`docker run my-app python other.py`) | Нет (только аргументы) |
+| Когда использовать | Для гибких команд | Для строгих исполняемых файлов |
+
+```dockerfile
+# Рекомендуется комбинировать:
+ENTRYPOINT ["python"]   # основное — всегда python
+CMD ["app.py"]          # аргумент по умолчанию
+# docker run my-app              → python app.py
+# docker run my-app other.py     → python other.py
+```
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg" alt="Dockerfile порядок слоёв" width="90%"/>
 <br/><em>Меняется редко — наверх. Меняется часто — вниз. Кэш экономит минуты сборки!</em>
 </div>
+
 ### ⚠️ Частые ошибки при сборке
 
 **Ошибка: COPY failed — file not found**
@@ -248,11 +282,11 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 ---
 
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
 <br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
 </div>
+
 ## Урок 17 — Тома (Volumes): сохраняем данные
 
 ### 🧠 Теория: почему данные исчезают?
@@ -277,24 +311,32 @@ docker volume rm mydata              # Удалить
 
 ---
 
-
----
-
 ## 🎯 Практические задания
 
 ### Задание 1 — Первый контейнер
 ```bash
-docker run -d -p 8080:80 --name moy-nginx nginx
+docker run -d -p 8080:80 --name moy-nginx nginx:1.25
 # Открой http://localhost:8080 — приветственная страница nginx
 docker logs moy-nginx
 docker stop moy-nginx && docker rm moy-nginx
 ```
 > ✅ Видишь страницу nginx? Контейнер работает!
 
+> 💡 Мы используем `nginx:1.25` а не просто `nginx`. Тег без версии (`latest`) — антипаттерн: сегодня скачал одну версию, завтра другую — и всё сломалось. Всегда указывай конкретную версию!
+
 ### Задание 2 — Свой Dockerfile
 ```bash
 mkdir moy-sayt && cd moy-sayt
 echo "<h1>Привет из Docker!</h1>" > index.html
+
+# Сначала создаём .dockerignore — защита секретов!
+cat > .dockerignore << 'EOF'
+.env
+.git
+__pycache__
+*.pyc
+*.log
+EOF
 
 cat > Dockerfile << 'EOF'
 FROM nginx:alpine
@@ -314,6 +356,7 @@ ls /usr/share/nginx/html/
 cat /usr/share/nginx/html/index.html
 exit
 ```
+> ✅ Видишь index.html внутри контейнера? Отлично!
 
 ## Урок 18 — Шпаргалка Docker
 
@@ -339,83 +382,28 @@ exit
 | Dockerfile | Инструкция как приготовить образ |
 | Volume | Внешний диск для контейнера |
 | Port mapping | Дверь снаружи → дверь внутри (-p 8080:80) |
+| .dockerignore | Список файлов которые НЕ копируются в образ |
 
-➡️ [Следующий модуль: Docker Compose →](../module4-compose/)
 
 ---
 
-## ❓ Вопросы новичков — Docker
-
-<details>
-<summary><strong>Docker — это как виртуальная машина?</strong></summary>
-
-Похоже, но **намного легче**:
-
-| | Виртуальная машина | Docker-контейнер |
-|---|---|---|
-| Размер | 1–20 ГБ | 50–500 МБ |
-| Старт | 30–60 секунд | 1–2 секунды |
-| ОС внутри | Полная (ядро+система) | Только нужные файлы |
-| На одном ПК | 2–3 одновременно | 100+ одновременно |
-
-> 🍱 Аналогия: виртуальная машина — отдельный дом (фундамент, стены, крыша). Контейнер — комната в общежитии (общий фундамент, своя мебель).
-
-</details>
-
-<details>
-<summary><strong>Что такое образ (image) и контейнер?</strong></summary>
+## 🧠 Чекпойнт понимания — обязательный
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_container.jpg" alt="Образ и контейнер" width="85%"/>
-<br/><em>Образ = рецепт. Контейнер = готовое блюдо. Из одного рецепта — сколько угодно блюд</em>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/checkpoint.jpg" alt="Чекпойнт понимания" width="90%"/>
+<br/><em>Три вопроса после каждого урока. Понимание важнее скорости.</em>
 </div>
 
-- **Образ (image)** — неизменный шаблон, как рецепт блюда. Только читается.
-- **Контейнер** — запущенный экземпляр образа, как приготовленное блюдо.
+Прежде чем перейти к Модулю 4 — ответь себе вслух или письменно:
 
-```bash
-# Из ОДНОГО образа — МНОГО контейнеров:
-docker run -d --name web1 -p 8080:80 nginx
-docker run -d --name web2 -p 8081:80 nginx
-docker run -d --name web3 -p 8082:80 nginx
-```
+**1. Чем Docker-образ отличается от контейнера? Объясни как аналогию с рецептом и блюдом.**
 
-</details>
+**2. Зачем нужен `.dockerignore`? Что будет если его не создать?**
 
-<details>
-<summary><strong>Зачем нужен Dockerfile?</strong></summary>
+**3. В чём разница между `CMD` и `ENTRYPOINT` в Dockerfile?**
 
-Dockerfile — **инструкция** как собрать образ. Как рецепт в кулинарной книге.
+**4. Почему не стоит использовать тег `latest` в production? Какой тег лучше?**
 
-```dockerfile
-FROM python:3.11-slim          # Берём базовый образ
-WORKDIR /app                   # Рабочая папка
-COPY requirements.txt .        # Копируем зависимости
-RUN pip install -r requirements.txt  # Устанавливаем
-COPY . .                       # Копируем код
-CMD ["python", "app.py"]       # Запускаем
-```
+> 💡 Если не можешь ответить на вопрос — вернись к соответствующему уроку. Понимание важнее скорости!
 
-> Dockerfile = список шагов. `docker build` = выполнить эти шаги.
-
-</details>
-
-<details>
-<summary><strong>Почему контейнер «умирает» когда я закрываю терминал?</strong></summary>
-
-Если запустил **без флага `-d`** (detach), контейнер привязан к терминалу.
-
-```bash
-docker run nginx          # ❌ умрёт когда закроешь терминал
-docker run -d nginx       # ✅ работает в фоне
-docker run -d --restart always nginx  # ✅ перезапустится даже после reboot
-```
-
-```bash
-docker ps         # запущенные контейнеры
-docker ps -a      # все, включая остановленные
-docker start ИМЯ  # запустить остановленный
-```
-
-</details>
-
+➡️ [Следующий модуль: Docker Compose →](../module4-compose/)
