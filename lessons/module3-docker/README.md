@@ -10,6 +10,9 @@
 
 ## Урок 12 — Зачем нужен Docker?
 
+![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.png)
+
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.jpg" alt="Зачем нужен Docker" width="85%"/>
 <br/><em>«У меня работает, у тебя нет» — классическая проблема. Docker решает её раз и навсегда</em>
@@ -237,6 +240,9 @@ USER appuser
 
 ## Урок 15 — docker exec: войти внутрь контейнера
 
+![module3-docker-exec](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.png)
+
+
 ### 🧠 Теория: зачем заходить внутрь?
 
 Иногда приложение ведёт себя странно: логи не помогают, нужно посмотреть своими глазами — что внутри контейнера, какие файлы есть, какие переменные окружения установлены. `docker exec` даёт тебе терминал прямо внутри работающего контейнера.
@@ -270,6 +276,9 @@ docker exec -it НАЗВАНИЕ sh
 ---
 
 ## Урок 16 — Логи и мониторинг
+
+![module3-docker-logs](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.png)
+
 
 ### 🧠 Теория: как узнать что происходит внутри?
 
@@ -368,6 +377,9 @@ exit
 > ✅ Видишь index.html внутри контейнера? Отлично!
 
 ## Урок 18 — Шпаргалка Docker
+
+![module3-docker-prune](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.png)
+
 
 | Команда | Что делает |
 |---------|-----------|
