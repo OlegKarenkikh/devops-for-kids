@@ -17,6 +17,9 @@
 
 ## Что такое терминал — и зачем он вообще нужен
 
+![intro_devops_pipeline](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/intro_devops_pipeline.png)
+
+
 ![terminal-intro](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/terminal-intro.png)
 
 
