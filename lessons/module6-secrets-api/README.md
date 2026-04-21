@@ -47,6 +47,9 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
+![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
+
+
 ### 🧠 Теория: как .env попадает в контейнер?
 
 Контейнер изолирован — он не видит файлы твоей машины. Как передать ему переменные окружения? Два способа:
@@ -114,6 +117,9 @@ Authorization: Bearer xxx
 
 ## Урок 32 — Первый API на Flask
 
+![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
+
+
 ### 🧠 Теория: что такое декоратор @app.route?
 
 **Декоратор** `@app.route("/items")` говорит Flask: «когда придёт запрос на URL `/items` — вызови функцию прямо под мной». Это связывает URL с Python-функцией.
@@ -155,6 +161,9 @@ if __name__ == "__main__":
 ---
 
 ## Урок 33 — SQLite: база данных в одном файле
+
+![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
+
 
 ### 🧠 Теория: что такое реляционная база данных?
 
@@ -280,6 +289,9 @@ if __name__ == "__main__":
 ---
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
+
+![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.png)
+
 
 ### 🧠 Теория: почему Secret хранится в base64?
 
