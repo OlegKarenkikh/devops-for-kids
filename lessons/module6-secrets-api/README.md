@@ -10,6 +10,8 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
+![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
+
 ![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
 
 
@@ -170,6 +172,8 @@ if __name__ == "__main__":
 ---
 
 ## Урок 33 — SQLite: база данных в одном файле
+
+![module6-sqlite-db](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png)
 
 ![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
 
@@ -466,6 +470,17 @@ kubectl get secret my-secret -o jsonpath='{.data.db-password}' | base64 -d
 
 
 ---
+
+## 🧩 Быстрый тест — проверь себя
+
+| Вопрос | Ответ |
+|--------|-------|
+| Почему нельзя хранить пароли в коде? | Они попадут в git и будут видны всем |
+| Что делает `os.getenv("DB_PASSWORD")`? | Читает переменную окружения из .env |
+| Что такое REST API? | Сервер отвечает на HTTP-запросы данными в формате JSON |
+| Из чего состоит JWT-токен? | Header.Payload.Signature (три части через точку) |
+| Чем K8s Secret отличается от .env? | Secret живёт в кластере, зашифрован, управляется kubectl |
+| Что такое SQLAlchemy? | ORM: работа с базой через Python-объекты, без SQL |
 
 ## 🧠 Чекпойнт понимания — обязательный
 
