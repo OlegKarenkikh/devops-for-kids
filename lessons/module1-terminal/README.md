@@ -10,7 +10,6 @@
 
 ## Урок 1 — Что такое терминал?
 
-![module1-terminal-analogy](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-terminal-analogy.jpg)
 
 
 <div align="center">
@@ -70,7 +69,6 @@ rm -rf папка/             # Удалить папку целиком (ОС�
 
 ## Урок 3 — Права доступа (chmod)
 
-![module1-permissions](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-permissions.jpg)
 
 
 <div align="center">
@@ -98,7 +96,6 @@ chmod 600 ~/.ssh/id_rsa   # rw------- (только владелец — клю�
 
 ## Урок 4 — chown: смена владельца
 
-![module1-chown](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-chown.jpg)
 
 
 <div align="center">
@@ -131,7 +128,6 @@ sudo systemctl start nginx          # Теперь работает!
 
 ## Урок 5 — Пользователи и группы
 
-![module1-users-groups](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-users-groups.jpg)
 
 
 <div align="center">
@@ -173,7 +169,6 @@ newgrp docker                           # Применить без переза
 
 ## Урок 6 — SSH: безопасный вход на сервер
 
-![module1-ssh-keys](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-ssh-keys.jpg)
 
 
 ### 🧠 Теория: SSH и два сценария его применения
