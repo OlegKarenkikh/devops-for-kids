@@ -43,7 +43,6 @@ kubectl get all
 
 
 
-![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.jpg)
 
 
 ### 🧠 Теория: Control Plane и Worker Nodes
@@ -165,7 +164,6 @@ minikube service website-service --url
 
 ## Урок 27 — Самовосстановление
 
-![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg)
 
 
 ### 🧠 Теория: Reconciliation Loop
@@ -200,10 +198,8 @@ kubectl rollout undo deployment/my-website
 
 ## Урок 28 — Автомасштабирование HPA
 
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg)
 
 
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg)
 
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
