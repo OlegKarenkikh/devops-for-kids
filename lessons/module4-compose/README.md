@@ -9,9 +9,9 @@
 
 ## Урок 19 — Docker Compose: город сервисов
 
-![module4-compose-overview](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-overview.png)
+![module4-compose-overview](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-overview.jpg)
 
-![module4-code-to-compose-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.png)
+![module4-code-to-compose-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.jpg)
 
 
 <div align="center">
@@ -74,10 +74,10 @@ docker compose down -v      # + удалить тома (данные БД пр�
 
 ## Урок 20 — Networks: как сервисы общаются
 
-![module4-compose-networks-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-ru.png)
+![module4-compose-networks-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-ru.jpg)
 
 
-![module4-compose-networks-segmentation](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-segmentation.png)
+![module4-compose-networks-segmentation](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-segmentation.jpg)
 
 
 ### 🧠 Теория: зачем изолировать сервисы?
@@ -196,9 +196,8 @@ docker compose logs -f web
 
 ## Урок 22 — Prometheus: собираем метрики
 
-![module4-monitoring](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.png)
+![module4-monitoring](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.jpg)
 
-![module4-prometheus](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.jpg)
 
 
 <div align="center">
