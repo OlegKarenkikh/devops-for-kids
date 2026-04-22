@@ -10,10 +10,6 @@
 
 ## Урок 9 — Что такое Git?
 
-![module2-git-analogy](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-analogy.png)
-
-
-![module2-git-workflow](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.png)
 
 
 <div align="center">
