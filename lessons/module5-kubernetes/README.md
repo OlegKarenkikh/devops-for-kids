@@ -41,10 +41,9 @@ kubectl get all
 
 ## Урок 25 — Архитектура кластера
 
-![module5-kubectl](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg)
 
 
-![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
+![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.jpg)
 
 
 ### 🧠 Теория: Control Plane и Worker Nodes
@@ -79,7 +78,6 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
-![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg)
 
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
@@ -167,7 +165,7 @@ minikube service website-service --url
 
 ## Урок 27 — Самовосстановление
 
-![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.png)
+![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg)
 
 
 ### 🧠 Теория: Reconciliation Loop
@@ -202,10 +200,10 @@ kubectl rollout undo deployment/my-website
 
 ## Урок 28 — Автомасштабирование HPA
 
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg)
 
 
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.jpg)
 
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
@@ -244,7 +242,7 @@ kubectl describe hpa my-website
 
 ## 📋 Шпаргалка Kubernetes
 
-![module5-k8s-rolling-update](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.png)
+![module5-k8s-rolling-update](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.jpg)
 
 
 > 💡 **Задание к уроку 27 — Самовосстановление:**
