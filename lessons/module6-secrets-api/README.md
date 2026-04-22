@@ -57,8 +57,6 @@ print("Ключ:", api_key[:3] + "***")
 
 ![module6-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-dotenv.png)
 
-![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
-
 
 ### 🧠 Теория: как .env попадает в контейнер?
 
