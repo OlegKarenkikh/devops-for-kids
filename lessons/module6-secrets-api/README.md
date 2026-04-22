@@ -10,8 +10,6 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
-![module6-secrets-env](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.png)
-
 
 ![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
 
@@ -96,8 +94,6 @@ services:
 ![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
 : что это?
 
-![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
-
 
 ### 🧠 Теория: HTTP запрос и ответ
 
@@ -136,8 +132,6 @@ Authorization: Bearer xxx
 
 ![module6-github-azure-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-github-azure-secrets.png)
 
-
-![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
 
 
 ### 🧠 Теория: что такое декоратор @app.route?
@@ -186,8 +180,6 @@ if __name__ == "__main__":
 
 ![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
 
-
-![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
 
 
 ### 🧠 Теория: что такое реляционная база данных?
@@ -314,8 +306,6 @@ if __name__ == "__main__":
 ---
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
-
-![module6-secrets-vault](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.png)
 
 
 ![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
