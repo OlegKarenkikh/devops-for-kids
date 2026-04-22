@@ -77,8 +77,6 @@ newgrp docker
 ![kid_image_container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_image_container.png)
 
 
-![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png)
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg" alt="Образ — рецепт, контейнер — блюдо" width="85%"/>
@@ -121,8 +119,6 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
 
-![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
-
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.jpg" alt="Слои Docker образа" width="90%"/>
@@ -156,6 +152,19 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Теперь копируем весь остальной код
+COPY . .
+
+# EXPOSE — документирует, какой порт слушает приложение
+# Это НЕ открывает порт автоматически — нужен ещё -p при docker run
+EXPOSE 8080
+
+# ENV — задаём переменную окружения
+ENV APP_NAME="Мой сайт"
+
+# CMD — команда запуска контейнера. Выполняется, когда контейнер стартует
+CMD ["python", "app.py"]
+```
+
 > ### ⚠️ Обязательно создай файл `.dockerignore`!
 >
 > `COPY . .` копирует **всё** из папки — включая `.env` с паролями и секретами!
@@ -172,19 +181,6 @@ RUN pip install -r requirements.txt --no-cache-dir
 > ```
 >
 > **Без этого файла твои пароли окажутся внутри образа** — и если кто-то скачает образ с Docker Hub, он получит все твои секреты!
-
-COPY . .
-
-# EXPOSE — документирует, какой порт слушает приложение
-# Это НЕ открывает порт автоматически — нужен ещё -p при docker run
-EXPOSE 8080
-
-# ENV — задаём переменную окружения
-ENV APP_NAME="Мой сайт"
-
-# CMD — команда запуска контейнера. Выполняется, когда контейнер стартует
-CMD ["python", "app.py"]
-```
 
 ```bash
 docker build -t my-site .           # Собрать образ (. = текущая папка)
@@ -300,18 +296,15 @@ docker stats НАЗВАНИЕ               # Только одного
 docker top НАЗВАНИЕ                 # Процессы внутри контейнера
 ```
 
-
 ---
-
-## Урок 17 — Тома (Volumes): сохраняем данные
-
-![module3-docker-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.png)
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
 <br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
 </div>
+
+## Урок 17 — Тома (Volumes): сохраняем данные
+
 
 
 ### 🧠 Теория: почему данные исчезают?
@@ -337,8 +330,6 @@ docker volume rm mydata              # Удалить
 ---
 
 ## 🎯 Практические задания
-
-![module3-docker-errors](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.png)
 
 
 ### Задание 1 — Первый контейнер
