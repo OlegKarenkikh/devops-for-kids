@@ -11,13 +11,13 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-overview.png" alt="Docker Compose" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-overview.jpg" alt="Docker Compose" width="90%"/>
 <br/><em>Docker Compose: запускаем несколько сервисов одним файлом одной командой</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.png" alt="Перевод docker run команд в docker-compose.yml" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-code-to-compose-ru.jpg" alt="Перевод docker run команд в docker-compose.yml" width="90%"/>
 <br/><em>Перевод docker run команд в docker-compose.yml — наглядное сравнение</em>
 </div>
 
@@ -91,14 +91,14 @@ docker compose down -v      # + удалить тома (данные БД пр�
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-ru.png" alt="Сети в Compose" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-ru.jpg" alt="Сети в Compose" width="85%"/>
 <br/><em>Сети в Compose: фронтенд видит только бэкенд, бэкенд — только базу</em>
 </div>
 
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-segmentation.png" alt="Сегментация сети Compose" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-compose-networks-segmentation.jpg" alt="Сегментация сети Compose" width="90%"/>
 <br/><em>Сегментация сети Compose: изоляция сервисов для безопасности</em>
 </div>
 
@@ -229,7 +229,7 @@ docker compose logs -f web
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.png" alt="Мониторинг стека" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.jpg" alt="Мониторинг стека" width="90%"/>
 <br/><em>Мониторинг стека: Prometheus собирает метрики, Grafana строит дашборды</em>
 </div>
 

@@ -13,13 +13,13 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png" alt=".env файл" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.jpg" alt=".env файл" width="85%"/>
 <br/><em>.env файл: хранение переменных окружения отдельно от кода</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png" alt="Секреты в окружении" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.jpg" alt="Секреты в окружении" width="85%"/>
 <br/><em>Секреты в окружении: никогда не хардкодить пароли в исходном коде</em>
 </div>
 
@@ -109,7 +109,7 @@ services:
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png" alt="Flask" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.jpg" alt="Flask" width="85%"/>
 <br/><em>Flask — минимальный Python веб-фреймворк для создания REST API</em>
 </div>
 
@@ -201,13 +201,13 @@ if __name__ == "__main__":
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png" alt="SQLite — база данных в одном файле" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.jpg" alt="SQLite — база данных в одном файле" width="85%"/>
 <br/><em>SQLite — база данных в одном файле: не нужен сервер, идеально для старта</em>
 </div>
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png" alt="SQL запросы к SQLite" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.jpg" alt="SQL запросы к SQLite" width="85%"/>
 <br/><em>SQL запросы к SQLite: SELECT, INSERT, UPDATE, DELETE — весь CRUD</em>
 </div>
 
@@ -341,7 +341,7 @@ if __name__ == "__main__":
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png" alt="Kubernetes Secret" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.jpg" alt="Kubernetes Secret" width="85%"/>
 <br/><em>Kubernetes Secret: хранение паролей в кластере с RBAC-защитой</em>
 </div>
 
