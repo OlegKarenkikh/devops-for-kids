@@ -63,8 +63,6 @@ nothing to commit, working tree clean
 ![kid_git_github](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_git_github.png)
 
 
-![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png)
-
 
 
 <div align="center">
@@ -135,8 +133,6 @@ git push
 ---
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
-
-![module2-ssh-keys](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-keys.png)
 
 
 ![module2-ssh-troubleshoot-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.png)
@@ -341,8 +337,6 @@ git push -u origin main
 ```
 
 ## Шпаргалка Git + SSH
-
-![module2-ssh-troubleshoot](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot.png)
 
 
 | Команда | Действие |
