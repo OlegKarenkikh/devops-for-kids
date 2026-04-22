@@ -10,8 +10,6 @@
 
 ## Урок 12 — Зачем нужен Docker?
 
-![module3-why-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.png)
-
 
 ![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.png)
 
@@ -121,8 +119,6 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 ---
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
-
-![module3-dockerfile-recipe](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.png)
 
 
 ![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
@@ -304,19 +300,18 @@ docker stats НАЗВАНИЕ               # Только одного
 docker top НАЗВАНИЕ                 # Процессы внутри контейнера
 ```
 
----
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
-<br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
-</div>
+---
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
 
 ![module3-docker-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.png)
 
 
-![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg" alt="Docker Volume" width="90%"/>
+<br/><em>Volume — мост между контейнером и диском. Данные живут снаружи контейнера!</em>
+</div>
 
 
 ### 🧠 Теория: почему данные исчезают?
