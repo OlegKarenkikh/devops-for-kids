@@ -103,7 +103,7 @@ password = os.environ["DB_PASSWORD"]   # Читаем переменную
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-server.png" alt="Детский FAQ" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-server.jpg" alt="Детский FAQ" width="85%"/>
 <br/><em>Детский FAQ: ответы на вопросы о серверах и терминале</em>
 </div>
 
@@ -212,7 +212,7 @@ docker push myapp
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-git.png" alt="Детский FAQ" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-git.jpg" alt="Детский FAQ" width="85%"/>
 <br/><em>Детский FAQ: ответы на вопросы о Git и GitHub</em>
 </div>
 
@@ -369,7 +369,7 @@ __pycache__/
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-docker.png" alt="Детский FAQ" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-docker.jpg" alt="Детский FAQ" width="85%"/>
 <br/><em>Детский FAQ: ответы на вопросы о Docker и контейнерах</em>
 </div>
 
@@ -525,7 +525,7 @@ DB_NAME=myapp
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-kubernetes.png" alt="Детский FAQ" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-kubernetes.jpg" alt="Детский FAQ" width="85%"/>
 <br/><em>Детский FAQ: ответы на вопросы о Kubernetes и Pod'ах</em>
 </div>
 
