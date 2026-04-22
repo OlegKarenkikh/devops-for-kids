@@ -73,7 +73,6 @@ newgrp docker
 
 ## Урок 13 — Образ vs Контейнер
 
-![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg)
 
 
 <div align="center">
@@ -116,7 +115,6 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
-![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg)
 
 
 <div align="center">
@@ -304,7 +302,6 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
 
-![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg)
 
 
 ### 🧠 Теория: почему данные исчезают?
