@@ -74,7 +74,11 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
-![kid_pod](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.jpg" alt="Pod — минимальная единица Kubernetes" width="80%"/>
+<br/><em>Pod — минимальная единица Kubernetes: один или несколько контейнеров вместе</em>
+</div>
 
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
@@ -168,7 +172,7 @@ minikube service website-service --url
 Kubernetes работает по принципу **«желаемое состояние»**: ты говоришь «хочу 3 реплики», и Kubernetes **постоянно** проверяет — а сколько реплик сейчас? Если меньше — запускает новые. Если упал Pod — замечает за секунды и поднимает замену автоматически, без твоего участия.
 
 Это называется **Reconciliation Loop** (петля согласования):
-```
+```text
 Желаемое состояние (replicas: 3)
          ↓
   Проверка каждые ~5 сек
@@ -195,7 +199,11 @@ kubectl rollout undo deployment/my-website
 
 ## Урок 28 — Автомасштабирование HPA
 
-![kid_three_layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_three_layers.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_three_layers.jpg" alt="Три слоя DevOps" width="80%"/>
+<br/><em>Три слоя DevOps: код → контейнер → оркестрация</em>
+</div>
 
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
@@ -204,7 +212,7 @@ kubectl rollout undo deployment/my-website
 
 `--cpu-percent=70` означает: **если среднее использование CPU всех Pod'ов превысит 70% от их `requests.cpu` — добавь новые Pod'ы**.
 
-```
+```python
 requests.cpu: 100m  →  лимит = 100 миллицпу
 Текущее использование = 80m  →  80%  →  > 70%  →  HPA добавит Pod
 Текущее использование = 50m  →  50%  →  < 70%  →  HPA уберёт лишние Pod'ы
@@ -234,7 +242,11 @@ kubectl describe hpa my-website
 
 ## 📋 Шпаргалка Kubernetes
 
-![module5-k8s-rolling-update](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.jpg" alt="Rolling Update" width="90%"/>
+<br/><em>Rolling Update: замена Pod-ов по одному — без остановки сервиса</em>
+</div>
 
 
 > 💡 **Задание к уроку 27 — Самовосстановление:**
