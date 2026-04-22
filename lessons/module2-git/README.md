@@ -10,7 +10,6 @@
 
 ## Урок 9 — Что такое Git?
 
-![module2-git-workflow](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-workflow.jpg)
 
 
 <div align="center">
@@ -61,7 +60,7 @@ nothing to commit, working tree clean
 
 ## Урок 10 — Ветки и GitHub
 
-![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.png)
+![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.jpg)
 
 
 
@@ -134,10 +133,10 @@ git push
 
 ## Урок 11 — SSH: подключение без пароля и решение проблем
 
-![module2-ssh-troubleshoot-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.png)
+![module2-ssh-troubleshoot-ru](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.jpg)
 
 
-![module2-ssh-server-vs-github](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-server-vs-github.png)
+![module2-ssh-server-vs-github](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-server-vs-github.jpg)
 
 
 <div align="center">
@@ -256,10 +255,10 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 ## 🔧 Бонус-урок — curl и GitHub API: автоматизация через токен
 
-![module2-pat-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-pat-token.png)
+![module2-pat-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-pat-token.jpg)
 
 
-![module2-curl-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.png)
+![module2-curl-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.jpg)
 
 
 ### 🧠 Теория: что такое curl и зачем он DevOps-инженеру?
