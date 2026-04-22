@@ -52,7 +52,7 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
-![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
+![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.jpg)
 
 
 ### 🧠 Теория: как .env попадает в контейнер?
@@ -128,7 +128,7 @@ Authorization: Bearer xxx
 
 ## Урок 32 — Первый API на Flask
 
-![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
+![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.jpg)
 
 
 ### 🧠 Теория: что такое декоратор @app.route?
@@ -178,7 +178,7 @@ if __name__ == "__main__":
 ![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
 
 
-![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
+![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.jpg)
 
 
 ### 🧠 Теория: что такое реляционная база данных?
