@@ -380,7 +380,7 @@ CMD ["python", "app.py"]  # Слой 4: что запускать
 
 ## Итог урока 0
 
-![overview-roadmap](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/overview-roadmap.png)
+![overview-roadmap](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/overview-roadmap.jpg)
 
 
 | Что узнал | Зачем нужно в курсе |
