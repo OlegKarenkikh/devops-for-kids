@@ -10,7 +10,7 @@
 
 ## Урок 12 — Зачем нужен Docker?
 
-![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.png)
+![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.jpg)
 
 
 <div align="center">
@@ -73,7 +73,7 @@ newgrp docker
 
 ## Урок 13 — Образ vs Контейнер
 
-![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png)
+![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.jpg)
 
 
 <div align="center">
@@ -116,7 +116,7 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
-![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
+![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.jpg)
 
 
 <div align="center">
@@ -240,7 +240,7 @@ USER appuser
 
 ## Урок 15 — docker exec: войти внутрь контейнера
 
-![module3-docker-exec](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.png)
+![module3-docker-exec](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.jpg)
 
 
 ### 🧠 Теория: зачем заходить внутрь?
@@ -277,7 +277,7 @@ docker exec -it НАЗВАНИЕ sh
 
 ## Урок 16 — Логи и мониторинг
 
-![module3-docker-logs](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.png)
+![module3-docker-logs](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.jpg)
 
 
 ### 🧠 Теория: как узнать что происходит внутри?
@@ -304,7 +304,7 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
 
-![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png)
+![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.jpg)
 
 
 ### 🧠 Теория: почему данные исчезают?
@@ -378,7 +378,7 @@ exit
 
 ## Урок 18 — Шпаргалка Docker
 
-![module3-docker-prune](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.png)
+![module3-docker-prune](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.jpg)
 
 
 | Команда | Что делает |
