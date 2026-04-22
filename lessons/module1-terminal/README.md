@@ -325,6 +325,7 @@ cat ~/.ssh/id_kurs.pub        # это твой публичный ключ
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module1-commands-cheatsheet.jpg" alt="Шпаргалка по командам Linux" width="85%"/>
+<br/><em>Шпаргалка по командам Linux: chmod, chown, пользователи и группы</em>
 </div>
 
 | Команда | Действие |
