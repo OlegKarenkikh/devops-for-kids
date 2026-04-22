@@ -42,9 +42,6 @@ kubectl get all
 ## Урок 25 — Архитектура кластера
 
 
-![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
-
-
 ### 🧠 Теория: Control Plane и Worker Nodes
 
 Kubernetes-кластер состоит из двух типов машин:
@@ -78,9 +75,6 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 ## Урок 26 — Pod, Deployment, Service
 
 ![kid_pod](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.png)
-
-
-![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png)
 
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
@@ -168,8 +162,6 @@ minikube service website-service --url
 
 ## Урок 27 — Самовосстановление
 
-![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.png)
-
 
 ### 🧠 Теория: Reconciliation Loop
 
@@ -204,12 +196,6 @@ kubectl rollout undo deployment/my-website
 ## Урок 28 — Автомасштабирование HPA
 
 ![kid_three_layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_three_layers.png)
-
-
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
-
-
-![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
 
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
@@ -280,8 +266,6 @@ kubectl describe hpa my-website
 | `kubectl delete pod <имя>` | Удалить Pod |
 | `kubectl rollout undo deploy/<имя>` | Откатить |
 | `kubectl get hpa` | Автомасштаб |
-
-➡️ [Следующий модуль: Секреты и API →](../module6-secrets-api/)
 
 
 ---
