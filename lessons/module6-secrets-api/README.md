@@ -42,9 +42,7 @@ API_KEY=abc123xyz
 APP_PORT=8080
 EOF
 echo ".env" >> .gitignore
-```
-
-```python
+python
 import os
 from dotenv import load_dotenv
 
@@ -53,7 +51,6 @@ load_dotenv()
 db_password = os.environ["DB_PASSWORD"]
 api_key = os.environ.get("API_KEY", "default-key")
 print("Ключ:", api_key[:3] + "***")
-```
 
 > **⚠️ Правило:** `.env` всегда в `.gitignore`. Без исключений.
 
@@ -85,16 +82,13 @@ Compose автоматически ищет `.env` в папке с `docker-comp
 <br/><em>Docker run с --env-file и Compose с env_file: переменные попадают внутрь контейнера</em>
 </div>
 
-```bash
+bash
 docker run --env-file .env моё-приложение
-```
-
-```yaml
+yaml
 services:
   web:
     build: .
     env_file: .env
-```
 
 ---
 
@@ -118,20 +112,18 @@ services:
 
 Каждый раз когда ты открываешь сайт — твой браузер отправляет **HTTP запрос** серверу, а сервер присылает **HTTP ответ**.
 
-```text
+text
 Запрос:                          Ответ:
 GET /items HTTP/1.1              HTTP/1.1 200 OK
 Host: api.example.com     →      Content-Type: application/json
 Authorization: Bearer xxx        
                                  {"items": [...]}
-```
 
 **REST** — это соглашение о том, как строить API: один URL = один ресурс, HTTP-метод = действие над ним. REST = **Re**presentational **S**tate **T**ransfer — «передача представления состояния». В быту: стандартный способ для сервисов общаться по HTTP.
 
 **JSON** (JavaScript Object Notation) — формат данных для передачи по API:
-```json
+json
 {"name": "яблоко", "count": 5, "fresh": true}
-```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API" width="85%"/>
@@ -161,12 +153,11 @@ Authorization: Bearer xxx
 
 **Декоратор** `@app.route("/items")` говорит Flask: «когда придёт запрос на URL `/items` — вызови функцию прямо под мной». Это связывает URL с Python-функцией.
 
-```python
+python
 # Как это работает:
 @app.route("/items", methods=["GET"])  # ← этот URL + этот метод
 def get_all():                          # ← вызывает эту функцию
     return jsonify({"items": []})       # ← которая возвращает JSON
-```
 
 **Flask** — минимальный веб-фреймворк для Python. Делает одно: принимает HTTP запросы и вызывает твои функции. Весь код API — это просто обычные Python-функции с декораторами.
 
@@ -175,7 +166,7 @@ def get_all():                          # ← вызывает эту функц
 <br/><em>@app.route связывает URL с Python-функцией. GET /items → get_all(), POST /items → create()</em>
 </div>
 
-```python
+python
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 items = [{"id": 1, "name": "яблоко", "emoji": "🍎"}]
@@ -193,7 +184,6 @@ def create():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
-```
 
 ---
 
@@ -217,7 +207,7 @@ if __name__ == "__main__":
 
 **База данных** — это организованное хранилище данных. **Реляционная** — значит данные хранятся в **таблицах** (как Excel), а таблицы могут быть связаны между собой.
 
-```text
+text
 Таблица items:
 ┌────┬─────────┬───────┐
 │ id │ name    │ emoji │
@@ -226,7 +216,6 @@ if __name__ == "__main__":
 │  2 │ Кот     │  🐱   │
 │  3 │ Книга   │  📚   │
 └────┴─────────┴───────┘
-```
 
 **SQL** (Structured Query Language) — язык запросов к таблицам:
 - `SELECT * FROM items` — дай все строки
@@ -243,7 +232,7 @@ if __name__ == "__main__":
 <br/><em>SQLite = один файл .db. SELECT читает строки, INSERT добавляет, DELETE удаляет</em>
 </div>
 
-```python
+python
 import sqlite3
 
 db = sqlite3.connect("items.db")
@@ -265,9 +254,7 @@ for row in rows:
     print(row)
 
 db.close()
-```
-
-```bash
+bash
 # Попробуй прямо в терминале (база в памяти):
 python3 -c "
 import sqlite3
@@ -279,11 +266,10 @@ db.commit()
 print(db.execute('SELECT * FROM t').fetchall())
 db.close()
 "
-```
 
 ### SQLite + Flask API
 
-```python
+python
 import sqlite3
 from flask import Flask, jsonify, request
 
@@ -330,7 +316,6 @@ def create():
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=8080, debug=True)
-```
 
 > **📝 Задание:** запусти API, добавь через curl 3 своих любимых вещи и получи список обратно.
 
@@ -357,10 +342,9 @@ if __name__ == "__main__":
 
 Kubernetes Secret хранит данные в **base64** — это НЕ шифрование! Base64 — просто способ закодировать любые байты в текст (чтобы JSON/YAML не ломался от спецсимволов). Декодировать может кто угодно:
 
-```bash
+bash
 echo "МойПароль123" | base64          # → 0J3QvtC5UGFyb2xsMTIz
 echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
-```
 
 **Реальная защита** Secrets — это RBAC (права доступа): не все пользователи кластера могут читать Secrets, только авторизованные сервисы. Для продакшна используют также `etcd` encryption at rest.
 
@@ -373,7 +357,7 @@ echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
 > - `.env` — для локальной разработки и Docker Compose
 > - `K8s Secret` — для продакшн-кластера Kubernetes
 
-```bash
+bash
 kubectl create secret generic db-secret \
   --from-literal=db-password=МойПароль123 \
   --from-literal=api-key=abc123xyz
@@ -382,9 +366,7 @@ kubectl get secrets
 kubectl describe secret db-secret
 
 kubectl get secret db-secret -o jsonpath='{.data.db-password}' | base64 -d
-```
-
-```yaml
+yaml
 # pod-with-secret.yaml
 apiVersion: v1
 kind: Pod
@@ -405,12 +387,9 @@ spec:
         secretKeyRef:
           name: db-secret
           key: api-key
-```
-
-```bash
+bash
 kubectl apply -f pod-with-secret.yaml
 kubectl exec -it my-app -- env | grep DB_PASSWORD
-```
 
 ---
 
@@ -448,7 +427,7 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 ## 🎯 Практические задания
 
 ### Задание 1 — Flask API с нуля
-```bash
+bash
 mkdir flask-api && cd flask-api
 python3 -m venv venv && source venv/bin/activate
 pip install flask
@@ -474,19 +453,17 @@ if __name__ == '__main__':
 EOF
 
 python app.py
-```
-```bash
+bash
 # В другом терминале — тестируем API:
 curl http://localhost:5000/items
 curl -X POST http://localhost:5000/items \
      -H "Content-Type: application/json" \
      -d '{"name": "учебник", "topic": "DevOps"}'
 curl http://localhost:5000/items
-```
 > ✅ Видишь JSON с твоим объектом? REST API работает!
 
 ### Задание 2 — .env файл
-```bash
+bash
 cat > .env << 'EOF'
 SECRET_KEY=mysuperpassword123
 APP_PORT=5001
@@ -499,11 +476,10 @@ pip install python-dotenv
 # load_dotenv()
 # secret = os.environ.get("SECRET_KEY")
 # print(f"Секрет загружен: {secret[:4]}****")
-```
 > ✅ Никогда не добавляй .env в git!
 
 ### Задание 3 — Kubernetes Secret
-```bash
+bash
 # Создай секрет
 kubectl create secret generic my-secret \
   --from-literal=db-password=supersecret123
