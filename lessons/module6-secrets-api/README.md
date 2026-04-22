@@ -10,9 +10,9 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
-![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
+![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.jpg)
 
-![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
+![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.jpg)
 
 
 ### 🧠 Теория: почему пароль в коде = катастрофа
@@ -52,7 +52,6 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
-![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.jpg)
 
 
 ### 🧠 Теория: как .env попадает в контейнер?
@@ -87,10 +86,10 @@ services:
 
 ## Урок 31 — REST API
 
-![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
+![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.jpg)
 : что это?
 
-![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
+![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg)
 
 
 ### 🧠 Теория: HTTP запрос и ответ
@@ -128,7 +127,6 @@ Authorization: Bearer xxx
 
 ## Урок 32 — Первый API на Flask
 
-![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.jpg)
 
 
 ### 🧠 Теория: что такое декоратор @app.route?
@@ -173,12 +171,11 @@ if __name__ == "__main__":
 
 ## Урок 33 — SQLite: база данных в одном файле
 
-![module6-sqlite-db](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png)
+![module6-sqlite-db](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.jpg)
 
-![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
+![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.jpg)
 
 
-![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.jpg)
 
 
 ### 🧠 Теория: что такое реляционная база данных?
@@ -306,10 +303,10 @@ if __name__ == "__main__":
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
 
-![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
+![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.jpg)
 
 
-![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.png)
+![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.jpg)
 
 
 ### 🧠 Теория: почему Secret хранится в base64?
