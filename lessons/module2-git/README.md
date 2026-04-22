@@ -141,14 +141,14 @@ git push
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.png" alt="Блок-схема диагностики SSH на русском" width="90%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-troubleshoot-ru.jpg" alt="Блок-схема диагностики SSH на русском" width="90%"/>
 <br/><em>Блок-схема диагностики SSH на русском: шаг за шагом найди и исправь ошибку</em>
 </div>
 
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-server-vs-github.png" alt="Два способа применения SSH" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-ssh-server-vs-github.jpg" alt="Два способа применения SSH" width="85%"/>
 <br/><em>Два способа применения SSH: подключение к серверу и к GitHub</em>
 </div>
 
@@ -271,14 +271,14 @@ git remote set-url origin git@github.com:ТЫ/проект.git
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-pat-token.png" alt="Personal Access Token" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-pat-token.jpg" alt="Personal Access Token" width="85%"/>
 <br/><em>Personal Access Token — пароль для программ и скриптов вместо пароля GitHub</em>
 </div>
 
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.png" alt="curl — HTTP-запросы из терминала" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-curl-api.jpg" alt="curl — HTTP-запросы из терминала" width="85%"/>
 <br/><em>curl — HTTP-запросы из терминала: проверить API, создать репозиторий, автоматизировать</em>
 </div>
 
