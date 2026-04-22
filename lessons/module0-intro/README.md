@@ -26,7 +26,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/terminal-intro.png" alt="Терминал" width="85%"/>
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/terminal-intro.jpg" alt="Терминал" width="85%"/>
 <br/><em>Терминал — текстовой интерфейс для управления компьютером и серверами</em>
 </div>
 
