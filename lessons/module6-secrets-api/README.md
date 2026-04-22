@@ -89,7 +89,6 @@ services:
 ![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.jpg)
 : что это?
 
-![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg)
 
 
 ### 🧠 Теория: HTTP запрос и ответ
