@@ -60,7 +60,6 @@ nothing to commit, working tree clean
 
 ## Урок 10 — Ветки и GitHub
 
-![module2-git-branches](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module2-git-branches.jpg)
 
 
 
