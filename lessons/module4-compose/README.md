@@ -198,7 +198,7 @@ docker compose logs -f web
 
 ![module4-monitoring](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-monitoring.png)
 
-![module4-prometheus](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.png)
+![module4-prometheus](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module4-prometheus.jpg)
 
 
 <div align="center">
