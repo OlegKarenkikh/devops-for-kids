@@ -41,7 +41,7 @@ kubectl get all
 
 ## Урок 25 — Архитектура кластера
 
-![module5-kubectl](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.png)
+![module5-kubectl](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.jpg)
 
 
 ![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
@@ -79,7 +79,7 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 
 ## Урок 26 — Pod, Deployment, Service
 
-![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png)
+![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.jpg)
 
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
