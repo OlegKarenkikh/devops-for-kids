@@ -101,7 +101,11 @@ password = os.environ["DB_PASSWORD"]   # Читаем переменную
 
 ## 💻 Модуль 1 — Терминал
 
-![faq-server](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-server.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-server.png" alt="Детский FAQ" width="85%"/>
+<br/><em>Детский FAQ: ответы на вопросы о серверах и терминале</em>
+</div>
 
 
 ### ❓ Почему команды такие короткие (ls, cd, pwd)?
@@ -206,7 +210,11 @@ docker push myapp
 
 ## 🌿 Модуль 2 — Git
 
-![faq-git](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-git.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-git.png" alt="Детский FAQ" width="85%"/>
+<br/><em>Детский FAQ: ответы на вопросы о Git и GitHub</em>
+</div>
 
 
 ### ❓ Git и GitHub — это одно и то же?
@@ -359,7 +367,11 @@ __pycache__/
 
 ## 🐳 Модуль 3 — Docker
 
-![faq-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-docker.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-docker.png" alt="Детский FAQ" width="85%"/>
+<br/><em>Детский FAQ: ответы на вопросы о Docker и контейнерах</em>
+</div>
 
 
 ### ❓ В чём разница между Image и Container?
@@ -389,7 +401,7 @@ docker run nginx        # Запустить контейнер из Image "ngin
 
 Потому что это **два разных мира** — твой компьютер и контейнер.
 
-```
+```bash
 docker run -p 8080:8080 моё-приложение
               ↑     ↑
               |     Порт ВНУТРИ контейнера (где слушает приложение)
@@ -429,9 +441,93 @@ volumes:
 
 ---
 
+
+## 🐙 Модуль 4 — Docker Compose
+
+### ❓ Зачем Compose если есть docker run?
+
+`docker run` запускает **один** контейнер. Но реальное приложение — это обычно несколько:
+- веб-сервер (nginx)
+- приложение (Flask/Node)
+- база данных (PostgreSQL)
+- кэш (Redis)
+
+Запускать каждый вручную — мучение. Compose запускает **всё одной командой**:
+
+```bash
+docker compose up -d      # Поднять весь стек
+docker compose down       # Остановить всё
+docker compose logs -f    # Логи всего стека
+docker compose ps         # Статус всех сервисов
+```
+
+> 🎸 Аналогия: `docker run` — это один музыкант. `docker compose` — дирижёр, который поднимает сразу весь оркестр одной командой.
+
+---
+
+### ❓ Что значит `depends_on` в docker-compose.yml?
+
+`depends_on` говорит Compose: «запусти этот сервис ПОСЛЕ того как запустится другой».
+
+```yaml
+services:
+  web:
+    image: myapp
+    depends_on:
+      - db        # web стартует только после db
+  db:
+    image: postgres
+```
+
+⚠️ Важно: `depends_on` ждёт только старта контейнера, но **не готовности** базы данных. Для полной готовности нужен `healthcheck`.
+
+---
+
+### ❓ Зачем нужны сети (networks) в Compose?
+
+По умолчанию все сервисы в одном compose-файле видят друг друга по имени. Но сети позволяют **изолировать** сервисы:
+
+```yaml
+networks:
+  frontend:     # видят: web и nginx
+  backend:      # видят: web и db (db не доступен снаружи!)
+```
+
+> 🏢 Аналогия: в офисе разные отделы работают в разных комнатах. Бухгалтерия не имеет прямого доступа к серверной.
+
+---
+
+### ❓ .env и docker-compose.yml — как они связаны?
+
+Compose автоматически читает файл `.env` из той же папки:
+
+```yaml
+# docker-compose.yml
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}   # берётся из .env
+      POSTGRES_DB: ${DB_NAME}
+```
+
+```bash
+# .env (не коммитить в Git!)
+DB_PASSWORD=supersecret
+DB_NAME=myapp
+```
+
+Так пароли хранятся в `.env`, а не в коде. `.env` добавляется в `.gitignore`.
+
+---
+
 ## ⚙️ Модуль 5 — Kubernetes
 
-![faq-kubernetes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-kubernetes.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/faq-kubernetes.png" alt="Детский FAQ" width="85%"/>
+<br/><em>Детский FAQ: ответы на вопросы о Kubernetes и Pod'ах</em>
+</div>
 
 
 ### ❓ «Kubernetes» — откуда это слово?
@@ -440,7 +536,7 @@ Kubernetes — это **греческое слово** (κυβερνήτης), 
 
 Произносится: **«кубернэтес»** или просто **«кубик»** (k8s — буква k, потом 8 букв, потом s).
 
-```
+```text
 K   u   b   e   r   n   e   t   e   s
 k   ← 8 букв →                      s
 = k8s

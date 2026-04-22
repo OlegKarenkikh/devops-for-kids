@@ -10,10 +10,12 @@
 
 ## Урок 12 — Зачем нужен Docker?
 
-![module3-why-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-why-docker.png)
 
 
-![module3-docker-architecture](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-architecture.jpg" alt="Архитектура Docker" width="90%"/>
+<br/><em>Архитектура Docker: Engine, образы, контейнеры и Docker Hub</em>
+</div>
 
 
 <div align="center">
@@ -60,7 +62,7 @@ docker run hello-world              # Тест: скачает и запусти
 
 ### ⚠️ Частая ошибка: permission denied
 
-```
+```text
 docker: Got permission denied while trying to connect to the Docker daemon socket
 ```
 
@@ -76,10 +78,12 @@ newgrp docker
 
 ## Урок 13 — Образ vs Контейнер
 
-![kid_image_container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_image_container.png)
 
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_image_container.jpg" alt="Образ = рецепт (неизменный). Контейнер = готовое блюдо (живёт и исчезает)" width="80%"/>
+<br/><em>Образ = рецепт (неизменный). Контейнер = готовое блюдо (живёт и исчезает)</em>
+</div>
 
-![module3-image-vs-container](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-image-vs-container.png)
 
 
 <div align="center">
@@ -122,10 +126,6 @@ docker rm -f НАЗВАНИЕ               # Остановить и удали
 
 ## Урок 14 — Dockerfile: пишем свой рецепт
 
-![module3-dockerfile-recipe](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-recipe.png)
-
-
-![module3-dockerfile-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-dockerfile-layers.png)
 
 
 <div align="center">
@@ -160,6 +160,19 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Теперь копируем весь остальной код
+COPY . .
+
+# EXPOSE — документирует, какой порт слушает приложение
+# Это НЕ открывает порт автоматически — нужен ещё -p при docker run
+EXPOSE 8080
+
+# ENV — задаём переменную окружения
+ENV APP_NAME="Мой сайт"
+
+# CMD — команда запуска контейнера. Выполняется, когда контейнер стартует
+CMD ["python", "app.py"]
+```
+
 > ### ⚠️ Обязательно создай файл `.dockerignore`!
 >
 > `COPY . .` копирует **всё** из папки — включая `.env` с паролями и секретами!
@@ -176,19 +189,6 @@ RUN pip install -r requirements.txt --no-cache-dir
 > ```
 >
 > **Без этого файла твои пароли окажутся внутри образа** — и если кто-то скачает образ с Docker Hub, он получит все твои секреты!
-
-COPY . .
-
-# EXPOSE — документирует, какой порт слушает приложение
-# Это НЕ открывает порт автоматически — нужен ещё -p при docker run
-EXPOSE 8080
-
-# ENV — задаём переменную окружения
-ENV APP_NAME="Мой сайт"
-
-# CMD — команда запуска контейнера. Выполняется, когда контейнер стартует
-CMD ["python", "app.py"]
-```
 
 ```bash
 docker build -t my-site .           # Собрать образ (. = текущая папка)
@@ -222,7 +222,7 @@ CMD ["app.py"]          # аргумент по умолчанию
 ### ⚠️ Частые ошибки при сборке
 
 **Ошибка: COPY failed — file not found**
-```
+```dockerfile
 COPY failed: file not found in build context: requirements.txt
 ```
 **Причина:** файл `requirements.txt` не существует или ты запускаешь `docker build` из другой папки.
@@ -233,7 +233,7 @@ docker build -t my-site .
 ```
 
 **Ошибка: permission denied в контейнере**
-```
+```text
 PermissionError: [Errno 13] Permission denied: '/app/data'
 ```
 **Причина:** в Dockerfile создана папка, но у пользователя нет прав на запись.
@@ -249,7 +249,11 @@ USER appuser
 
 ## Урок 15 — docker exec: войти внутрь контейнера
 
-![module3-docker-exec](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-exec.jpg" alt="docker exec" width="85%"/>
+<br/><em>docker exec: войти внутрь работающего контейнера и выполнить команду</em>
+</div>
 
 
 ### 🧠 Теория: зачем заходить внутрь?
@@ -273,7 +277,7 @@ docker exec НАЗВАНИЕ python --version
 
 ### ⚠️ Частая ошибка: OCI runtime exec failed
 
-```
+```bash
 OCI runtime exec failed: exec: "bash": executable file not found in $PATH
 ```
 **Причина:** в минимальных образах (`-slim`, `-alpine`) нет `bash`.
@@ -286,7 +290,11 @@ docker exec -it НАЗВАНИЕ sh
 
 ## Урок 16 — Логи и мониторинг
 
-![module3-docker-logs](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-logs.jpg" alt="docker logs" width="85%"/>
+<br/><em>docker logs: читать вывод контейнера для отладки и мониторинга</em>
+</div>
 
 
 ### 🧠 Теория: как узнать что происходит внутри?
@@ -313,10 +321,6 @@ docker top НАЗВАНИЕ                 # Процессы внутри ко
 
 ## Урок 17 — Тома (Volumes): сохраняем данные
 
-![module3-docker-layers](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-layers.png)
-
-
-![module3-docker-volume](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-volume.png)
 
 
 ### 🧠 Теория: почему данные исчезают?
@@ -342,8 +346,6 @@ docker volume rm mydata              # Удалить
 ---
 
 ## 🎯 Практические задания
-
-![module3-docker-errors](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-errors.png)
 
 
 ### Задание 1 — Первый контейнер
@@ -393,9 +395,17 @@ exit
 
 ## Урок 18 — Шпаргалка Docker
 
-![module3-deployment-path](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-deployment-path.png)
 
-![module3-docker-prune](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-deployment-path.jpg" alt="Путь от Dockerfile до продакшна" width="90%"/>
+<br/><em>Путь от Dockerfile до продакшна: build → push → pull → run</em>
+</div>
+
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module3-docker-prune.jpg" alt="docker prune" width="85%"/>
+<br/><em>docker prune: очистка неиспользуемых образов, контейнеров и томов</em>
+</div>
 
 
 | Команда | Что делает |

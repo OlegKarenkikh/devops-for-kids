@@ -10,12 +10,18 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
-![module6-secrets-env](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-env.png)
 
 
-![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png" alt=".env файл" width="85%"/>
+<br/><em>.env файл: хранение переменных окружения отдельно от кода</em>
+</div>
 
-![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png" alt="Секреты в окружении" width="85%"/>
+<br/><em>Секреты в окружении: никогда не хардкодить пароли в исходном коде</em>
+</div>
 
 
 ### 🧠 Теория: почему пароль в коде = катастрофа
@@ -55,9 +61,11 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
-![module6-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-dotenv.png)
 
-![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-dotenv.jpg" alt="python-dotenv" width="85%"/>
+<br/><em>python-dotenv: загрузка .env файла в Python через load_dotenv()</em>
+</div>
 
 
 ### 🧠 Теория: как .env попадает в контейнер?
@@ -92,20 +100,25 @@ services:
 
 ## Урок 31 — REST API
 
-![kid_rest_api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_rest_api.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_rest_api.jpg" alt="REST API — официант между клиентом и сервером" width="80%"/>
+<br/><em>REST API — официант между клиентом и сервером: принимает заказ, приносит ответ</em>
+</div>
 
 
-![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
-: что это?
 
-![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png" alt="Flask" width="85%"/>
+<br/><em>Flask — минимальный Python веб-фреймворк для создания REST API</em>
+</div>
 
 
 ### 🧠 Теория: HTTP запрос и ответ
 
 Каждый раз когда ты открываешь сайт — твой браузер отправляет **HTTP запрос** серверу, а сервер присылает **HTTP ответ**.
 
-```
+```text
 Запрос:                          Ответ:
 GET /items HTTP/1.1              HTTP/1.1 200 OK
 Host: api.example.com     →      Content-Type: application/json
@@ -136,10 +149,12 @@ Authorization: Bearer xxx
 
 ## Урок 32 — Первый API на Flask
 
-![module6-github-azure-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-github-azure-secrets.png)
 
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-github-azure-secrets.jpg" alt="Секреты в CI/CD" width="85%"/>
+<br/><em>Секреты в CI/CD: GitHub Actions Secrets и Azure Key Vault</em>
+</div>
 
-![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
 
 
 ### 🧠 Теория: что такое декоратор @app.route?
@@ -184,19 +199,25 @@ if __name__ == "__main__":
 
 ## Урок 33 — SQLite: база данных в одном файле
 
-![module6-sqlite-db](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png)
 
-![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png" alt="SQLite — база данных в одном файле" width="85%"/>
+<br/><em>SQLite — база данных в одном файле: не нужен сервер, идеально для старта</em>
+</div>
 
 
-![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png" alt="SQL запросы к SQLite" width="85%"/>
+<br/><em>SQL запросы к SQLite: SELECT, INSERT, UPDATE, DELETE — весь CRUD</em>
+</div>
+
 
 
 ### 🧠 Теория: что такое реляционная база данных?
 
 **База данных** — это организованное хранилище данных. **Реляционная** — значит данные хранятся в **таблицах** (как Excel), а таблицы могут быть связаны между собой.
 
-```
+```text
 Таблица items:
 ┌────┬─────────┬───────┐
 │ id │ name    │ emoji │
@@ -317,13 +338,19 @@ if __name__ == "__main__":
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
 
-![module6-secrets-vault](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-secrets-vault.png)
 
 
-![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png" alt="Kubernetes Secret" width="85%"/>
+<br/><em>Kubernetes Secret: хранение паролей в кластере с RBAC-защитой</em>
+</div>
 
 
-![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.jpg" alt="JWT-токен" width="85%"/>
+<br/><em>JWT-токен: Header.Payload.Signature — три части через точку</em>
+</div>
 
 
 ### 🧠 Теория: почему Secret хранится в base64?
@@ -389,7 +416,11 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 
 ## Урок 35 — Шпаргалка
 
-![module6-api-gateway-jwt](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-api-gateway-jwt.png)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-api-gateway-jwt.jpg" alt="API Gateway + JWT" width="85%"/>
+<br/><em>API Gateway + JWT: авторизация запросов через токены</em>
+</div>
 
 | Правило | Почему |
 |---------|--------|
