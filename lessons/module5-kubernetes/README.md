@@ -35,10 +35,16 @@ minikube start
 kubectl get nodes
 kubectl get pods
 kubectl get all
+```
 
 ---
 
 ## Урок 25 — Архитектура кластера
+
+![module5-kubectl](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-kubectl.png)
+
+
+![module5-k8s-cluster](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-cluster.png)
 
 
 ### 🧠 Теория: Control Plane и Worker Nodes
@@ -63,20 +69,17 @@ Kubernetes-кластер состоит из двух типов машин:
 <br/><em>Control Plane — мозг (планирует и управляет). Nodes — рабочие (запускают Pod'ы)</em>
 </div>
 
-bash
+```bash
 kubectl get nodes -o wide       # Все узлы кластера
 kubectl describe node minikube  # Детали узла
 kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
+```
 
 ---
 
 ## Урок 26 — Pod, Deployment, Service
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_pod.jpg" alt="Pod — минимальная единица Kubernetes" width="80%"/>
-<br/><em>Pod — минимальная единица Kubernetes: один или несколько контейнеров вместе</em>
-</div>
+![module5-k8s-objects](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-objects.png)
 
 
 ### 🧠 Теория: что такое YAML и почему его использует Kubernetes?
@@ -87,13 +90,14 @@ kubectl top nodes               # CPU/RAM узлов (нужен metrics-server)
 - `- элемент` — список
 - `#` — комментарий
 
-yaml
+```yaml
 # Пример YAML — список сервисов
 services:            # ключ верхнего уровня
   - name: nginx      # список (дефис = элемент)
     port: 80         # вложенное значение
   - name: postgres
     port: 5432
+```
 
 **Три главных объекта Kubernetes:**
 | Объект | Что делает | Аналогия |
@@ -110,7 +114,7 @@ services:            # ключ верхнего уровня
 
 > **Важно:** имена объектов в Kubernetes — только латиница, цифры и дефис. Кириллица не работает!
 
-yaml
+```yaml
 # deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -150,15 +154,20 @@ spec:
   - port: 80
     targetPort: 80
   type: NodePort
-bash
+```
+
+```bash
 kubectl apply -f deployment.yaml
 kubectl get pods
 kubectl get services
 minikube service website-service --url
+```
 
 ---
 
 ## Урок 27 — Самовосстановление
+
+![module5-k8s-self-healing](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.png)
 
 
 ### 🧠 Теория: Reconciliation Loop
@@ -166,7 +175,7 @@ minikube service website-service --url
 Kubernetes работает по принципу **«желаемое состояние»**: ты говоришь «хочу 3 реплики», и Kubernetes **постоянно** проверяет — а сколько реплик сейчас? Если меньше — запускает новые. Если упал Pod — замечает за секунды и поднимает замену автоматически, без твоего участия.
 
 Это называется **Reconciliation Loop** (петля согласования):
-text
+```
 Желаемое состояние (replicas: 3)
          ↓
   Проверка каждые ~5 сек
@@ -174,28 +183,29 @@ text
 Реальное состояние (2 пода — один упал)
          ↓
 Действие: запустить новый Pod
+```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-self-healing.jpg" alt="Самовосстановление Kubernetes" width="85%"/>
 <br/><em>Упал Pod → Kubernetes заметил → за 5 секунд запустил новый. Автоматически, без тебя!</em>
 </div>
 
-bash
+```bash
 kubectl get pods -w
 kubectl delete pod <имя-пода>
 kubectl rollout status deployment/my-website
 kubectl rollout history deployment/my-website
 kubectl rollout undo deployment/my-website
+```
 
 ---
 
 ## Урок 28 — Автомасштабирование HPA
 
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_three_layers.jpg" alt="Три слоя DevOps" width="80%"/>
-<br/><em>Три слоя DevOps: код → контейнер → оркестрация</em>
-</div>
+
+![module5-k8s-autoscale](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-autoscale.png)
 
 
 ### 🧠 Теория: что такое HPA и cpu-percent?
@@ -204,10 +214,11 @@ kubectl rollout undo deployment/my-website
 
 `--cpu-percent=70` означает: **если среднее использование CPU всех Pod'ов превысит 70% от их `requests.cpu` — добавь новые Pod'ы**.
 
-python
+```
 requests.cpu: 100m  →  лимит = 100 миллицпу
 Текущее использование = 80m  →  80%  →  > 70%  →  HPA добавит Pod
 Текущее использование = 50m  →  50%  →  < 70%  →  HPA уберёт лишние Pod'ы
+```
 
 Диапазон `--min=2 --max=10`: никогда не меньше 2 Pod'ов (надёжность), никогда больше 10 (защита от перерасхода ресурсов).
 
@@ -222,40 +233,39 @@ requests.cpu: 100m  →  лимит = 100 миллицпу
 <br/><em>HPA следит за нагрузкой: больше запросов → больше Pod'ов. Меньше — уменьшает. Экономия и надёжность</em>
 </div>
 
-bash
+```bash
 minikube addons enable metrics-server
 kubectl autoscale deployment my-website --min=2 --max=10 --cpu-percent=70
 kubectl get hpa
 kubectl describe hpa my-website
+```
 
 ---
 
 ## 📋 Шпаргалка Kubernetes
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.jpg" alt="Rolling Update" width="90%"/>
-<br/><em>Rolling Update: замена Pod-ов по одному — без остановки сервиса</em>
-</div>
+![module5-k8s-rolling-update](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module5-k8s-rolling-update.png)
 
 
 > 💡 **Задание к уроку 27 — Самовосстановление:**
-> bash
+> ```bash
 > # 1. Запусти Deployment из урока 26
 > # 2. Открой два терминала: в первом смотри поды, во втором удаляй
 > kubectl get pods -w                     # терминал 1 — наблюдай в реальном времени
 > kubectl delete pod <имя-любого-пода>    # терминал 2 — убей Pod
 > # Видишь? Новый Pod поднялся автоматически за несколько секунд ✅
-> 
+> ```
+
 > 💡 **Задание к уроку 28 — Автомасштабирование:**
-> bash
+> ```bash
 > minikube addons enable metrics-server
 > kubectl autoscale deployment hello-kids --min=2 --max=5 --cpu-percent=50
 > kubectl get hpa -w                      # наблюдай изменения в реальном времени
 > # Нагрузи сервис (в другом терминале):
 > kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while true; do wget -q -O- http://hello-kids-svc; done"
 > # Смотри как растёт REPLICAS в kubectl get hpa ✅
-> 
+> ```
+
 | Команда | Действие |
 |---------|---------|
 | `kubectl get pods` | Список Pod'ов |
@@ -267,19 +277,22 @@ kubectl describe hpa my-website
 | `kubectl rollout undo deploy/<имя>` | Откатить |
 | `kubectl get hpa` | Автомасштаб |
 
+➡️ [Следующий модуль: Секреты и API →](../module6-secrets-api/)
+
 
 ---
 
 ## 🎯 Практические задания
 
 ### Задание 1 — Запусти Minikube
-bash
+```bash
 minikube start
 kubectl get nodes          # нода Ready?
 minikube dashboard         # веб-интерфейс
+```
 
 ### Задание 2 — Первый Deployment
-bash
+```bash
 cat > deployment.yaml << 'EOF'
 apiVersion: apps/v1
 kind: Deployment
@@ -304,9 +317,10 @@ EOF
 
 kubectl apply -f deployment.yaml
 kubectl get pods            # 2 пода Running?
+```
 
 ### Задание 3 — Открой сервис в браузере
-bash
+```bash
 cat > service.yaml << 'EOF'
 apiVersion: v1
 kind: Service
