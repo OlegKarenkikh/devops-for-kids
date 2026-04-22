@@ -10,18 +10,9 @@
 
 ## Урок 29 — Почему нельзя писать пароль в коде?
 
+![module6-env-dotenv](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.png)
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-dotenv.jpg" alt=".env файл" width="85%"/>
-<br/><em>.env файл: хранение переменных окружения отдельно от кода</em>
-</div>
-
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.jpg" alt="Секреты в окружении" width="85%"/>
-<br/><em>Секреты в окружении: никогда не хардкодить пароли в исходном коде</em>
-</div>
+![module6-env-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-secrets.png)
 
 
 ### 🧠 Теория: почему пароль в коде = катастрофа
@@ -42,7 +33,9 @@ API_KEY=abc123xyz
 APP_PORT=8080
 EOF
 echo ".env" >> .gitignore
-python
+```
+
+```python
 import os
 from dotenv import load_dotenv
 
@@ -51,6 +44,7 @@ load_dotenv()
 db_password = os.environ["DB_PASSWORD"]
 api_key = os.environ.get("API_KEY", "default-key")
 print("Ключ:", api_key[:3] + "***")
+```
 
 > **⚠️ Правило:** `.env` всегда в `.gitignore`. Без исключений.
 
@@ -58,11 +52,7 @@ print("Ключ:", api_key[:3] + "***")
 
 ## Урок 30 — .env в Docker и Compose
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-dotenv.jpg" alt="python-dotenv" width="85%"/>
-<br/><em>python-dotenv: загрузка .env файла в Python через load_dotenv()</em>
-</div>
+![module6-env-docker](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-env-docker.png)
 
 
 ### 🧠 Теория: как .env попадает в контейнер?
@@ -82,48 +72,45 @@ Compose автоматически ищет `.env` в папке с `docker-comp
 <br/><em>Docker run с --env-file и Compose с env_file: переменные попадают внутрь контейнера</em>
 </div>
 
-bash
+```bash
 docker run --env-file .env моё-приложение
-yaml
+```
+
+```yaml
 services:
   web:
     build: .
     env_file: .env
+```
 
 ---
 
 ## Урок 31 — REST API
 
+![module6-rest-api-flask](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.png)
+: что это?
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/kid_rest_api.jpg" alt="REST API — официант между клиентом и сервером" width="80%"/>
-<br/><em>REST API — официант между клиентом и сервером: принимает заказ, приносит ответ</em>
-</div>
-
-
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api-flask.jpg" alt="Flask" width="85%"/>
-<br/><em>Flask — минимальный Python веб-фреймворк для создания REST API</em>
-</div>
+![module6-rest-api](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.png)
 
 
 ### 🧠 Теория: HTTP запрос и ответ
 
 Каждый раз когда ты открываешь сайт — твой браузер отправляет **HTTP запрос** серверу, а сервер присылает **HTTP ответ**.
 
-text
+```
 Запрос:                          Ответ:
 GET /items HTTP/1.1              HTTP/1.1 200 OK
 Host: api.example.com     →      Content-Type: application/json
 Authorization: Bearer xxx        
                                  {"items": [...]}
+```
 
 **REST** — это соглашение о том, как строить API: один URL = один ресурс, HTTP-метод = действие над ним. REST = **Re**presentational **S**tate **T**ransfer — «передача представления состояния». В быту: стандартный способ для сервисов общаться по HTTP.
 
 **JSON** (JavaScript Object Notation) — формат данных для передачи по API:
-json
+```json
 {"name": "яблоко", "count": 5, "fresh": true}
+```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-rest-api.jpg" alt="REST API" width="85%"/>
@@ -141,23 +128,19 @@ json
 
 ## Урок 32 — Первый API на Flask
 
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-github-azure-secrets.jpg" alt="Секреты в CI/CD" width="85%"/>
-<br/><em>Секреты в CI/CD: GitHub Actions Secrets и Azure Key Vault</em>
-</div>
-
+![module6-flask-routes](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-flask-routes.png)
 
 
 ### 🧠 Теория: что такое декоратор @app.route?
 
 **Декоратор** `@app.route("/items")` говорит Flask: «когда придёт запрос на URL `/items` — вызови функцию прямо под мной». Это связывает URL с Python-функцией.
 
-python
+```python
 # Как это работает:
 @app.route("/items", methods=["GET"])  # ← этот URL + этот метод
 def get_all():                          # ← вызывает эту функцию
     return jsonify({"items": []})       # ← которая возвращает JSON
+```
 
 **Flask** — минимальный веб-фреймворк для Python. Делает одно: принимает HTTP запросы и вызывает твои функции. Весь код API — это просто обычные Python-функции с декораторами.
 
@@ -166,7 +149,7 @@ def get_all():                          # ← вызывает эту функц
 <br/><em>@app.route связывает URL с Python-функцией. GET /items → get_all(), POST /items → create()</em>
 </div>
 
-python
+```python
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 items = [{"id": 1, "name": "яблоко", "emoji": "🍎"}]
@@ -184,30 +167,25 @@ def create():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
+```
 
 ---
 
 ## Урок 33 — SQLite: база данных в одном файле
 
+![module6-sqlite-db](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.png)
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-db.jpg" alt="SQLite — база данных в одном файле" width="85%"/>
-<br/><em>SQLite — база данных в одном файле: не нужен сервер, идеально для старта</em>
-</div>
+![module6-sqlite](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.png)
 
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite.jpg" alt="SQL запросы к SQLite" width="85%"/>
-<br/><em>SQL запросы к SQLite: SELECT, INSERT, UPDATE, DELETE — весь CRUD</em>
-</div>
-
+![module6-sqlite-table](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-sqlite-table.png)
 
 
 ### 🧠 Теория: что такое реляционная база данных?
 
 **База данных** — это организованное хранилище данных. **Реляционная** — значит данные хранятся в **таблицах** (как Excel), а таблицы могут быть связаны между собой.
 
-text
+```
 Таблица items:
 ┌────┬─────────┬───────┐
 │ id │ name    │ emoji │
@@ -216,6 +194,7 @@ text
 │  2 │ Кот     │  🐱   │
 │  3 │ Книга   │  📚   │
 └────┴─────────┴───────┘
+```
 
 **SQL** (Structured Query Language) — язык запросов к таблицам:
 - `SELECT * FROM items` — дай все строки
@@ -232,7 +211,7 @@ text
 <br/><em>SQLite = один файл .db. SELECT читает строки, INSERT добавляет, DELETE удаляет</em>
 </div>
 
-python
+```python
 import sqlite3
 
 db = sqlite3.connect("items.db")
@@ -254,7 +233,9 @@ for row in rows:
     print(row)
 
 db.close()
-bash
+```
+
+```bash
 # Попробуй прямо в терминале (база в памяти):
 python3 -c "
 import sqlite3
@@ -266,10 +247,11 @@ db.commit()
 print(db.execute('SELECT * FROM t').fetchall())
 db.close()
 "
+```
 
 ### SQLite + Flask API
 
-python
+```python
 import sqlite3
 from flask import Flask, jsonify, request
 
@@ -316,6 +298,7 @@ def create():
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=8080, debug=True)
+```
 
 > **📝 Задание:** запусти API, добавь через curl 3 своих любимых вещи и получи список обратно.
 
@@ -323,28 +306,20 @@ if __name__ == "__main__":
 
 ## Урок 34 — Kubernetes Secrets: хранение паролей в кластере
 
+![module6-k8s-secrets](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.png)
 
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-k8s-secrets.jpg" alt="Kubernetes Secret" width="85%"/>
-<br/><em>Kubernetes Secret: хранение паролей в кластере с RBAC-защитой</em>
-</div>
-
-
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.jpg" alt="JWT-токен" width="85%"/>
-<br/><em>JWT-токен: Header.Payload.Signature — три части через точку</em>
-</div>
+![module6-jwt-token](https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-jwt-token.png)
 
 
 ### 🧠 Теория: почему Secret хранится в base64?
 
 Kubernetes Secret хранит данные в **base64** — это НЕ шифрование! Base64 — просто способ закодировать любые байты в текст (чтобы JSON/YAML не ломался от спецсимволов). Декодировать может кто угодно:
 
-bash
+```bash
 echo "МойПароль123" | base64          # → 0J3QvtC5UGFyb2xsMTIz
 echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
+```
 
 **Реальная защита** Secrets — это RBAC (права доступа): не все пользователи кластера могут читать Secrets, только авторизованные сервисы. Для продакшна используют также `etcd` encryption at rest.
 
@@ -357,7 +332,7 @@ echo "0J3QvtC5UGFyb2xsMTIz" | base64 -d  # → МойПароль123
 > - `.env` — для локальной разработки и Docker Compose
 > - `K8s Secret` — для продакшн-кластера Kubernetes
 
-bash
+```bash
 kubectl create secret generic db-secret \
   --from-literal=db-password=МойПароль123 \
   --from-literal=api-key=abc123xyz
@@ -366,7 +341,9 @@ kubectl get secrets
 kubectl describe secret db-secret
 
 kubectl get secret db-secret -o jsonpath='{.data.db-password}' | base64 -d
-yaml
+```
+
+```yaml
 # pod-with-secret.yaml
 apiVersion: v1
 kind: Pod
@@ -387,19 +364,16 @@ spec:
         secretKeyRef:
           name: db-secret
           key: api-key
-bash
+```
+
+```bash
 kubectl apply -f pod-with-secret.yaml
 kubectl exec -it my-app -- env | grep DB_PASSWORD
+```
 
 ---
 
 ## Урок 35 — Шпаргалка
-
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/OlegKarenkikh/devops-for-kids/main/images/module6-api-gateway-jwt.jpg" alt="API Gateway + JWT" width="85%"/>
-<br/><em>API Gateway + JWT: авторизация запросов через токены</em>
-</div>
 
 | Правило | Почему |
 |---------|--------|
@@ -427,7 +401,7 @@ kubectl exec -it my-app -- env | grep DB_PASSWORD
 ## 🎯 Практические задания
 
 ### Задание 1 — Flask API с нуля
-bash
+```bash
 mkdir flask-api && cd flask-api
 python3 -m venv venv && source venv/bin/activate
 pip install flask
@@ -453,17 +427,19 @@ if __name__ == '__main__':
 EOF
 
 python app.py
-bash
+```
+```bash
 # В другом терминале — тестируем API:
 curl http://localhost:5000/items
 curl -X POST http://localhost:5000/items \
      -H "Content-Type: application/json" \
      -d '{"name": "учебник", "topic": "DevOps"}'
 curl http://localhost:5000/items
+```
 > ✅ Видишь JSON с твоим объектом? REST API работает!
 
 ### Задание 2 — .env файл
-bash
+```bash
 cat > .env << 'EOF'
 SECRET_KEY=mysuperpassword123
 APP_PORT=5001
@@ -476,10 +452,11 @@ pip install python-dotenv
 # load_dotenv()
 # secret = os.environ.get("SECRET_KEY")
 # print(f"Секрет загружен: {secret[:4]}****")
+```
 > ✅ Никогда не добавляй .env в git!
 
 ### Задание 3 — Kubernetes Secret
-bash
+```bash
 # Создай секрет
 kubectl create secret generic my-secret \
   --from-literal=db-password=supersecret123
